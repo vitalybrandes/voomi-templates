@@ -1,6 +1,6 @@
 # Packaging Voomi templates
 
-Contributors submit packages under `incoming/` as `<templateId>-v<templateVersion>.zip`. IDs may use letters, numbers, hyphens, or underscores in `template.json`; publication normalizes uppercase and underscores to lowercase hyphens. For example, `Voomi_POP_Comic_Star_Rebuild` becomes `voomi-pop-comic-star-rebuild`. The ZIP may be named `Voomi_POP_Comic_Star_Rebuild_v0.2.0.zip` or with the canonical name `voomi-pop-comic-star-rebuild-v0.2.0.zip`. Versions use SemVer. Never change bytes of an already released ID/version; publish a new version. Include only assets that may be redistributed, with complete license evidence.
+Contributors submit packages under `incoming/` as ZIPs. Versions use SemVer. Never change bytes of an already released ID/version; publish a new version. The pipeline accepts both the catalog distribution layout below and the Voomi app-native export layout described at the end of this document. The original ZIP is published unchanged.
 
 ## Required archive layout
 
@@ -18,7 +18,11 @@ licenses/
   asset-manifest.json
 ```
 
-Empty optional asset directories can be omitted. Preview files and the metadata and machine-readable license manifest are required. `LICENSES.md` is not required; the Voomi app consumes package metadata and assets directly. `template.json` must satisfy `schemas/template.schema.json` and use `schemaVersion: "1.0.0"`. It declares metadata, supported renderer features, media slots, scenes, preview paths, and `licenseManifest: "licenses/asset-manifest.json"`. The pipeline checks that `preview.mp4` exists but does not inspect its streams, dimensions, frame rate, audio, or duration. Validate preview video manually before upload. Scene timing uses the pipeline's contiguous, ordered timeline policy when all scenes have explicit `startMs` and `durationMs`.
+Empty optional asset directories can be omitted. This distribution layout uses JPEG poster and thumbnail files and a machine-readable asset manifest. `LICENSES.md` is not required. `template.json` uses `schemaVersion: "1.0.0"`. The pipeline checks that `preview.mp4` exists but does not inspect its streams, dimensions, frame rate, audio, or duration. Scene timing uses the pipeline's contiguous, ordered timeline policy when all scenes have explicit `startMs` and `durationMs`.
+
+## Voomi app-native ZIPs
+
+App-native ZIPs are accepted unchanged. They can use a namespaced ID such as `com.voomi.samples.neon-dance-beat-drop`, the app's renderer feature names, and a single PNG declared by `preview.poster` (for example `preview/preview.png`). Their metadata must include the ID, SemVer versions, name, description, category, duration, fps, resolution, renderer features, media slots, scenes, and preview path. Referenced placeholders, scene image layers, audio files, and preview images must exist in the archive. For catalog display, the single app preview image is used for both poster and thumbnail. `licenses/asset-manifest.json` is not required or interpreted for this app-native format.
 
 Media slot types are `photo`, `video`, `photo_or_video`, and `none`. Scene IDs and slot IDs must be unique. A scene can refer to zero, one, or multiple declared slots using `mediaSlotIds` (or legacy `mediaSlots` array). Required asset references must point to files in the ZIP. Do not add executable files, symlinks, encrypted ZIP entries, or paths that escape the package.
 
