@@ -157,6 +157,9 @@ def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo
 
 def validate(zip_path: Path) -> dict[str, Any]:
     entries = safe_zip_entries(zip_path)
+    actual = {name.casefold() for name in entries if not name.endswith("/")}
+    if "template.json" not in actual:
+        fail("Required package file missing: template.json")
     with zipfile.ZipFile(zip_path) as zf:
         try:
             meta = json.loads(zf.read("template.json"))
@@ -164,7 +167,6 @@ def validate(zip_path: Path) -> dict[str, Any]:
             fail(f"Invalid template.json: {exc}")
         native = is_app_native(meta)
         required_files = {"template.json", "README.md"} if native else REQUIRED_FILES
-        actual = {name.casefold() for name in entries if not name.endswith("/")}
     missing = sorted(p for p in required_files if p.casefold() not in actual)
     if missing:
         fail(f"Required package file missing: {missing[0]}")
