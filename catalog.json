@@ -1,9 +1,11 @@
 {
   "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 1,
-  "updatedAt": "2026-10-13T09:34:45Z",
+  "catalogVersion": 2,
+  "updatedAt": "2026-10-13T09:43:02Z",
   "categories": [
-    "Dance"
+    "Dance",
+    "Fun",
+    "Travel"
   ],
   "templates": [
     {
@@ -44,6 +46,44 @@
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-com-voomi-samples-neon-dance-beat-drop-v0.1.0/com-voomi-samples-neon-dance-beat-drop-v0.1.0.zip",
       "sizeBytes": 330166,
       "sha256": "4b0cc0002d07c92ef09c36df6db24541414fc50c2d12687a7f000c56ce196c09"
+    },
+    {
+      "id": "vacation-bye-bye",
+      "name": "Vacation Bye Bye — Let’s Go!",
+      "version": "0.1.0",
+      "description": "Wave goodbye, show your ticket, and watch your plane take off.",
+      "category": "Travel",
+      "categories": [
+        "Fun",
+        "Travel"
+      ],
+      "tags": [
+        "airplane",
+        "boarding-pass",
+        "goodbye",
+        "vacation"
+      ],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "photo_01",
+          "type": "photo",
+          "required": true,
+          "placeholder": "placeholders/photo_01.jpg",
+          "fit": "cover",
+          "sceneIds": [
+            "wave_goodbye",
+            "takeoff",
+            "lets_go"
+          ]
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-vacation-bye-bye-v0.1.0/vacation-bye-bye-v0.1.0.zip",
+      "sizeBytes": 1561320,
+      "sha256": "8d130bf3735aa8000a98ad925571b774b5daa78c33b295b7feb6fc878c5d8c3b"
     }
   ]
 }

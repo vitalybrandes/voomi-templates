@@ -40,6 +40,46 @@
       "sizeBytes": 330166,
       "draft": false,
       "prerelease": false
+    },
+    {
+      "templateId": "vacation-bye-bye",
+      "templateVersion": "0.1.0",
+      "name": "Vacation Bye Bye — Let’s Go!",
+      "description": "Wave goodbye, show your ticket, and watch your plane take off.",
+      "category": "Travel",
+      "categories": [
+        "Travel",
+        "Fun"
+      ],
+      "tags": [
+        "vacation",
+        "airplane",
+        "boarding-pass",
+        "goodbye"
+      ],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "photo_01",
+          "type": "photo",
+          "required": true,
+          "placeholder": "placeholders/photo_01.jpg",
+          "fit": "cover",
+          "sceneIds": [
+            "wave_goodbye",
+            "takeoff",
+            "lets_go"
+          ]
+        }
+      ],
+      "minimumAppVersion": "1.0.0",
+      "previewImageName": "preview.png",
+      "tag": "template-vacation-bye-bye-v0.1.0",
+      "assetName": "vacation-bye-bye-v0.1.0.zip",
+      "sha256": "8d130bf3735aa8000a98ad925571b774b5daa78c33b295b7feb6fc878c5d8c3b",
+      "sizeBytes": 1561320,
+      "draft": false,
+      "prerelease": false
     }
   ]
 }
