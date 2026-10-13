@@ -6,6 +6,7 @@ import json
 import os
 import re
 import subprocess
+import unicodedata
 import zipfile
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -90,11 +91,13 @@ def safe_zip_entries(zip_path: Path, *, max_compressed: int = DEFAULT_MAX_ZIP_BY
             raw = info.filename
             if "\\" in raw or raw.startswith("/") or re.match(r"^[A-Za-z]:", raw):
                 raise VoomiError(f"Unsafe ZIP path: {raw}")
-            path = PurePosixPath(raw)
-            if any(part in ("", ".", "..") for part in path.parts) or path.is_absolute():
+            parts = raw.split("/")
+            if info.is_dir() and parts[-1] == "":
+                parts.pop()
+            if not parts or any(part in ("", ".", "..") for part in parts):
                 raise VoomiError(f"Unsafe ZIP path: {raw}")
-            normalized = path.as_posix().rstrip("/")
-            key = normalized.casefold()
+            normalized = "/".join(parts)
+            key = unicodedata.normalize("NFC", normalized).casefold()
             if key in names:
                 raise VoomiError(f"Duplicate normalized ZIP filename: {raw}")
             names[key] = info
@@ -110,7 +113,10 @@ def safe_zip_entries(zip_path: Path, *, max_compressed: int = DEFAULT_MAX_ZIP_BY
                 raise VoomiError(f"Unexpected executable file in ZIP: {raw}")
         if total > max_uncompressed:
             raise VoomiError(f"ZIP decompressed size exceeds limit ({total} > {max_uncompressed} bytes)")
-        bad = zf.testzip()
+        try:
+            bad = zf.testzip()
+        except (NotImplementedError, RuntimeError, zipfile.BadZipFile, OSError) as exc:
+            raise VoomiError(f"Unsupported or corrupt ZIP compression/data: {exc}") from exc
         if bad:
             raise VoomiError(f"Corrupt ZIP entry: {bad}")
     return names

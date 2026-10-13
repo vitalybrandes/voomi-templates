@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -39,13 +40,19 @@ def discover() -> list[Path]:
     if event_path and Path(event_path).exists():
         try:
             payload = json.loads(Path(event_path).read_text(encoding="utf-8"))
-            files = set()
+            changed: set[str] = set()
+            removed: set[str] = set()
             for commit in payload.get("commits", []):
-                files.update(commit.get("added", []))
-                files.update(commit.get("modified", []))
-            selected = [(ROOT / f).resolve() for f in files if f.startswith("incoming/") and f.lower().endswith(".zip")]
+                changed.update(commit.get("added", []))
+                changed.update(commit.get("modified", []))
+                removed.update(commit.get("removed", []))
+            zip_changes = {f for f in changed if f.startswith("incoming/") and f.lower().endswith(".zip")}
+            removed_zips = {f for f in removed if f.startswith("incoming/") and f.lower().endswith(".zip")}
+            selected = [(ROOT / f).resolve() for f in zip_changes]
             selected = [p for p in selected if p.is_relative_to(INCOMING.resolve()) and p.is_file()]
-            if selected:
+            if zip_changes or removed_zips:
+                # A deletion-only push (including the bot cleanup commit) must not
+                # fall back to retrying unrelated failed packages in incoming/.
                 return sorted(selected)
         except (OSError, json.JSONDecodeError):
             pass
@@ -101,7 +108,9 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
         meta = json.loads(zf.read("template.json"))
     source_id, version = meta["templateId"], meta["templateVersion"]
     tid = canonical_template_id(source_id)
-    parse_semver(version)
+    semver = parse_semver(version)
+    if semver[3]:
+        raise VoomiError("Prerelease template versions cannot be published to the public catalog")
     expected_name = f"{tid}-v{version}.zip"
     accepted_names = {expected_name, f"{source_id}_v{version}.zip", f"{source_id}-v{version}.zip"}
     if path.name not in accepted_names:
@@ -133,19 +142,16 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
             raise VoomiError("Release has an incomplete asset set; refusing to mutate immutable release")
     else:
         notes = f"{meta['description']}\n\nTemplate ID: `{tid}`\nVersion: `{version}`\nMinimum app version: `{meta['minimumAppVersion']}`\nSHA-256: `{digest}`"
-        with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".md", delete=False) as f:
-            f.write(notes)
-            notes_path = f.name
         sidecar = {"templateId":tid,"templateVersion":version,"name":meta["name"],"description":meta["description"],"category":meta["category"],"categories":meta["categories"],"tags":meta["tags"],"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
-        with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".json", delete=False) as f:
-            json.dump(sidecar, f, indent=2, ensure_ascii=False)
-            f.write("\n")
-            sidecar_path = f.name
-        try:
-            run(["gh", "release", "create", tag, str(path), sidecar_path, "--repo", repo, "--title", f"{meta['name']} v{version}", "--notes-file", notes_path])
-        finally:
-            Path(notes_path).unlink(missing_ok=True)
-            Path(sidecar_path).unlink(missing_ok=True)
+        with tempfile.TemporaryDirectory(prefix="voomi-release-") as temp:
+            release_dir = Path(temp)
+            zip_path = release_dir / expected_name
+            sidecar_path = release_dir / f"{tag}.metadata.json"
+            notes_path = release_dir / "release-notes.md"
+            shutil.copyfile(path, zip_path)
+            sidecar_path.write_text(json.dumps(sidecar, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            notes_path.write_text(notes, encoding="utf-8")
+            run(["gh", "release", "create", tag, str(zip_path), str(sidecar_path), "--repo", repo, "--title", f"{meta['name']} v{version}", "--notes-file", str(notes_path)])
         verify_release(repo, tag, expected_name, digest, size)
     item = {"templateId":tid,"templateVersion":version,"name":meta["name"],"description":meta["description"],"category":meta["category"],"categories":meta["categories"],"tags":meta["tags"],"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
     repo_index["releases"] = [x for x in repo_index["releases"] if not (x["templateId"] == tid and x["templateVersion"] == version)] + [item]
@@ -167,6 +173,12 @@ def main() -> int:
             if dry_run:
                 print("No ZIP packages found; nothing to do")
                 return 0
+            if os.getenv("GITHUB_EVENT_NAME") == "push":
+                report = {"publishedOrSkipped": [], "failures": [], "message": "No newly added or modified ZIP packages; nothing to publish."}
+                Path("publish-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+                Path("processed-packages.txt").write_text("", encoding="utf-8")
+                print(report["message"])
+                return 0
             raise VoomiError("No ZIP packages found to publish")
         repo = github_repo()
         successes = []
@@ -185,7 +197,12 @@ def main() -> int:
         # The workflow removes inputs only after validation, release verification,
         # catalog verification, and its final repository commit are ready.
         Path("processed-packages.txt").write_text("\n".join(committed_paths) + ("\n" if committed_paths else ""), encoding="utf-8")
-        return 1 if failures else 0
+        for failure in failures:
+            print(f"WARNING: package not published: {failure['path']}: {failure['error']}", file=sys.stderr)
+        # Batch behavior: publish and clean successful packages while leaving
+        # failures in incoming/ for repair. Fail the run only if the whole batch
+        # failed so mixed batches still produce a green publishing run + warnings.
+        return 1 if failures and not successes else 0
     except VoomiError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         Path("publish-report.json").write_text(json.dumps({"publishedOrSkipped":[],"failures":[{"error":str(exc)}]}, indent=2) + "\n", encoding="utf-8")

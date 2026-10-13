@@ -16,7 +16,7 @@ The workflow serializes publication with `voomi-template-publishing`. Set reposi
 
 ## Upload and publish a template
 
-Prepare a ZIP that follows [CONTRIBUTING.md](CONTRIBUTING.md), add it under `incoming/`, then commit and push it to `main`. Uppercase and underscores in the metadata ID are normalized to lowercase hyphens for release and catalog IDs; the ZIP can use either its source ID filename or canonical filename. A push containing multiple ZIPs processes each package. Failed packages stay in `incoming/` and get an error report; successfully published packages are removed in the generated commit. A failed git commit or push leaves the source package for recovery.
+Prepare a ZIP that follows [CONTRIBUTING.md](CONTRIBUTING.md), add it under `incoming/`, then commit and push it to `main`. Uppercase and underscores in the metadata ID are normalized to lowercase hyphens for release and catalog IDs; the ZIP can use either its source ID filename or canonical filename. A push containing multiple ZIPs processes every newly added or modified package independently. If a batch has both valid and invalid packages, valid ones are published and removed in the generated commit; invalid ZIPs remain in `incoming/`, receive warning annotations and appear in the Actions run summary and report artifact. The workflow fails only when every package in the batch fails. A failed git commit or push leaves successfully published source ZIPs available for recovery.
 
 For manual retry, keep the ZIP in the repository and run:
 

@@ -5,13 +5,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from common import ROOT, VoomiError, canonical_template_id, load_json, raw_base, semver_key
+from common import ROOT, VoomiError, canonical_template_id, load_json, raw_base, semver_key, sha256_file
 
 INDEX = ROOT / "release-index.json"
 CATALOG = ROOT / "catalog.json"
@@ -19,10 +20,8 @@ CATALOG = ROOT / "catalog.json"
 
 def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str, Any]:
     repo = os.getenv("GITHUB_REPOSITORY", "vitalybrandes/voomi-templates")
-    try:
-        owner, repository = repo.split("/", 1)
-    except ValueError as exc:
-        raise VoomiError("GITHUB_REPOSITORY must have OWNER/REPOSITORY form") from exc
+    if repo.count("/") != 1 or not all(repo.split("/", 1)):
+        raise VoomiError("GITHUB_REPOSITORY must have OWNER/REPOSITORY form")
     templates: dict[str, dict[str, Any]] = {}
     for record in index.get("releases", []):
         if record.get("draft") or record.get("prerelease"):
@@ -94,15 +93,42 @@ def recover_release_index(index: dict[str, Any], check_remote: bool = True) -> d
         with __import__("tempfile").TemporaryDirectory(prefix="voomi-metadata-") as temp:
             try:
                 subprocess.run(["gh", "release", "download", tag, "--repo", repo, "--pattern", metadata_name, "--dir", temp], check=True, capture_output=True)
-                metadata = json.loads((Path(temp) / metadata_name).read_text(encoding="utf-8"))
+                metadata_path = Path(temp) / metadata_name
+                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
             except (OSError, subprocess.CalledProcessError, json.JSONDecodeError):
+                continue
+            if not isinstance(metadata, dict):
                 continue
         asset_name = metadata.get("assetName")
         zip_asset = next((a for a in obj.get("assets", []) if a.get("name") == asset_name), None)
         if not zip_asset or zip_asset.get("size") != metadata.get("sizeBytes"):
             continue
-        if metadata.get("tag") != tag or not re.fullmatch(r"[a-f0-9]{64}", metadata.get("sha256", "")):
+        if (metadata.get("tag") != tag
+                or not isinstance(metadata.get("sha256"), str)
+                or not re.fullmatch(r"[a-f0-9]{64}", metadata["sha256"])):
             continue
+        try:
+            template_id = canonical_template_id(metadata.get("templateId"))
+            version = metadata.get("templateVersion")
+            semver_key(version)
+        except (VoomiError, TypeError):
+            continue
+        if (template_id != metadata.get("templateId")
+                or metadata.get("tag") != f"template-{template_id}-v{version}"
+                or asset_name != f"{template_id}-v{version}.zip"
+                or not isinstance(metadata.get("sizeBytes"), int)
+                or isinstance(metadata.get("sizeBytes"), bool)
+                or metadata["sizeBytes"] <= 0):
+            continue
+        # Verify bytes from GitHub before trusting the sidecar for catalog data.
+        with __import__("tempfile").TemporaryDirectory(prefix="voomi-package-") as temp:
+            try:
+                subprocess.run(["gh", "release", "download", tag, "--repo", repo, "--pattern", asset_name, "--dir", temp], check=True, capture_output=True)
+                package = Path(temp) / asset_name
+                if not package.is_file() or sha256_file(package) != metadata["sha256"]:
+                    continue
+            except (OSError, subprocess.CalledProcessError):
+                continue
         item = dict(metadata)
         item.update({"draft":False,"prerelease":False})
         index.setdefault("releases", []).append(item)

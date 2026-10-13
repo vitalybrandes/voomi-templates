@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import re
+import unicodedata
 import zipfile
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -54,18 +55,18 @@ def validate_manifest(data: Any, entries: dict[str, zipfile.ZipInfo]) -> None:
     assets = data.get("assets")
     if not isinstance(assets, list):
         fail("License manifest must contain an assets array")
-    known = {n.casefold() for n in entries}
+    known = {unicodedata.normalize("NFC", n).casefold() for n, info in entries.items() if not info.is_dir()}
     seen: set[str] = set()
     for i, item in enumerate(assets):
         label = f"License manifest asset {i + 1}"
         if not isinstance(item, dict):
             fail(f"{label} must be an object")
         path = item.get("path")
-        if not isinstance(path, str) or path.casefold() not in known:
+        if not isinstance(path, str) or unicodedata.normalize("NFC", path).casefold() not in known:
             fail(f"{label} references a missing asset")
         if path.casefold() in seen:
             fail(f"Duplicate license manifest path: {path}")
-        seen.add(path.casefold())
+        seen.add(unicodedata.normalize("NFC", path).casefold())
         for key in ("creator", "sourceUrl", "license", "licenseUrl", "attribution"):
             if not isinstance(item.get(key), str) or not item[key].strip():
                 fail(f"{label} missing {key}")
@@ -77,8 +78,8 @@ def validate_manifest(data: Any, entries: dict[str, zipfile.ZipInfo]) -> None:
             if not item[key].startswith(("https://", "http://")):
                 fail(f"{label} has invalid {key}")
     # Require each distributable asset (except metadata and previews) to be represented.
-    for path in entries:
-        if path.endswith("/") or path.casefold().split("/", 1)[0] not in {"assets", "audio", "placeholders"}:
+    for path, info in entries.items():
+        if info.is_dir() or path.casefold().split("/", 1)[0] not in {"assets", "audio", "placeholders"}:
             continue
         if path.casefold() not in seen:
             fail(f"Asset license manifest entry missing for {path}")

@@ -54,6 +54,39 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           INPUT_ZIP_PATH: ${{ inputs.zip_path }}
         run: python scripts/publish_template.py
+      - name: Summarize package results
+        if: always()
+        env:
+          REPORT_PATH: publish-report.json
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(os.environ["REPORT_PATH"])
+          if not path.exists():
+              raise SystemExit(0)
+          report = json.loads(path.read_text(encoding="utf-8"))
+          successes = report.get("publishedOrSkipped", [])
+          failures = report.get("failures", [])
+          message = report.get("message")
+          lines = ["## Voomi template publishing", "", f"Successful or already published: **{len(successes)}**", f"Failed packages: **{len(failures)}**"]
+          if message:
+              lines += ["", message]
+          if failures:
+              lines += ["", "| ZIP | Result |", "|---|---|"]
+              for failure in failures:
+                  package = str(failure.get("path", "unknown")).replace("|", "\\|").replace("\n", " ")
+                  error = str(failure.get("error", "Unknown error")).replace("|", "\\|").replace("\n", " ")
+                  lines.append(f"| `{package}` | {error} |")
+                  command_message = f"{package}: {error}".replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+                  print(f"::warning title=Template ZIP not published::{command_message}")
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a", encoding="utf-8") as output:
+                  output.write("\n".join(lines) + "\n")
+          PY
       - name: Rebuild and verify catalog
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
