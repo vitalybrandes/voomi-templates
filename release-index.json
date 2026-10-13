@@ -1,3 +1,45 @@
 {
-  "releases": []
+  "releases": [
+    {
+      "templateId": "com-voomi-samples-neon-dance-beat-drop",
+      "templateVersion": "0.1.0",
+      "name": "NEON DANCE — Beat Drop",
+      "description": "Single-video neon dance effect with four timed scenes. Prototype renderer contract.",
+      "category": "Dance",
+      "categories": [
+        "Dance"
+      ],
+      "tags": [],
+      "durationMs": 10000,
+      "mediaSlots": [
+        {
+          "id": "dance_video",
+          "type": "video",
+          "required": true,
+          "placeholder": "placeholders/dance_demo.mp4",
+          "sceneIds": [
+            "intro",
+            "beat_drop",
+            "energy",
+            "final"
+          ],
+          "fit": "cover",
+          "video": {
+            "minimumDurationMs": 10000,
+            "targetDurationMs": 10000,
+            "trimMode": "start",
+            "shortVideoBehavior": "reject"
+          }
+        }
+      ],
+      "minimumAppVersion": "0.1.0",
+      "previewImageName": "preview.png",
+      "tag": "template-com-voomi-samples-neon-dance-beat-drop-v0.1.0",
+      "assetName": "com-voomi-samples-neon-dance-beat-drop-v0.1.0.zip",
+      "sha256": "4b0cc0002d07c92ef09c36df6db24541414fc50c2d12687a7f000c56ce196c09",
+      "sizeBytes": 330166,
+      "draft": false,
+      "prerelease": false
+    }
+  ]
 }
