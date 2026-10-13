@@ -54,6 +54,8 @@ gh release download template-money-rain-v1.0.0 --pattern '*.zip' --dir ./downloa
 
 ## Catalog and Flutter contract
 
+The visual catalog is implemented as a buildless static page in `site/index.html`. It reads the generated `catalog.json`, so template cards, filters, preview images, and download links stay aligned with the app catalog. The Pages workflow deploys after successful catalog publication and can also be run manually. To make the site live the first time, select **Settings → Pages → Build and deployment → Source → GitHub Actions**. Its address will be `https://vitalybrandes.github.io/voomi-templates/`.
+
 Catalog URL:
 
 ```text

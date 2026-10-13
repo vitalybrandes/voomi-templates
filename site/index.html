@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101018">
+  <meta name="description" content="Browse Voomi video templates. Preview each idea and download the package for your next edit.">
+  <title>Voomi — Template Library</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5f3f8;
+      --muted: #aaa6b7;
+      --quiet: #777385;
+      --line: rgba(255,255,255,.1);
+      --panel: #191821;
+      --panel-raised: #211f2b;
+      --base: #101018;
+      --pink: #ff4fc8;
+      --cyan: #52e5f2;
+      --lime: #c9f27a;
+      --radius: 20px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(ellipse at 78% 8%, rgba(120, 58, 129, .22), transparent 32rem),
+        radial-gradient(ellipse at 10% 38%, rgba(27, 108, 126, .1), transparent 30rem),
+        var(--base);
+      color: var(--ink);
+    }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+    .topbar { height: 78px; border-bottom: 1px solid var(--line); }
+    .topbar-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 850; letter-spacing: .12em; font-size: 18px; }
+    .brand-mark { width: 28px; height: 28px; position: relative; display: grid; place-items: center; border: 1.5px solid var(--cyan); border-radius: 9px; transform: rotate(-8deg); color: var(--cyan); font-size: 17px; line-height: 1; }
+    .brand-mark::after { content: ""; position: absolute; inset: 4px -4px -4px 4px; border: 1px solid var(--pink); border-radius: 8px; z-index: -1; }
+    .toplinks { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: 13px; font-weight: 650; }
+    .toplinks a { text-decoration: none; transition: color .18s ease; }
+    .toplinks a:hover, .toplinks a:focus-visible { color: var(--ink); }
+    .toplinks .json-link { color: var(--ink); border: 1px solid var(--line); padding: 10px 14px; border-radius: 999px; }
+    .toplinks .json-link:hover { border-color: rgba(82,229,242,.5); color: var(--cyan); }
+    .hero { padding: 68px 0 72px; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: clamp(38px, 7vw, 92px); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 20px; color: var(--cyan); font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+    h1 { max-width: 650px; margin: 0; font-size: clamp(44px, 6vw, 76px); line-height: .99; letter-spacing: -.065em; font-weight: 820; }
+    h1 .accent { color: var(--pink); }
+    .hero-copy { max-width: 480px; margin: 22px 0 27px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+    .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .button { display: inline-flex; min-height: 46px; justify-content: center; align-items: center; gap: 10px; padding: 0 18px; border: 1px solid transparent; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: 760; transition: transform .18s ease, background .18s ease, border-color .18s ease; cursor: pointer; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--cyan); color: #10171b; box-shadow: 0 8px 28px rgba(82,229,242,.14); }
+    .button-primary:hover { background: #8cf4fb; }
+    .button-quiet { border-color: var(--line); color: var(--ink); background: rgba(255,255,255,.025); }
+    .button-quiet:hover { border-color: rgba(255,255,255,.27); }
+    .hero-note { display: flex; gap: 10px; align-items: center; margin-top: 27px; color: var(--quiet); font-size: 12px; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 13px rgba(201,242,122,.65); }
+    .spotlight { position: relative; min-height: 425px; display: grid; place-items: center; isolation: isolate; }
+    .spotlight::before { content: ""; position: absolute; z-index: -1; width: 86%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255,79,200,.16), rgba(72,213,237,.08) 40%, transparent 70%); filter: blur(8px); }
+    .spot-card { position: relative; width: min(310px, 72%); padding: 10px; border: 1px solid rgba(255,255,255,.16); border-radius: 24px; background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.025)); box-shadow: 0 30px 85px rgba(0,0,0,.48); transform: rotate(3deg); }
+    .spot-image-wrap { overflow: hidden; aspect-ratio: 9 / 16; border-radius: 16px; background: #20182d; }
+    .spot-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .spot-placeholder { display: grid; place-items: center; height: 100%; color: var(--quiet); font-size: 13px; }
+    .spot-chip { position: absolute; top: 25px; left: -30px; display: flex; align-items: center; gap: 8px; max-width: min(245px, 74vw); overflow: hidden; padding: 10px 13px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(25,24,33,.92); box-shadow: 0 12px 35px rgba(0,0,0,.3); color: var(--ink); font-size: 11px; font-weight: 750; letter-spacing: .04em; white-space: nowrap; text-overflow: ellipsis; }
+    .spot-chip span { color: var(--pink); font-size: 15px; }
+    .spot-index { position: absolute; right: 2%; bottom: 14%; color: rgba(255,255,255,.22); font-size: clamp(50px, 8vw, 100px); line-height: 1; font-weight: 850; letter-spacing: -.08em; }
+    .hero-orbit { position: absolute; width: 380px; height: 380px; border: 1px solid rgba(82,229,242,.1); border-radius: 50%; transform: rotate(-28deg) scaleY(.48); }
+    .hero-orbit::before, .hero-orbit::after { content: ""; position: absolute; inset: 35px -22px; border: 1px solid rgba(255,79,200,.13); border-radius: 50%; }
+    .hero-orbit::after { inset: 83px -43px; border-color: rgba(82,229,242,.12); }
+    .catalog-section { padding: 48px 0 92px; border-top: 1px solid var(--line); scroll-margin-top: 20px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 25px; }
+    .section-kicker { margin: 0 0 9px; color: var(--pink); font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(29px, 4vw, 42px); letter-spacing: -.045em; line-height: 1.05; }
+    .section-count { color: var(--muted); font-size: 13px; white-space: nowrap; padding-bottom: 4px; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin: 28px 0 22px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter { min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font-size: 12px; font-weight: 680; cursor: pointer; transition: .16s ease; }
+    .filter:hover { color: var(--ink); border-color: rgba(255,255,255,.27); }
+    .filter[aria-pressed="true"] { color: #10171b; border-color: var(--cyan); background: var(--cyan); }
+    .search-wrap { position: relative; width: min(100%, 270px); }
+    .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--quiet); pointer-events: none; }
+    .search { width: 100%; height: 42px; padding: 0 14px 0 42px; border: 1px solid var(--line); outline: 0; border-radius: 999px; background: rgba(255,255,255,.035); color: var(--ink); font-size: 13px; }
+    .search::placeholder { color: var(--quiet); }
+    .search:focus { border-color: rgba(82,229,242,.65); box-shadow: 0 0 0 3px rgba(82,229,242,.1); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .template-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.018)); transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+    .template-card:hover { transform: translateY(-5px); border-color: rgba(82,229,242,.4); box-shadow: 0 20px 45px rgba(0,0,0,.25); }
+    .card-art { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: linear-gradient(135deg, #272038, #11252d); }
+    .card-art::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(10,10,16,.35)); pointer-events: none; }
+    .card-art img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+    .template-card:hover .card-art img { transform: scale(1.045); }
+    .category-label { position: absolute; z-index: 1; top: 13px; left: 13px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(16,16,24,.72); backdrop-filter: blur(10px); color: white; font-size: 10px; font-weight: 760; letter-spacing: .06em; }
+    .version-label { position: absolute; z-index: 1; right: 13px; bottom: 13px; color: rgba(255,255,255,.86); font-size: 11px; font-weight: 700; text-shadow: 0 1px 8px #000; }
+    .card-body { padding: 18px 18px 17px; }
+    .card-title-row { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+    .card-title { margin: 0; font-size: 18px; line-height: 1.25; letter-spacing: -.025em; }
+    .duration-pill { flex: none; color: var(--cyan); font-size: 11px; font-weight: 750; white-space: nowrap; padding-top: 4px; }
+    .card-description { min-height: 42px; margin: 9px 0 14px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; min-height: 23px; margin-bottom: 17px; }
+    .tag { padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,.055); color: #c7c3d0; font-size: 10px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 13px; border-top: 1px solid var(--line); }
+    .slot-note { overflow: hidden; color: var(--quiet); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .card-actions { display: flex; align-items: center; gap: 12px; flex: none; }
+    .text-action { padding: 0; border: 0; background: transparent; color: var(--muted); font-size: 11px; font-weight: 720; cursor: pointer; text-decoration: none; }
+    .text-action:hover { color: var(--ink); }
+    .download-action { color: var(--cyan); }
+    .empty-state { grid-column: 1 / -1; min-height: 190px; display: grid; place-content: center; text-align: center; border: 1px dashed rgba(255,255,255,.16); border-radius: var(--radius); color: var(--muted); }
+    .empty-state strong { display: block; margin-bottom: 7px; color: var(--ink); font-size: 17px; }
+    .load-error { padding: 38px 20px; border: 1px solid rgba(255,79,200,.28); border-radius: var(--radius); background: rgba(255,79,200,.05); text-align: center; color: var(--muted); }
+    .load-error strong { display: block; margin-bottom: 8px; color: var(--ink); }
+    .load-error button { margin-top: 15px; }
+    .how-section { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; padding: 30px 0 78px; border-top: 1px solid var(--line); }
+    .how-intro p { max-width: 340px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .step { padding: 17px 16px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.025); }
+    .step-num { color: var(--pink); font-size: 11px; font-weight: 850; letter-spacing: .12em; }
+    .step h3 { margin: 11px 0 7px; font-size: 14px; }
+    .step p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .footer { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); color: var(--quiet); font-size: 11px; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer a { text-decoration: none; }
+    .footer a:hover { color: var(--ink); }
+    dialog { width: min(610px, calc(100% - 28px)); max-height: min(88vh, 760px); padding: 0; overflow: auto; border: 1px solid rgba(255,255,255,.16); border-radius: 22px; background: #17161f; color: var(--ink); box-shadow: 0 30px 100px rgba(0,0,0,.65); }
+    dialog::backdrop { background: rgba(4,4,9,.78); backdrop-filter: blur(5px); }
+    .dialog-inner { display: grid; grid-template-columns: 205px 1fr; gap: 22px; padding: 20px; }
+    .dialog-art { overflow: hidden; align-self: start; aspect-ratio: 9/16; border-radius: 14px; background: #272038; }
+    .dialog-art img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .dialog-content { min-width: 0; padding: 4px 0; }
+    .dialog-top { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+    .dialog-content h2 { font-size: 25px; }
+    .close-dialog { flex: none; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; }
+    .dialog-description { color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .detail-list { display: grid; gap: 0; margin: 18px 0; border-top: 1px solid var(--line); }
+    .detail-row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 11px; }
+    .detail-row span:first-child { color: var(--quiet); }
+    .detail-row span:last-child { color: #e2dfeb; text-align: right; overflow-wrap: anywhere; }
+    .dialog-hash { color: var(--quiet); font: 10px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+    .dialog-download { width: 100%; margin-top: 12px; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    @media (max-width: 880px) {
+      .hero { gap: 28px; grid-template-columns: 1fr .75fr; padding-top: 55px; }
+      .spotlight { min-height: 360px; }
+      .spot-card { width: min(260px, 78%); }
+      .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .how-section { grid-template-columns: 1fr; gap: 16px; }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 32px, 470px); }
+      .topbar { height: 66px; }
+      .toplinks { gap: 14px; font-size: 12px; }
+      .toplinks a[href="#how"] { display: none; }
+      .toplinks .json-link { padding: 8px 11px; }
+      .hero { grid-template-columns: 1fr; padding: 49px 0 45px; gap: 14px; }
+      h1 { max-width: 510px; font-size: clamp(47px, 14vw, 68px); }
+      .hero-copy { margin-top: 17px; font-size: 14px; }
+      .spotlight { min-height: 290px; margin-top: 8px; }
+      .spot-card { width: 174px; }
+      .spot-chip { left: -55px; font-size: 10px; }
+      .spot-index { right: 8%; bottom: 12%; font-size: 58px; }
+      .hero-orbit { width: 290px; height: 290px; }
+      .catalog-section { padding: 38px 0 60px; }
+      .section-head { align-items: start; flex-direction: column; gap: 7px; }
+      .toolbar { align-items: stretch; flex-direction: column-reverse; margin-top: 20px; }
+      .search-wrap { width: 100%; }
+      .grid { grid-template-columns: 1fr; gap: 14px; }
+      .card-art { aspect-ratio: 4 / 5; }
+      .card-description { min-height: 0; }
+      .steps { grid-template-columns: 1fr; }
+      .step { display: grid; grid-template-columns: 36px 1fr; column-gap: 10px; }
+      .step-num { grid-row: 1 / span 2; padding-top: 2px; }
+      .step h3 { margin: 0 0 4px; }
+      .footer { align-items: start; flex-direction: column; justify-content: center; padding: 17px 0; }
+      .dialog-inner { grid-template-columns: 1fr; gap: 14px; }
+      .dialog-art { width: 120px; }
+      .dialog-content { padding-top: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="Voomi home"><span class="brand-mark" aria-hidden="true">v</span><span>VOOMI</span></a>
+      <nav class="toplinks" aria-label="Main navigation">
+        <a href="#catalog">Templates</a>
+        <a href="#how">How it works</a>
+        <a class="json-link" href="./catalog.json">Catalog JSON <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="shell hero" aria-labelledby="hero-title">
+      <div class="hero-copy-block">
+        <p class="eyebrow">The Voomi template library</p>
+        <h1 id="hero-title">Your next video<br>starts <span class="accent">here.</span></h1>
+        <p class="hero-copy">Find a look you love, preview the idea, and bring its template into your Voomi workflow.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#catalog">Explore templates <span aria-hidden="true">↓</span></a>
+          <a class="button button-quiet" href="#how">How it works</a>
+        </div>
+        <div class="hero-note"><span class="live-dot" aria-hidden="true"></span><span id="catalog-updated">Loading the latest catalog…</span></div>
+      </div>
+      <div class="spotlight" aria-label="Featured template preview">
+        <div class="hero-orbit" aria-hidden="true"></div>
+        <div class="spot-card">
+          <div class="spot-image-wrap" id="spot-image-wrap"><div class="spot-placeholder">A little inspiration…</div></div>
+        </div>
+        <div class="spot-chip"><span aria-hidden="true">✦</span><span id="spot-label">MADE FOR YOUR NEXT EDIT</span></div>
+        <div class="spot-index" aria-hidden="true">VOO.</div>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="catalog" aria-labelledby="catalog-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="section-kicker">Pick your next idea</p><h2 id="catalog-title">Browse the catalog</h2></div>
+          <div class="section-count" id="result-count" aria-live="polite">Loading templates…</div>
+        </div>
+        <div class="toolbar">
+          <div class="filters" id="filters" aria-label="Filter templates by category"></div>
+          <label class="search-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <input class="search" id="search" type="search" placeholder="Search templates" autocomplete="off" aria-label="Search templates">
+          </label>
+        </div>
+        <div class="grid" id="template-grid" aria-live="polite" aria-busy="true">
+          <div class="empty-state"><div><strong>Loading the good stuff…</strong>Getting the latest Voomi templates.</div></div>
+        </div>
+        <div class="load-error" id="load-error" hidden role="alert"><strong>The catalog didn’t load.</strong><span>Check your connection and try again.</span><br><button class="button button-quiet" id="retry-load" type="button">Try again</button></div>
+      </div>
+    </section>
+
+    <section class="shell how-section" id="how" aria-labelledby="how-title">
+      <div class="how-intro"><p class="section-kicker">A simple start</p><h2 id="how-title">From inspiration<br>to your edit.</h2><p>Choose a template that fits the moment, then follow the Voomi app’s import flow to make it yours.</p></div>
+      <div class="steps">
+        <article class="step"><span class="step-num">01</span><h3>Find your look</h3><p>Browse by category or search for a mood, moment, or style.</p></article>
+        <article class="step"><span class="step-num">02</span><h3>Preview the idea</h3><p>Check the preview, duration, and media needed before you download.</p></article>
+        <article class="step"><span class="step-num">03</span><h3>Make it yours</h3><p>Download the template ZIP and open it from your Voomi app.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <span>© <span id="year"></span> Voomi · Made for moments worth sharing.</span>
+    <div class="footer-links"><a href="./catalog.json">Catalog data</a><a href="https://github.com/vitalybrandes/voomi-templates">GitHub repository</a></div>
+  </footer>
+
+  <dialog id="template-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner" id="dialog-inner"></div>
+  </dialog>
+
+  <script>
+    (() => {
+      const grid = document.querySelector("#template-grid");
+      const filters = document.querySelector("#filters");
+      const search = document.querySelector("#search");
+      const count = document.querySelector("#result-count");
+      const errorBox = document.querySelector("#load-error");
+      const dialog = document.querySelector("#template-dialog");
+      const dialogInner = document.querySelector("#dialog-inner");
+      let catalog = null;
+      let activeCategory = "All";
+
+      const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+      const safeLink = (value) => {
+        try { const url = new URL(value, document.baseURI); return url.protocol === "https:" ? url.href : "#"; }
+        catch { return "#"; }
+      };
+      const duration = (ms) => {
+        const seconds = Math.max(1, Math.round((Number(ms) || 0) / 1000));
+        return `${seconds}s`;
+      };
+      const formatBytes = (bytes) => {
+        const size = Number(bytes) || 0;
+        return size >= 1024 * 1024 ? `${(size / (1024 * 1024)).toFixed(1)} MB` : `${Math.max(1, Math.round(size / 1024))} KB`;
+      };
+      const compareVersions = (left, right) => {
+        const a = String(left).split(/[+-]/, 1)[0].split(".").map(Number);
+        const b = String(right).split(/[+-]/, 1)[0].split(".").map(Number);
+        for (let i = 0; i < 3; i++) if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0);
+        return String(left).localeCompare(String(right));
+      };
+      const mediaSummary = (slots = []) => {
+        const types = [...new Set(slots.map((slot) => String(slot.type || "media").replaceAll("_", " ")))];
+        if (!types.length) return "No media required";
+        return `${types.join(" + ")} · ${slots.length} slot${slots.length === 1 ? "" : "s"}`;
+      };
+      const visibleTemplates = () => {
+        const query = search.value.trim().toLowerCase();
+        return (catalog?.templates || []).filter((item) => {
+          const categoryMatch = activeCategory === "All" || (item.categories || [item.category]).includes(activeCategory);
+          const text = [item.name, item.description, item.category, ...(item.categories || []), ...(item.tags || []), item.id].join(" ").toLowerCase();
+          return categoryMatch && (!query || text.includes(query));
+        }).sort((a, b) => a.name.localeCompare(b.name));
+      };
+      const renderFilters = () => {
+        const categories = ["All", ...(catalog?.categories || [])];
+        filters.innerHTML = categories.map((name) => `<button class="filter" type="button" data-category="${esc(name)}" aria-pressed="${name === activeCategory}">${esc(name)}</button>`).join("");
+        filters.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => {
+          activeCategory = button.dataset.category;
+          renderFilters();
+          renderCards();
+        }));
+      };
+      const cardMarkup = (item) => {
+        const tags = (item.tags || []).slice(0, 3).map((tag) => `<span class="tag">${esc(tag)}</span>`).join("");
+        const image = safeLink(item.thumbnailUrl || item.posterUrl);
+        const download = safeLink(item.downloadUrl);
+        return `<article class="template-card">
+          <div class="card-art"><img src="${esc(image)}" alt="Preview artwork for ${esc(item.name)}" loading="lazy"><span class="category-label">${esc(item.category)}</span><span class="version-label">v${esc(item.version)}</span></div>
+          <div class="card-body">
+            <div class="card-title-row"><h3 class="card-title">${esc(item.name)}</h3><span class="duration-pill">${duration(item.durationMs)}</span></div>
+            <p class="card-description">${esc(item.description)}</p>
+            <div class="tag-row">${tags}</div>
+            <div class="card-footer"><span class="slot-note">${esc(mediaSummary(item.mediaSlots))}</span><span class="card-actions"><button class="text-action" type="button" data-details="${esc(item.id)}">Details</button><a class="text-action download-action" href="${esc(download)}" download>Get template&nbsp; ↗</a></span></div>
+          </div>
+        </article>`;
+      };
+      const renderCards = () => {
+        const items = visibleTemplates();
+        const total = catalog?.templates?.length || 0;
+        count.textContent = `${items.length} ${items.length === 1 ? "template" : "templates"}${items.length !== total ? ` · ${total} total` : ""}`;
+        grid.setAttribute("aria-busy", "false");
+        grid.innerHTML = items.length ? items.map(cardMarkup).join("") : `<div class="empty-state"><div><strong>No templates found</strong>Try a different search or category.</div></div>`;
+        grid.querySelectorAll("[data-details]").forEach((button) => button.addEventListener("click", () => showDetails(button.dataset.details)));
+      };
+      const showDetails = (id) => {
+        const item = catalog.templates.find((entry) => entry.id === id);
+        if (!item) return;
+        const poster = safeLink(item.posterUrl || item.thumbnailUrl);
+        const download = safeLink(item.downloadUrl);
+        const tags = (item.tags || []).join(", ") || "—";
+        dialogInner.innerHTML = `<div class="dialog-art"><img src="${esc(poster)}" alt="Preview artwork for ${esc(item.name)}"></div>
+          <div class="dialog-content">
+            <div class="dialog-top"><div><p class="section-kicker">${esc(item.category)} · v${esc(item.version)}</p><h2 id="dialog-title">${esc(item.name)}</h2></div><button class="close-dialog" type="button" aria-label="Close details">×</button></div>
+            <p class="dialog-description">${esc(item.description)}</p>
+            <div class="detail-list">
+              <div class="detail-row"><span>Duration</span><span>${duration(item.durationMs)}</span></div>
+              <div class="detail-row"><span>Media</span><span>${esc(mediaSummary(item.mediaSlots))}</span></div>
+              <div class="detail-row"><span>Minimum app version</span><span>${esc(item.minAppVersion)}</span></div>
+              <div class="detail-row"><span>Package size</span><span>${formatBytes(item.sizeBytes)}</span></div>
+              <div class="detail-row"><span>Tags</span><span>${esc(tags)}</span></div>
+            </div>
+            <div class="dialog-hash">SHA-256 · ${esc(item.sha256)}</div>
+            <a class="button button-primary dialog-download" href="${esc(download)}" download>Download template <span aria-hidden="true">↗</span></a>
+          </div>`;
+        dialog.showModal();
+        dialogInner.querySelector(".close-dialog").addEventListener("click", () => dialog.close());
+      };
+      const loadCatalog = async () => {
+        errorBox.hidden = true;
+        grid.setAttribute("aria-busy", "true");
+        try {
+          const response = await fetch(new URL("catalog.json", document.baseURI), { cache: "no-cache" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          if (!Array.isArray(data.templates) || !Array.isArray(data.categories)) throw new Error("Catalog format is not recognized");
+          catalog = data;
+          document.querySelector("#catalog-updated").textContent = `${data.templates.length} templates · catalog ${data.catalogVersion}`;
+          renderFilters();
+          renderCards();
+          const featured = [...data.templates].sort((a, b) => compareVersions(b.version, a.version))[0];
+          if (featured) {
+            const wrap = document.querySelector("#spot-image-wrap");
+            wrap.innerHTML = `<img class="spot-image" src="${esc(safeLink(featured.posterUrl || featured.thumbnailUrl))}" alt="${esc(featured.name)} template preview">`;
+            document.querySelector("#spot-label").textContent = featured.name.toUpperCase();
+          }
+        } catch (error) {
+          console.error("Could not load Voomi catalog", error);
+          grid.setAttribute("aria-busy", "false");
+          grid.innerHTML = "";
+          count.textContent = "Catalog unavailable";
+          errorBox.hidden = false;
+        }
+      };
+      search.addEventListener("input", renderCards);
+      document.querySelector("#retry-load").addEventListener("click", loadCatalog);
+      dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+      document.querySelector("#year").textContent = new Date().getFullYear();
+      loadCatalog();
+    })();
+  </script>
+</body>
+</html>
