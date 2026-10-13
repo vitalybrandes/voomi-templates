@@ -1,13 +1,52 @@
 {
   "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 2,
-  "updatedAt": "2026-10-13T09:43:02Z",
+  "catalogVersion": 3,
+  "updatedAt": "2026-10-13T10:36:21Z",
   "categories": [
     "Dance",
+    "Friendship",
     "Fun",
     "Travel"
   ],
   "templates": [
+    {
+      "id": "bff-best-friends-forever",
+      "name": "BFF — Best Friends Forever",
+      "version": "0.1.0",
+      "description": "Turn one friendship photo into a colorful BFF moment",
+      "category": "Friendship",
+      "categories": [
+        "Friendship",
+        "Fun"
+      ],
+      "tags": [
+        "best friends",
+        "bff",
+        "girls",
+        "hearts",
+        "stickers"
+      ],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "friends_photo",
+          "type": "photo",
+          "required": true,
+          "placeholder": "placeholders/friends_sample.jpg",
+          "fit": "cover",
+          "sceneIds": [
+            "scene_1"
+          ],
+          "reusable": true
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-best-friends-forever-v0.1.0/bff-best-friends-forever-v0.1.0.zip",
+      "sizeBytes": 1786319,
+      "sha256": "f0364baffde33328d95f5f4056f2b052469b760ac786a424c4c308f101b8610b"
+    },
     {
       "id": "com-voomi-samples-neon-dance-beat-drop",
       "name": "NEON DANCE — Beat Drop",

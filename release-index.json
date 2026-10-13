@@ -1,6 +1,46 @@
 {
   "releases": [
     {
+      "templateId": "bff-best-friends-forever",
+      "templateVersion": "0.1.0",
+      "name": "BFF — Best Friends Forever",
+      "description": "Turn one friendship photo into a colorful BFF moment",
+      "category": "Friendship",
+      "categories": [
+        "Friendship",
+        "Fun"
+      ],
+      "tags": [
+        "bff",
+        "best friends",
+        "girls",
+        "hearts",
+        "stickers"
+      ],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "friends_photo",
+          "type": "photo",
+          "required": true,
+          "placeholder": "placeholders/friends_sample.jpg",
+          "fit": "cover",
+          "sceneIds": [
+            "scene_1"
+          ],
+          "reusable": true
+        }
+      ],
+      "minimumAppVersion": "1.0.0",
+      "previewImageName": "preview.png",
+      "tag": "template-bff-best-friends-forever-v0.1.0",
+      "assetName": "bff-best-friends-forever-v0.1.0.zip",
+      "sha256": "f0364baffde33328d95f5f4056f2b052469b760ac786a424c4c308f101b8610b",
+      "sizeBytes": 1786319,
+      "draft": false,
+      "prerelease": false
+    },
+    {
       "templateId": "com-voomi-samples-neon-dance-beat-drop",
       "templateVersion": "0.1.0",
       "name": "NEON DANCE — Beat Drop",
