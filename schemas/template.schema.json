@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://voomi.example/schemas/template.schema.json",
+  "title": "Voomi template metadata v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "templateId", "templateVersion", "name", "shortDescription", "description", "category", "categories", "tags", "durationMs", "fps", "resolution", "aspectRatio", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "audio", "preview", "licenseManifest"],
+  "properties": {
+    "schemaVersion": {"type":"string","const":"1.0.0"},
+    "templateId": {"type":"string","pattern":"^[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*$","maxLength":80},
+    "templateVersion": {"type":"string","pattern":"^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"},
+    "name": {"type":"string","minLength":1,"maxLength":120},
+    "shortDescription": {"type":"string","minLength":1,"maxLength":200},
+    "description": {"type":"string","minLength":1,"maxLength":5000},
+    "category": {"type":"string","minLength":1},
+    "categories": {"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
+    "tags": {"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
+    "durationMs": {"type":"integer","minimum":1,"maximum":300000},
+    "fps": {"type":"number","exclusiveMinimum":0,"maximum":120},
+    "resolution": {"oneOf":[{"type":"string","pattern":"^[1-9][0-9]*x[1-9][0-9]*$"},{"type":"object","required":["width","height"],"properties":{"width":{"type":"integer","minimum":1},"height":{"type":"integer","minimum":1}},"additionalProperties":false}]},
+    "aspectRatio": {"type":"string","pattern":"^[1-9][0-9]*:[1-9][0-9]*$"},
+    "minimumAppVersion": {"type":"string","pattern":"^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"},
+    "requiredRendererFeatures": {"type":"array","items":{"type":"string","pattern":"^[a-z][a-z0-9_.-]*$"},"uniqueItems":true},
+    "mediaSlots": {"type":"array","items":{"type":"object","required":["id","type","required"],"properties":{"id":{"type":"string","pattern":"^[A-Za-z0-9_-]+$"},"type":{"enum":["photo","video","photo_or_video","none"]},"required":{"type":"boolean"},"minCount":{"type":"integer","minimum":0},"maxCount":{"type":"integer","minimum":0}},"additionalProperties":true}},
+    "scenes": {"type":"array","minItems":1,"items":{"type":"object","required":["id"],"properties":{"id":{"type":"string","pattern":"^[A-Za-z0-9_-]+$"},"order":{"type":"integer","minimum":0},"startMs":{"type":"integer","minimum":0},"durationMs":{"type":"integer","minimum":1},"mediaSlotIds":{"type":"array","items":{"type":"string"},"uniqueItems":true},"mediaSlots":{"type":"array","items":{"type":"string"},"uniqueItems":true},"transition":{"type":["object","string","null"]}},"additionalProperties":true}},
+    "audio": {"oneOf":[{"type":"object"},{"type":"array"},{"type":"null"}]},
+    "preview": {"type":"object","required":["poster","thumbnail","video"],"properties":{"poster":{"type":"string"},"thumbnail":{"type":"string"},"video":{"type":"string"}},"additionalProperties":true},
+    "licenseManifest": {"type":"string","minLength":1}
+  }
+}

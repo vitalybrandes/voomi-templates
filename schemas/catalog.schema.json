@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Voomi public catalog v1",
+  "type":"object",
+  "required":["catalogSchemaVersion","catalogVersion","updatedAt","categories","templates"],
+  "properties":{
+    "catalogSchemaVersion":{"type":"string","const":"1.0.0"},
+    "catalogVersion":{"type":"integer","minimum":0},
+    "updatedAt":{"type":"string","format":"date-time"},
+    "categories":{"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
+    "templates":{"type":"array","items":{"type":"object","required":["id","name","version","description","category","categories","tags","durationMs","mediaSlots","minAppVersion","thumbnailUrl","posterUrl","downloadUrl","sizeBytes","sha256"],"properties":{"id":{"type":"string","pattern":"^[a-z0-9]+(?:-[a-z0-9]+)*$"},"name":{"type":"string"},"version":{"type":"string"},"description":{"type":"string"},"category":{"type":"string"},"categories":{"type":"array","items":{"type":"string"}},"tags":{"type":"array","items":{"type":"string"}},"durationMs":{"type":"integer","minimum":1},"mediaSlots":{"type":"array"},"minAppVersion":{"type":"string"},"thumbnailUrl":{"type":"string","format":"uri"},"posterUrl":{"type":"string","format":"uri"},"downloadUrl":{"type":"string","format":"uri"},"sizeBytes":{"type":"integer","minimum":1},"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"}},"additionalProperties":true}}},
+  "additionalProperties":false
+}

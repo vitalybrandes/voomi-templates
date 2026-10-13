@@ -1,0 +1,95 @@
+name: Publish Voomi Template
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'incoming/**/*.zip'
+  workflow_dispatch:
+    inputs:
+      zip_path:
+        description: Optional existing ZIP path under incoming/
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: voomi-template-publishing
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Verify required tools
+        run: |
+          python --version
+          gh --version
+          ffmpeg -version
+          ffprobe -version
+      - name: Run automated tests
+        run: python -m pytest tests/ -v
+      - name: Publish templates
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          INPUT_ZIP_PATH: ${{ inputs.zip_path }}
+        run: python scripts/publish_template.py
+      - name: Rebuild and verify catalog
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/rebuild_catalog.py
+          python scripts/verify_catalog.py
+      - name: Commit generated files and remove processed packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -f processed-packages.txt ]; then
+            while IFS= read -r f; do [ -z "$f" ] || rm -- "$f"; done < processed-packages.txt
+          fi
+          git add catalog.json release-index.json previews/ incoming/
+          if git diff --cached --quiet; then
+            echo "No generated catalog changes"
+          else
+            git commit -m "chore: publish Voomi templates"
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                echo "Generated publication commit conflicts with main; source ZIP remains available for recovery" >&2
+                exit 1
+              fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 2))
+            done
+            echo "Unable to push generated publication data after retries" >&2
+            exit 1
+          fi
+      - name: Upload publishing report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: voomi-publishing-report-${{ github.run_id }}
+          path: |
+            publish-report.json
+            validation-report.json
+          if-no-files-found: ignore
+          retention-days: 7
