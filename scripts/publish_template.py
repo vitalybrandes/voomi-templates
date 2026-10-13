@@ -211,10 +211,11 @@ def main() -> int:
         Path("processed-packages.txt").write_text("\n".join(committed_paths) + ("\n" if committed_paths else ""), encoding="utf-8")
         for failure in failures:
             print(f"WARNING: package not published: {failure['path']}: {failure['error']}", file=sys.stderr)
-        # Batch behavior: publish and clean successful packages while leaving
-        # failures in incoming/ for repair. Fail the run only if the whole batch
-        # failed so mixed batches still produce a green publishing run + warnings.
-        return 1 if failures and not successes else 0
+        # Package-level failures are isolated: retain those ZIPs in incoming/,
+        # report warnings, and let the workflow continue even if every package
+        # in this batch is invalid. Systemic publishing failures still raise
+        # above and fail the job.
+        return 0
     except VoomiError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         Path("publish-report.json").write_text(json.dumps({"publishedOrSkipped":[],"failures":[{"error":str(exc)}]}, indent=2) + "\n", encoding="utf-8")

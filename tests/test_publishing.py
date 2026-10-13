@@ -29,14 +29,14 @@ def test_mixed_batch_keeps_failure_but_succeeds_for_valid_packages(tmp_path, mon
     assert str(packages[2].relative_to(ROOT)) not in processed
 
 
-def test_all_failed_batch_fails_and_retains_paths(tmp_path, monkeypatch):
+def test_all_failed_batch_warns_and_retains_paths(tmp_path, monkeypatch):
     packages = [ROOT / "incoming" / "bad.zip"]
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr(publish_template, "discover", lambda: packages)
     monkeypatch.setattr(publish_template, "github_repo", lambda: "owner/repo")
     monkeypatch.setattr(publish_template, "process", lambda *_args: (_ for _ in ()).throw(VoomiError("invalid package")))
 
-    assert publish_template.main() == 1
+    assert publish_template.main() == 0
     report = json.loads((tmp_path / "publish-report.json").read_text(encoding="utf-8"))
     assert report["failures"][0]["error"] == "invalid package"
     assert (tmp_path / "processed-packages.txt").read_text(encoding="utf-8") == ""
