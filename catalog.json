@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 5,
-  "updatedAt": "2026-10-13T14:32:49Z",
+  "catalogVersion": 6,
+  "updatedAt": "2026-10-13T15:24:00Z",
   "categories": [
     "Dance",
     "Friendship",
@@ -48,6 +48,32 @@
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-best-friends-forever-v0.1.0/bff-best-friends-forever-v0.1.0.zip",
       "sizeBytes": 1786319,
       "sha256": "f0364baffde33328d95f5f4056f2b052469b760ac786a424c4c308f101b8610b"
+    },
+    {
+      "id": "bff-layered-polaroids",
+      "sourceId": "bff-layered-polaroids",
+      "name": "BFF — Sunset Besties",
+      "version": "0.7.0",
+      "description": "One media slot reused in the full canvas and two masked Polaroid windows. Frames, labels and effects sit above it. No background removal.",
+      "category": "fun",
+      "categories": [
+        "fun"
+      ],
+      "tags": [],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "photo_1",
+          "type": "imageOrVideo",
+          "required": true
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-layered-polaroids-v0.7.0/bff-layered-polaroids-v0.7.0.zip",
+      "sizeBytes": 796944,
+      "sha256": "7330afa62bf4aee72ea3a7bfb7c8f97d7cb70b654a005a9d2392545ff6354be8"
     },
     {
       "id": "com-voomi-samples-neon-dance-beat-drop",
