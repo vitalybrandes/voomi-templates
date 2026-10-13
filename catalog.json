@@ -1,12 +1,13 @@
 {
   "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 4,
-  "updatedAt": "2026-10-13T12:45:46Z",
+  "catalogVersion": 5,
+  "updatedAt": "2026-10-13T14:32:49Z",
   "categories": [
     "Dance",
     "Friendship",
     "Fun",
-    "Travel"
+    "Travel",
+    "fun"
   ],
   "templates": [
     {
@@ -87,6 +88,32 @@
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-com-voomi-samples-neon-dance-beat-drop-v0.1.0/com-voomi-samples-neon-dance-beat-drop-v0.1.0.zip",
       "sizeBytes": 330166,
       "sha256": "4b0cc0002d07c92ef09c36df6db24541414fc50c2d12687a7f000c56ce196c09"
+    },
+    {
+      "id": "money-fall-2",
+      "sourceId": "money-fall-2",
+      "name": "Money Fall 2",
+      "version": "0.2.0",
+      "description": "Money Fall 2",
+      "category": "fun",
+      "categories": [
+        "fun"
+      ],
+      "tags": [],
+      "durationMs": 5000,
+      "mediaSlots": [
+        {
+          "id": "user_media_1",
+          "type": "imageOrVideo",
+          "required": true
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-money-fall-2-v0.2.0/money-fall-2-v0.2.0.zip",
+      "sizeBytes": 2373100,
+      "sha256": "c5213b28d88b88cee527371c6700e4d8b3e7e1788d4dcc2d98cde404bb35baa4"
     },
     {
       "id": "vacation-bye-bye",
