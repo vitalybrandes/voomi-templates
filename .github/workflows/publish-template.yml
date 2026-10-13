@@ -37,7 +37,10 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Install GitHub CLI
         run: |
-          type -p gh >/dev/null || (sudo apt-get update && sudo apt-get install -y gh)
+          if ! command -v gh >/dev/null || ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y gh ffmpeg
+          fi
       - name: Verify required tools
         run: |
           python --version
