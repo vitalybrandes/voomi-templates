@@ -6,9 +6,6 @@ import argparse
 import hashlib
 import json
 import re
-import shutil
-import subprocess
-import tempfile
 import zipfile
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -49,29 +46,6 @@ def image_info(zf: zipfile.ZipFile, name: str, expected: tuple[int, int]) -> Non
                 fail(f"{name} must have normal orientation (EXIF orientation 1 or absent)")
     except (OSError, ValueError) as exc:
         fail(f"Invalid image {name}: {exc}")
-
-
-def probe_media(tmp_path: Path, name: str, *, video: bool) -> dict[str, Any]:
-    tool = "ffprobe"
-    if not shutil.which(tool):
-        fail("ffprobe is required for media validation")
-    path = tmp_path / ("probe-video.mp4" if name.endswith(".mp4") else "probe-audio")
-    try:
-        proc = subprocess.run([tool, "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)], capture_output=True, text=True, timeout=30, check=True)
-        return json.loads(proc.stdout)
-    except (OSError, subprocess.SubprocessError, json.JSONDecodeError) as exc:
-        fail(f"Media probe failed for {name}: {exc}")
-
-
-def run_ffprobe_bytes(zf: zipfile.ZipFile, name: str, work: Path) -> dict[str, Any]:
-    target = work / "probe-video.mp4" if name.lower().endswith(".mp4") else work / "probe-audio"
-    with zf.open(name) as src, target.open("wb") as dst:
-        shutil.copyfileobj(src, dst, 1024 * 1024)
-    try:
-        proc = subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(target)], capture_output=True, text=True, timeout=60, check=True)
-        return json.loads(proc.stdout)
-    except (OSError, subprocess.SubprocessError, json.JSONDecodeError) as exc:
-        fail(f"Media probe failed for {name}: {exc}")
 
 
 def validate_manifest(data: Any, entries: dict[str, zipfile.ZipInfo]) -> None:
@@ -180,37 +154,6 @@ def validate(zip_path: Path) -> dict[str, Any]:
         validate_manifest(manifest, entries)
         image_info(zf, "preview/poster.jpg", (1080, 1920))
         image_info(zf, "preview/thumbnail.jpg", (720, 1280))
-        with tempfile.TemporaryDirectory(prefix="voomi-validate-") as temp:
-            work = Path(temp)
-            info = run_ffprobe_bytes(zf, "preview/preview.mp4", work)
-            streams = info.get("streams", [])
-            v = next((s for s in streams if s.get("codec_type") == "video"), None)
-            if not v:
-                fail("Preview video has no video stream")
-            if v.get("codec_name") != "h264":
-                fail("Preview video must use H.264")
-            width, height = v.get("width"), v.get("height")
-            if not width or not height or width < 720 or height < 1280 or abs(width / height - 9 / 16) > 0.01:
-                fail("Preview resolution must be at least 720x1280 in portrait 9:16")
-            rate = v.get("avg_frame_rate", "0/1")
-            try:
-                numerator, denominator = map(int, rate.split("/"))
-                fps = numerator / denominator
-            except (ValueError, ZeroDivisionError):
-                fps = 0
-            if abs(fps - 30) > 0.01:
-                fail(f"Preview video must be 30 FPS; got {fps}")
-            duration = float(info.get("format", {}).get("duration", v.get("duration", 0)) or 0)
-            # One frame at 30 FPS plus a small encoder timestamp allowance.
-            tolerance = 1000 / 30 + 5
-            if abs(duration * 1000 - meta["durationMs"]) > tolerance:
-                fail(f"Preview duration differs from durationMs by more than {tolerance:.1f} ms")
-            has_audio = any(s.get("codec_type") == "audio" for s in streams)
-            if has_audio and not any(s.get("codec_type") == "audio" and s.get("codec_name") == "aac" for s in streams):
-                fail("Preview audio must use AAC")
-            decode = subprocess.run(["ffmpeg", "-v", "error", "-i", str(work / "probe-video.mp4"), "-vf", "select='eq(n,0)+eq(n,mid)+eq(n,last)'", "-vsync", "0", "-frames:v", "3", "-f", "null", "-"], capture_output=True, text=True, timeout=60)
-            if decode.returncode != 0:
-                fail("Preview video representative frame decode failed")
         # Validate declared preview paths match the required package locations.
         for key, expected in (("poster", "preview/poster.jpg"), ("thumbnail", "preview/thumbnail.jpg"), ("video", "preview/preview.mp4")):
             if meta["preview"].get(key) != expected:

@@ -30,7 +30,7 @@ Inspect failures in the Actions run logs and download the `voomi-publishing-repo
 
 ## Local commands
 
-Install Python 3.12, GitHub CLI, and FFmpeg including `ffprobe`.
+Install Python 3.12 and GitHub CLI. Preview MP4 validation in the pipeline checks that the file is present and named correctly; the workflow does not decode or probe video streams.
 
 ```bash
 python -m pip install -r requirements.txt
@@ -72,6 +72,6 @@ Run `gh workflow run rebuild-catalog.yml --ref main` to reconstruct the catalog 
 
 ## Security and limitations
 
-ZIPs are untrusted. The validator rejects traversal, absolute and duplicate normalized names, symlinks, encryption, executable files, corrupt archives, excessive entry counts and configured compressed/uncompressed limits. It never executes package files and extracts only named preview images after validation. Default limits are 250 MiB compressed and 1 GiB expanded; override with `VOOMI_MAX_ZIP_BYTES`, `VOOMI_MAX_UNCOMPRESSED_BYTES`, and `VOOMI_MAX_ZIP_ENTRIES` in a controlled environment. Media is probed and representative frames decoded by FFmpeg. License checking cannot independently verify rights. Packages with unclear redistribution rights require human review.
+ZIPs are untrusted. The validator rejects traversal, absolute and duplicate normalized names, symlinks, encryption, executable files, corrupt archives, excessive entry counts and configured compressed/uncompressed limits. It never executes package files and extracts only named preview images after validation. Default limits are 250 MiB compressed and 1 GiB expanded; override with `VOOMI_MAX_ZIP_BYTES`, `VOOMI_MAX_UNCOMPRESSED_BYTES`, and `VOOMI_MAX_ZIP_ENTRIES` in a controlled environment. The validator checks poster and thumbnail image contents and dimensions. It checks the preview MP4's presence but does not verify its codec, duration, audio, or decodability. License checking cannot independently verify rights. Packages with unclear redistribution rights require human review.
 
 GitHub Releases and Actions have platform quotas and bandwidth limits. This initial setup uses public GitHub capabilities only. If distribution volume exceeds GitHub limits, migrate immutable package artifacts to an object store in a future project while retaining the catalog contract; no alternate provider is configured here. A successful live release, anonymous download, or in-app refresh cannot be claimed until a real conforming ZIP is uploaded and the published URL is checked.
