@@ -8,6 +8,7 @@ on:
       - 'schemas/**'
       - 'tests/**'
       - 'requirements.txt'
+      - '.github/workflows/validate-template.yml'
   push:
     branches: [main]
     paths:
@@ -15,6 +16,7 @@ on:
       - 'schemas/**'
       - 'tests/**'
       - 'requirements.txt'
+      - '.github/workflows/validate-template.yml'
 
 permissions:
   contents: read
