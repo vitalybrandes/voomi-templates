@@ -33,7 +33,47 @@ jobs:
       - name: Validate packages in incoming
         shell: bash
         run: |
-          shopt -s globstar nullglob
-          files=(incoming/**/*.zip)
-          for f in "${files[@]}"; do python scripts/validate_template.py --zip "$f" --report "${f%.zip}.validation.json"; done
-          rm -f incoming/**/*.validation.json
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          failures = []
+          validated = 0
+          reports = []
+          for package in sorted(Path("incoming").rglob("*.zip")):
+              report_path = package.with_suffix(".validation.json")
+              reports.append(report_path)
+              result = subprocess.run(
+                  [sys.executable, "scripts/validate_template.py", "--zip", str(package), "--report", str(report_path)],
+                  text=True,
+                  capture_output=True,
+              )
+              if result.returncode == 0:
+                  validated += 1
+                  print(result.stdout, end="")
+                  continue
+              try:
+                  report = json.loads(report_path.read_text(encoding="utf-8"))
+                  error = "; ".join(report.get("errors", [])) or "Validation failed"
+              except (OSError, json.JSONDecodeError):
+                  error = result.stderr.strip() or result.stdout.strip() or "Validation failed"
+              failures.append((package.as_posix(), error))
+              message = f"{package.as_posix()}: {error}"
+              message = message.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::warning title=Template ZIP rejected::{message}")
+              print(f"WARNING: {package}: {error}", file=sys.stderr)
+
+          summary = ["## Incoming template validation", "", f"Valid ZIPs: **{validated}**", f"Rejected ZIPs: **{len(failures)}**"]
+          if failures:
+              summary += ["", "Rejected packages remain in `incoming/` and were not published.", "", "| ZIP | Validation result |", "|---|---|"]
+              summary += ["| `{}` | {} |".format(path, error.replace("|", "\\|").replace("\n", " ")) for path, error in failures]
+          summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary_path:
+              with open(summary_path, "a", encoding="utf-8") as output:
+                  output.write("\n".join(summary) + "\n")
+          for report_path in reports:
+              report_path.unlink(missing_ok=True)
+          PY
