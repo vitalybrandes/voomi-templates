@@ -12,7 +12,7 @@ import time
 from pathlib import Path
 
 from common import ROOT, VoomiError, canonical_template_id, github_repo, load_json, parse_semver, sha256_file
-from validate_template import is_app_native, validate
+from validate_template import is_app_native, is_legacy_voomi, validate
 
 INCOMING = ROOT / "incoming"
 INDEX = ROOT / "release-index.json"
@@ -107,20 +107,42 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
     with __import__("zipfile").ZipFile(path) as zf:
         meta = json.loads(zf.read("template.json"))
     native = is_app_native(meta)
-    source_id, version = meta["templateId"], meta["templateVersion"]
+    legacy = is_legacy_voomi(meta)
+    if legacy:
+        legacy_slots = []
+        for slot in meta["mediaSlots"]:
+            raw_type = slot["type"]
+            slot_type = {"image_or_video": "imageOrVideo", "photo_or_video": "imageOrVideo"}.get(raw_type, raw_type)
+            legacy_slots.append({"id": slot["id"], "type": slot_type, "required": slot.get("required", True) is not False})
+        catalog_meta = {
+            "templateId": meta["id"],
+            "templateVersion": meta["version"],
+            "name": meta["name"],
+            "description": meta.get("description") or meta["name"],
+            "category": meta.get("category") or "fun",
+            "categories": meta.get("categories") or [meta.get("category") or "fun"],
+            "tags": meta.get("tags") or [],
+            "durationMs": round(meta["durationSeconds"] * 1000),
+            "mediaSlots": legacy_slots,
+            "minimumAppVersion": meta.get("minimumAppVersion") or "1.0.0",
+            "preview": {"poster": meta["preview"]},
+        }
+    else:
+        catalog_meta = meta
+    source_id, version = catalog_meta["templateId"], catalog_meta["templateVersion"]
     tid = canonical_template_id(source_id)
     semver = parse_semver(version)
     if semver[3]:
         raise VoomiError("Prerelease template versions cannot be published to the public catalog")
     expected_name = f"{tid}-v{version}.zip"
     accepted_names = {expected_name, f"{source_id}_v{version}.zip", f"{source_id}-v{version}.zip"}
-    if not native and path.name not in accepted_names:
+    if not native and not legacy and path.name not in accepted_names:
         raise VoomiError(f"Package must be named {expected_name} (uppercase and underscores in the metadata ID are accepted and normalized)")
     tag = f"template-{tid}-v{version}"
     digest, size = report["sha256"], report["sizeBytes"]
     if dry_run:
         print(json.dumps({"action":"would-publish","path":str(path.relative_to(ROOT)),"tag":tag,"sha256":digest,"sizeBytes":size}, indent=2))
-        return {"path":str(path.relative_to(ROOT)), "metadata":meta, "tag":tag, "assetName":expected_name,"sha256":digest,"sizeBytes":size}
+        return {"path":str(path.relative_to(ROOT)), "metadata":catalog_meta, "tag":tag, "assetName":expected_name,"sha256":digest,"sizeBytes":size}
     repo_index = load_json(INDEX) if INDEX.exists() else {"releases": []}
     same = next((x for x in repo_index["releases"] if x["templateId"] == tid and x["templateVersion"] == version), None)
     existing = release_view(repo, tag)
@@ -142,13 +164,13 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
         else:
             raise VoomiError("Release has an incomplete asset set; refusing to mutate immutable release")
     else:
-        description = meta.get("description") or meta.get("shortDescription") or meta["name"]
-        notes = f"{description}\n\nTemplate ID: `{tid}`\nVersion: `{version}`\nMinimum app version: `{meta['minimumAppVersion']}`\nSHA-256: `{digest}`"
-        categories = meta.get("categories") or [meta["category"]]
-        tags = meta.get("tags") or []
-        preview_member = meta["preview"]["poster"] if native else "preview/poster.jpg"
+        description = catalog_meta.get("description") or catalog_meta.get("shortDescription") or catalog_meta["name"]
+        notes = f"{description}\n\nTemplate ID: `{tid}`\nVersion: `{version}`\nMinimum app version: `{catalog_meta['minimumAppVersion']}`\nSHA-256: `{digest}`"
+        categories = catalog_meta.get("categories") or [catalog_meta["category"]]
+        tags = catalog_meta.get("tags") or []
+        preview_member = catalog_meta["preview"]["poster"] if native or legacy else "preview/poster.jpg"
         preview_name = Path(preview_member).name
-        sidecar = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":meta["name"],"description":description,"category":meta["category"],"categories":categories,"tags":tags,"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
+        sidecar = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
         with tempfile.TemporaryDirectory(prefix="voomi-release-") as temp:
             release_dir = Path(temp)
             zip_path = release_dir / expected_name
@@ -157,14 +179,14 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
             shutil.copyfile(path, zip_path)
             sidecar_path.write_text(json.dumps(sidecar, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
             notes_path.write_text(notes, encoding="utf-8")
-            run(["gh", "release", "create", tag, str(zip_path), str(sidecar_path), "--repo", repo, "--title", f"{meta['name']} v{version}", "--notes-file", str(notes_path)])
+            run(["gh", "release", "create", tag, str(zip_path), str(sidecar_path), "--repo", repo, "--title", f"{catalog_meta['name']} v{version}", "--notes-file", str(notes_path)])
         verify_release(repo, tag, expected_name, digest, size)
-    categories = meta.get("categories") or [meta["category"]]
-    tags = meta.get("tags") or []
-    description = meta.get("description") or meta.get("shortDescription") or meta["name"]
-    preview_member = meta["preview"]["poster"] if native else "preview/poster.jpg"
+    categories = catalog_meta.get("categories") or [catalog_meta["category"]]
+    tags = catalog_meta.get("tags") or []
+    description = catalog_meta.get("description") or catalog_meta.get("shortDescription") or catalog_meta["name"]
+    preview_member = catalog_meta["preview"]["poster"] if native or legacy else "preview/poster.jpg"
     preview_name = Path(preview_member).name
-    item = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":meta["name"],"description":description,"category":meta["category"],"categories":categories,"tags":tags,"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
+    item = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
     repo_index["releases"] = [x for x in repo_index["releases"] if not (x["templateId"] == tid and x["templateVersion"] == version)] + [item]
     repo_index["releases"].sort(key=lambda x:(x["templateId"], __import__("common").semver_key(x["templateVersion"])))
     INDEX.write_text(json.dumps(repo_index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -172,7 +194,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
     preview_dir.mkdir(parents=True, exist_ok=True)
     from common import extract_member
     extract_member(path, preview_member, preview_dir / preview_name)
-    if not native:
+    if not native and not legacy:
         extract_member(path, "preview/thumbnail.jpg", preview_dir / "thumbnail.jpg")
     return {"path":str(path.relative_to(ROOT)), "metadata":meta, "tag":tag, "assetName":expected_name,"sha256":digest,"sizeBytes":size}
 

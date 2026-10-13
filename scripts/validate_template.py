@@ -93,6 +93,88 @@ def is_app_native(meta: Any) -> bool:
             and meta["preview"]["poster"].lower().endswith(".png"))
 
 
+def is_legacy_voomi(meta: Any) -> bool:
+    """Recognize the earlier Voomi template.json package format."""
+    return (isinstance(meta, dict)
+            and isinstance(meta.get("id"), str)
+            and isinstance(meta.get("version"), str)
+            and isinstance(meta.get("preview"), str)
+            and isinstance(meta.get("canvas"), dict)
+            and isinstance(meta.get("mediaSlots"), list)
+            and isinstance(meta.get("layers"), list))
+
+
+def validate_legacy_voomi(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
+    """Validate the supported legacy shape without rewriting its ZIP."""
+    try:
+        canonical_template_id(meta["id"])
+        parse_semver(meta["version"])
+    except (KeyError, VoomiError) as exc:
+        fail(str(exc))
+    if not isinstance(meta.get("name"), str) or not meta["name"].strip():
+        fail("Legacy template metadata requires a non-empty name")
+    duration = meta.get("durationSeconds")
+    if not isinstance(duration, (int, float)) or isinstance(duration, bool) or not 1 <= duration <= 60:
+        fail("durationSeconds must be between 1 and 60")
+    canvas = meta["canvas"]
+    if not all(isinstance(canvas.get(k), int) and 360 <= canvas[k] <= 2160 for k in ("width", "height")):
+        fail("canvas width and height must be integers from 360 to 2160")
+    if canvas.get("fps") not in {24, 25, 30}:
+        fail("canvas.fps must be 24, 25, or 30")
+    files = {name.casefold() for name, info in entries.items() if not info.is_dir()}
+    preview = meta["preview"]
+    if preview.casefold() not in files:
+        fail(f"preview references a missing image: {preview}")
+    try:
+        with zf.open(preview) as raw:
+            image = Image.open(raw)
+            image.verify()
+        with zf.open(preview) as raw:
+            image = Image.open(raw)
+            image.load()
+            if image.format not in {"PNG", "JPEG"}:
+                fail("Legacy preview must be PNG or JPEG")
+    except (OSError, ValueError) as exc:
+        fail(f"Invalid preview image {preview}: {exc}")
+    slots = meta["mediaSlots"]
+    slot_ids = set()
+    for index, slot in enumerate(slots):
+        if not isinstance(slot, dict) or not isinstance(slot.get("id"), str) or not isinstance(slot.get("type"), str):
+            fail(f"mediaSlots[{index}] must have string id and type")
+        if slot["id"] in slot_ids:
+            fail(f"Duplicate media-slot ID: {slot['id']}")
+        slot_ids.add(slot["id"])
+        placeholder = slot.get("placeholder")
+        if placeholder is not None and (not isinstance(placeholder, str) or placeholder.casefold() not in files):
+            fail(f"Media slot {slot['id']} references a missing placeholder")
+    if not meta["layers"]:
+        fail("Legacy template must contain at least one layer")
+    for index, layer in enumerate(meta["layers"]):
+        if not isinstance(layer, dict) or layer.get("type") not in {"media", "video", "image"}:
+            fail(f"Unsupported legacy layer at index {index}")
+        bounds = layer.get("bounds")
+        if not isinstance(bounds, dict) or not all(isinstance(bounds.get(k), (int, float)) and not isinstance(bounds.get(k), bool) for k in ("x", "y", "width", "height")):
+            fail(f"Layer {index} requires numeric bounds")
+        if layer["type"] == "media":
+            if layer.get("slot") not in slot_ids:
+                fail(f"Layer {index} references an unknown media slot")
+        else:
+            source = layer.get("src")
+            if not isinstance(source, str) or source.casefold() not in files:
+                fail(f"Layer {index} references a missing asset")
+        key = layer.get("chromaKey")
+        if key is not None:
+            if (layer["type"] != "video" or not isinstance(key, dict)
+                    or key.get("mode") != "luma"
+                    or str(key.get("keyColor", "#000000")).upper() != "#000000"):
+                fail(f"Layer {index} uses unsupported chromaKey settings")
+            threshold, softness = key.get("threshold"), key.get("softness")
+            if (not isinstance(threshold, (int, float)) or isinstance(threshold, bool)
+                    or not isinstance(softness, (int, float)) or isinstance(softness, bool)
+                    or threshold < 0 or softness <= 0 or threshold + softness > 1):
+                fail(f"Layer {index} has invalid luma-key threshold or softness")
+
+
 def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
     required = ("templateId", "templateVersion", "name", "category", "durationMs", "fps", "resolution", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "preview")
     missing = [key for key in required if key not in meta]
@@ -166,7 +248,8 @@ def validate(zip_path: Path) -> dict[str, Any]:
         except (KeyError, json.JSONDecodeError, UnicodeDecodeError) as exc:
             fail(f"Invalid template.json: {exc}")
         native = is_app_native(meta)
-        required_files = {"template.json", "README.md"} if native else REQUIRED_FILES
+        legacy = is_legacy_voomi(meta)
+        required_files = {"template.json", "README.md"} if native else ({"template.json", "README.md", meta["preview"]} if legacy else REQUIRED_FILES)
     missing = sorted(p for p in required_files if p.casefold() not in actual)
     if missing:
         fail(f"Required package file missing: {missing[0]}")
@@ -176,6 +259,8 @@ def validate(zip_path: Path) -> dict[str, Any]:
     with zipfile.ZipFile(zip_path) as zf:
         if native:
             validate_app_native(meta, entries, zf)
+        elif legacy:
+            validate_legacy_voomi(meta, entries, zf)
         else:
             schema = load_json(ROOT / "schemas" / "template.schema.json")
             errors = sorted(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(meta), key=lambda e: list(map(str, e.path)))
@@ -241,7 +326,9 @@ def validate(zip_path: Path) -> dict[str, Any]:
     with zip_path.open("rb") as package:
         for chunk in iter(lambda: package.read(1024 * 1024), b""):
             digest.update(chunk)
-    return {"valid": True, "templateId": meta["templateId"], "templateVersion": meta["templateVersion"], "sha256": digest.hexdigest(), "sizeBytes": zip_path.stat().st_size, "errors": []}
+    template_id = meta["templateId"] if native else meta["id"] if legacy else meta["templateId"]
+    template_version = meta["templateVersion"] if native else meta["version"] if legacy else meta["templateVersion"]
+    return {"valid": True, "templateId": template_id, "templateVersion": template_version, "sha256": digest.hexdigest(), "sizeBytes": zip_path.stat().st_size, "errors": []}
 
 
 def main() -> int:
