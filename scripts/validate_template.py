@@ -17,8 +17,8 @@ from PIL import Image, ImageFile
 from common import ROOT, VoomiError, canonical_template_id, load_json, parse_semver, safe_zip_entries
 
 ImageFile.LOAD_TRUNCATED_IMAGES = False
-REQUIRED_FILES = {"template.json", "README.md", "LICENSES.md", "preview/poster.jpg", "preview/thumbnail.jpg", "preview/preview.mp4", "licenses/asset-manifest.json"}
-ALLOWED_TOP = {"template.json", "README.md", "LICENSES.md", "placeholders", "assets", "audio", "preview", "licenses"}
+REQUIRED_FILES = {"template.json", "README.md", "preview/poster.jpg", "preview/thumbnail.jpg", "preview/preview.mp4", "licenses/asset-manifest.json"}
+ALLOWED_TOP = {"template.json", "README.md", "placeholders", "assets", "audio", "preview", "licenses"}
 SUPPORTED_FEATURES = {"basic_timeline", "transitions", "text_overlay", "image_overlay", "audio_track", "video_slot", "photo_slot", "photo_or_video_slot", "keyframe_animation", "particle_effect", "mask", "blend_modes", "speed_control", "crop_transform"}
 ALLOWED_LICENSES = {"CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "Public-Domain", "Proprietary-Authorized"}
 

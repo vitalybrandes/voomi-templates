@@ -22,7 +22,7 @@ def test_invalid_json_fails(tmp_path):
     p = tmp_path / "invalid.zip"
     with zipfile.ZipFile(p, "w") as z:
         z.writestr("template.json", "{")
-        for name in ("README.md", "LICENSES.md", "preview/poster.jpg", "preview/thumbnail.jpg", "preview/preview.mp4", "licenses/asset-manifest.json"):
+        for name in ("README.md", "preview/poster.jpg", "preview/thumbnail.jpg", "preview/preview.mp4", "licenses/asset-manifest.json"):
             z.writestr(name, "x")
     with pytest.raises(VoomiError, match="Invalid template.json"):
         validate(p)
@@ -32,7 +32,7 @@ def test_schema_requires_metadata_fields(tmp_path):
     p = tmp_path / "metadata.zip"
     with zipfile.ZipFile(p, "w") as z:
         z.writestr("template.json", json.dumps({"schemaVersion":"1.0.0"}))
-        for name in ("README.md", "LICENSES.md", "preview/poster.jpg", "preview/thumbnail.jpg", "preview/preview.mp4", "licenses/asset-manifest.json"):
+        for name in ("README.md", "preview/poster.jpg", "preview/thumbnail.jpg", "preview/preview.mp4", "licenses/asset-manifest.json"):
             z.writestr(name, "x")
     with pytest.raises(VoomiError, match="template.json schema error"):
         validate(p)

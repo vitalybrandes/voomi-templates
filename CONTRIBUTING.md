@@ -7,7 +7,6 @@ Contributors submit packages under `incoming/` as `<templateId>-v<templateVersio
 ```text
 template.json
 README.md
-LICENSES.md
 placeholders/                 # may be empty
 assets/                       # may be empty
 audio/                        # may be empty
@@ -19,7 +18,7 @@ licenses/
   asset-manifest.json
 ```
 
-Empty optional asset directories can be omitted. Preview files and the metadata and license files are required. `template.json` must satisfy `schemas/template.schema.json` and use `schemaVersion: "1.0.0"`. It declares metadata, supported renderer features, media slots, scenes, preview paths, and `licenseManifest: "licenses/asset-manifest.json"`. The pipeline checks that `preview.mp4` exists but does not inspect its streams, dimensions, frame rate, audio, or duration. Validate preview video manually before upload. Scene timing uses the pipeline's contiguous, ordered timeline policy when all scenes have explicit `startMs` and `durationMs`.
+Empty optional asset directories can be omitted. Preview files and the metadata and machine-readable license manifest are required. `LICENSES.md` is not required; the Voomi app consumes package metadata and assets directly. `template.json` must satisfy `schemas/template.schema.json` and use `schemaVersion: "1.0.0"`. It declares metadata, supported renderer features, media slots, scenes, preview paths, and `licenseManifest: "licenses/asset-manifest.json"`. The pipeline checks that `preview.mp4` exists but does not inspect its streams, dimensions, frame rate, audio, or duration. Validate preview video manually before upload. Scene timing uses the pipeline's contiguous, ordered timeline policy when all scenes have explicit `startMs` and `durationMs`.
 
 Media slot types are `photo`, `video`, `photo_or_video`, and `none`. Scene IDs and slot IDs must be unique. A scene can refer to zero, one, or multiple declared slots using `mediaSlotIds` (or legacy `mediaSlots` array). Required asset references must point to files in the ZIP. Do not add executable files, symlinks, encrypted ZIP entries, or paths that escape the package.
 
