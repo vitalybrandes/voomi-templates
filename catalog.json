@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 3,
-  "updatedAt": "2026-10-13T10:36:21Z",
+  "catalogVersion": 4,
+  "updatedAt": "2026-10-13T12:45:46Z",
   "categories": [
     "Dance",
     "Friendship",
@@ -11,6 +11,7 @@
   "templates": [
     {
       "id": "bff-best-friends-forever",
+      "sourceId": "bff-best-friends-forever",
       "name": "BFF — Best Friends Forever",
       "version": "0.1.0",
       "description": "Turn one friendship photo into a colorful BFF moment",
@@ -49,6 +50,7 @@
     },
     {
       "id": "com-voomi-samples-neon-dance-beat-drop",
+      "sourceId": "com.voomi.samples.neon-dance-beat-drop",
       "name": "NEON DANCE — Beat Drop",
       "version": "0.1.0",
       "description": "Single-video neon dance effect with four timed scenes. Prototype renderer contract.",
@@ -88,6 +90,7 @@
     },
     {
       "id": "vacation-bye-bye",
+      "sourceId": "vacation-bye-bye",
       "name": "Vacation Bye Bye — Let’s Go!",
       "version": "0.1.0",
       "description": "Wave goodbye, show your ticket, and watch your plane take off.",

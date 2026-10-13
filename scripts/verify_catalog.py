@@ -31,6 +31,8 @@ def verify(path: Path, check_remote: bool = True) -> None:
     for item in catalog["templates"]:
         if canonical_template_id(item["id"]) != item["id"]:
             raise VoomiError(f"Catalog ID is not canonical: {item['id']}")
+        if item.get("sourceId") is not None and canonical_template_id(item["sourceId"]) != item["id"]:
+            raise VoomiError(f"Source ID does not normalize to catalog ID: {item['id']}")
         parse_semver(item["version"])
         parse_semver(item["minAppVersion"])
         if not re.fullmatch(r"[a-f0-9]{64}", item["sha256"]):

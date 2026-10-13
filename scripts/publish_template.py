@@ -148,7 +148,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
         tags = meta.get("tags") or []
         preview_member = meta["preview"]["poster"] if native else "preview/poster.jpg"
         preview_name = Path(preview_member).name
-        sidecar = {"templateId":tid,"templateVersion":version,"name":meta["name"],"description":description,"category":meta["category"],"categories":categories,"tags":tags,"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
+        sidecar = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":meta["name"],"description":description,"category":meta["category"],"categories":categories,"tags":tags,"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
         with tempfile.TemporaryDirectory(prefix="voomi-release-") as temp:
             release_dir = Path(temp)
             zip_path = release_dir / expected_name
@@ -164,7 +164,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
     description = meta.get("description") or meta.get("shortDescription") or meta["name"]
     preview_member = meta["preview"]["poster"] if native else "preview/poster.jpg"
     preview_name = Path(preview_member).name
-    item = {"templateId":tid,"templateVersion":version,"name":meta["name"],"description":description,"category":meta["category"],"categories":categories,"tags":tags,"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
+    item = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":meta["name"],"description":description,"category":meta["category"],"categories":categories,"tags":tags,"durationMs":meta["durationMs"],"mediaSlots":meta["mediaSlots"],"minimumAppVersion":meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
     repo_index["releases"] = [x for x in repo_index["releases"] if not (x["templateId"] == tid and x["templateVersion"] == version)] + [item]
     repo_index["releases"].sort(key=lambda x:(x["templateId"], __import__("common").semver_key(x["templateVersion"])))
     INDEX.write_text(json.dumps(repo_index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

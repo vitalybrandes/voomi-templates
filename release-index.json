@@ -38,7 +38,8 @@
       "sha256": "f0364baffde33328d95f5f4056f2b052469b760ac786a424c4c308f101b8610b",
       "sizeBytes": 1786319,
       "draft": false,
-      "prerelease": false
+      "prerelease": false,
+      "sourceId": "bff-best-friends-forever"
     },
     {
       "templateId": "com-voomi-samples-neon-dance-beat-drop",
@@ -79,7 +80,8 @@
       "sha256": "4b0cc0002d07c92ef09c36df6db24541414fc50c2d12687a7f000c56ce196c09",
       "sizeBytes": 330166,
       "draft": false,
-      "prerelease": false
+      "prerelease": false,
+      "sourceId": "com.voomi.samples.neon-dance-beat-drop"
     },
     {
       "templateId": "vacation-bye-bye",
@@ -119,7 +121,8 @@
       "sha256": "8d130bf3735aa8000a98ad925571b774b5daa78c33b295b7feb6fc878c5d8c3b",
       "sizeBytes": 1561320,
       "draft": false,
-      "prerelease": false
+      "prerelease": false,
+      "sourceId": "vacation-bye-bye"
     }
   ]
 }

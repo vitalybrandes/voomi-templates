@@ -34,6 +34,7 @@ def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str,
         if tid not in templates or key > semver_key(templates[tid]["version"]):
             templates[tid] = {
                 "id": tid,
+                "sourceId": record.get("sourceId", record.get("templateId", tid)),
                 "name": record["name"],
                 "version": version,
                 "description": record["description"],
