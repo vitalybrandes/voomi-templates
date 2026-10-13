@@ -7,7 +7,7 @@
   "additionalProperties": true,
   "anyOf": [
     {"required": ["schemaVersion", "templateId", "templateVersion", "name", "shortDescription", "description", "category", "categories", "tags", "durationMs", "fps", "resolution", "aspectRatio", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "audio", "preview", "licenseManifest"]},
-    {"required": ["schemaVersion", "templateId", "templateVersion", "name", "description", "category", "durationMs", "fps", "resolution", "orientation", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "audio", "preview"]}
+    {"required": ["schemaVersion", "templateId", "templateVersion", "name", "category", "durationMs", "fps", "resolution", "orientation", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "audio", "preview"], "allOf": [{"anyOf": [{"required": ["description"]}, {"required": ["shortDescription"]}]}]}
   ],
   "properties": {
     "schemaVersion": {"type":"string","const":"1.0.0"},

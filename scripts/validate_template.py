@@ -88,18 +88,18 @@ def validate_manifest(data: Any, entries: dict[str, zipfile.ZipInfo]) -> None:
 def is_app_native(meta: Any) -> bool:
     """Recognize the Voomi app export shape used by the supplied package."""
     return (isinstance(meta, dict)
-            and isinstance(meta.get("templateId"), str)
-            and "." in meta["templateId"]
             and isinstance(meta.get("preview"), dict)
             and isinstance(meta["preview"].get("poster"), str)
             and meta["preview"]["poster"].lower().endswith(".png"))
 
 
 def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
-    required = ("templateId", "templateVersion", "name", "description", "category", "durationMs", "fps", "resolution", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "preview")
+    required = ("templateId", "templateVersion", "name", "category", "durationMs", "fps", "resolution", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "preview")
     missing = [key for key in required if key not in meta]
     if missing:
         fail(f"App template metadata missing {missing[0]}")
+    if not (isinstance(meta.get("description"), str) and meta["description"].strip()) and not (isinstance(meta.get("shortDescription"), str) and meta["shortDescription"].strip()):
+        fail("App template metadata requires description or shortDescription")
     canonical_template_id(meta["templateId"])
     parse_semver(meta["templateVersion"])
     parse_semver(meta["minimumAppVersion"])
