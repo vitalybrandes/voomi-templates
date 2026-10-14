@@ -1,7 +1,147 @@
 {
   "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 0,
-  "updatedAt": "2026-10-14T00:00:00Z",
-  "categories": [],
-  "templates": []
+  "catalogVersion": 1,
+  "updatedAt": "2026-10-14T04:45:33Z",
+  "categories": [
+    "Friendship",
+    "Fun",
+    "Travel",
+    "fun"
+  ],
+  "templates": [
+    {
+      "id": "58ec95e6-a1b4-5ab1-b3b4-52f912e69573",
+      "templateId": "bff-best-friends-forever",
+      "sourceId": "bff-best-friends-forever",
+      "name": "BFF — Best Friends Forever",
+      "version": "0.1.0",
+      "description": "Turn one friendship photo into a colorful BFF moment",
+      "category": "Friendship",
+      "categories": [
+        "Friendship",
+        "Fun"
+      ],
+      "tags": [
+        "best friends",
+        "bff",
+        "girls",
+        "hearts",
+        "stickers"
+      ],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "friends_photo",
+          "type": "photo",
+          "required": true,
+          "placeholder": "placeholders/friends_sample.jpg",
+          "fit": "cover",
+          "sceneIds": [
+            "scene_1"
+          ],
+          "reusable": true
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-best-friends-forever-v0.1.0/bff-best-friends-forever-v0.1.0.zip",
+      "sizeBytes": 1786390,
+      "sha256": "d849893a54e6527699df9d14f0b62b287d4fa650e352262a108a546edafac986"
+    },
+    {
+      "id": "643f6659-cdb7-556f-8673-96ce87c1d652",
+      "templateId": "vacation-bye-bye",
+      "sourceId": "vacation-bye-bye",
+      "name": "Vacation Bye Bye — Let’s Go!",
+      "version": "0.1.0",
+      "description": "Wave goodbye, show your ticket, and watch your plane take off.",
+      "category": "Travel",
+      "categories": [
+        "Fun",
+        "Travel"
+      ],
+      "tags": [
+        "airplane",
+        "boarding-pass",
+        "goodbye",
+        "vacation"
+      ],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "photo_01",
+          "type": "photo",
+          "required": true,
+          "placeholder": "placeholders/photo_01.jpg",
+          "fit": "cover",
+          "sceneIds": [
+            "wave_goodbye",
+            "takeoff",
+            "lets_go"
+          ]
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-vacation-bye-bye-v0.1.0/vacation-bye-bye-v0.1.0.zip",
+      "sizeBytes": 1561439,
+      "sha256": "7839b3c1d60761c5dc0fd7f93d85641e2456a0c59a287ca7ced76b365de51e50"
+    },
+    {
+      "id": "9ee60ce6-88f5-5000-802c-2a183c1728b4",
+      "templateId": "money-fall-2",
+      "sourceId": "money-fall-2",
+      "name": "Money Fall 2",
+      "version": "0.2.0",
+      "description": "Money Fall 2",
+      "category": "fun",
+      "categories": [
+        "fun"
+      ],
+      "tags": [],
+      "durationMs": 5000,
+      "mediaSlots": [
+        {
+          "id": "user_media_1",
+          "type": "imageOrVideo",
+          "required": true
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-money-fall-2-v0.2.0/money-fall-2-v0.2.0.zip",
+      "sizeBytes": 2373145,
+      "sha256": "a3c52fbf9af55f1e111db13c1f78ba1aa459a250f837341c61e6569805d44200"
+    },
+    {
+      "id": "d2b774a9-57f8-56ad-82fd-78549306d19e",
+      "templateId": "bff-layered-polaroids",
+      "sourceId": "bff-layered-polaroids",
+      "name": "BFF — Sunset Besties",
+      "version": "0.7.0",
+      "description": "One media slot reused in the full canvas and two masked Polaroid windows. Frames, labels and effects sit above it. No background removal.",
+      "category": "fun",
+      "categories": [
+        "fun"
+      ],
+      "tags": [],
+      "durationMs": 8000,
+      "mediaSlots": [
+        {
+          "id": "photo_1",
+          "type": "imageOrVideo",
+          "required": true
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
+      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-layered-polaroids-v0.7.0/bff-layered-polaroids-v0.7.0.zip",
+      "sizeBytes": 797073,
+      "sha256": "c71b414fb241ac58b799b35e69986135882f534b828eb2373b871089bd037f85"
+    }
+  ]
 }
