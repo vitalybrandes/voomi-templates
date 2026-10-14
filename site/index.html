@@ -319,7 +319,7 @@
         const tags = (item.tags || []).slice(0, 3).map((tag) => `<span class="tag">${esc(tag)}</span>`).join("");
         const image = safeLink(item.thumbnailUrl || item.posterUrl);
         const download = safeLink(item.downloadUrl);
-        return `<article class="template-card">
+        return `<article class="template-card" data-template-id="${esc(item.id)}">
           <div class="card-art"><img src="${esc(image)}" alt="Preview artwork for ${esc(item.name)}" loading="lazy"><span class="category-label">${esc(item.category)}</span><span class="version-label">v${esc(item.version)}</span></div>
           <div class="card-body">
             <div class="card-title-row"><h3 class="card-title">${esc(item.name)}</h3><span class="duration-pill">${duration(item.durationMs)}</span></div>
@@ -351,6 +351,7 @@
               <div class="detail-row"><span>Duration</span><span>${duration(item.durationMs)}</span></div>
               <div class="detail-row"><span>Media</span><span>${esc(mediaSummary(item.mediaSlots))}</span></div>
               <div class="detail-row"><span>Minimum app version</span><span>${esc(item.minAppVersion)}</span></div>
+              <div class="detail-row"><span>Template ID</span><span>${esc(item.id)}</span></div>
               <div class="detail-row"><span>Package size</span><span>${formatBytes(item.sizeBytes)}</span></div>
               <div class="detail-row"><span>Tags</span><span>${esc(tags)}</span></div>
             </div>

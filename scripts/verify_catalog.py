@@ -8,6 +8,7 @@ import re
 import subprocess
 import sys
 import time
+import uuid
 from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -29,10 +30,13 @@ def verify(path: Path, check_remote: bool = True) -> None:
     if ids != sorted(ids):
         raise VoomiError("Catalog templates are not deterministically ordered")
     for item in catalog["templates"]:
-        if canonical_template_id(item["id"]) != item["id"]:
-            raise VoomiError(f"Catalog ID is not canonical: {item['id']}")
-        if item.get("sourceId") is not None and canonical_template_id(item["sourceId"]) != item["id"]:
-            raise VoomiError(f"Source ID does not normalize to catalog ID: {item['id']}")
+        try:
+            if str(uuid.UUID(item["id"])) != item["id"].lower():
+                raise ValueError(item["id"])
+        except (ValueError, AttributeError):
+            raise VoomiError(f"Catalog id is not a UUID: {item['id']}")
+        if canonical_template_id(item["templateId"]) != item["templateId"]:
+            raise VoomiError(f"Catalog templateId is not canonical: {item['templateId']}")
         parse_semver(item["version"])
         parse_semver(item["minAppVersion"])
         if not re.fullmatch(r"[a-f0-9]{64}", item["sha256"]):

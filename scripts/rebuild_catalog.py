@@ -8,6 +8,7 @@ import os
 import re
 import subprocess
 import sys
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -30,10 +31,16 @@ def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str,
         if not tid or not version:
             raise VoomiError("Release index entry missing template ID or version")
         tid = canonical_template_id(tid)
+        guid = record.get("id") or str(uuid.uuid5(uuid.NAMESPACE_URL, f"https://github.com/{repo}/templates/{tid}"))
+        try:
+            guid = str(uuid.UUID(guid))
+        except (ValueError, TypeError, AttributeError) as exc:
+            raise VoomiError(f"Invalid template UUID for {tid}") from exc
         key = semver_key(version)
-        if tid not in templates or key > semver_key(templates[tid]["version"]):
-            templates[tid] = {
-                "id": tid,
+        if guid not in templates or key > semver_key(templates[guid]["version"]):
+            templates[guid] = {
+                "id": guid,
+                "templateId": tid,
                 "sourceId": record.get("sourceId", record.get("templateId", tid)),
                 "name": record["name"],
                 "version": version,
@@ -50,7 +57,7 @@ def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str,
                 "sizeBytes": record["sizeBytes"],
                 "sha256": record["sha256"],
             }
-    ordered = sorted(templates.values(), key=lambda t: (t["id"], semver_key(t["version"])))
+    ordered = sorted(templates.values(), key=lambda t: t["id"])
     categories = sorted({c for item in ordered for c in item["categories"]} | {item["category"] for item in ordered})
     content = {"catalogSchemaVersion": "1.0.0", "categories": categories, "templates": ordered}
     old_content = None
@@ -114,6 +121,10 @@ def recover_release_index(index: dict[str, Any], check_remote: bool = True) -> d
             semver_key(version)
         except (VoomiError, TypeError):
             continue
+        try:
+            template_guid = str(uuid.UUID(metadata.get("id")))
+        except (ValueError, TypeError, AttributeError):
+            template_guid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"https://github.com/{repo}/templates/{template_id}"))
         if (template_id != metadata.get("templateId")
                 or metadata.get("tag") != f"template-{template_id}-v{version}"
                 or asset_name != f"{template_id}-v{version}.zip"
@@ -131,6 +142,7 @@ def recover_release_index(index: dict[str, Any], check_remote: bool = True) -> d
             except (OSError, subprocess.CalledProcessError):
                 continue
         item = dict(metadata)
+        item["id"] = template_guid
         item.update({"draft":False,"prerelease":False})
         index.setdefault("releases", []).append(item)
         known.add((tag, item.get("templateVersion")))

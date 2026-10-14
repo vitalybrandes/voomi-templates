@@ -9,13 +9,62 @@ import subprocess
 import sys
 import tempfile
 import time
+import uuid
+import zipfile
 from pathlib import Path
 
-from common import ROOT, VoomiError, canonical_template_id, github_repo, load_json, parse_semver, sha256_file
+from common import ROOT, VoomiError, canonical_template_id, github_repo, load_json, parse_semver, safe_zip_entries, sha256_file
 from validate_template import is_app_native, is_legacy_voomi, validate
 
 INCOMING = ROOT / "incoming"
 INDEX = ROOT / "release-index.json"
+CATALOG = ROOT / "catalog.json"
+
+
+def ensure_guid(path: Path) -> str:
+    """Write a stable UUID into template.json, preserving the logical template key."""
+    safe_zip_entries(path)
+    with zipfile.ZipFile(path) as zf:
+        meta = json.loads(zf.read("template.json"))
+        old_legacy_id = meta.get("id") if is_legacy_voomi(meta) else None
+    logical_id = meta.get("templateId", old_legacy_id or meta.get("id"))
+    tid = canonical_template_id(logical_id)
+    current = meta.get("id")
+    if isinstance(current, str):
+        try:
+            return str(uuid.UUID(current))
+        except ValueError:
+            pass
+    stable = None
+    if INDEX.exists():
+        for record in load_json(INDEX).get("releases", []):
+            if canonical_template_id(record.get("sourceId", record.get("templateId", ""))) == tid and record.get("id"):
+                stable = record["id"]
+                break
+    if stable is None and CATALOG.exists():
+        for item in load_json(CATALOG).get("templates", []):
+            if canonical_template_id(item.get("sourceId", item.get("id", ""))) == tid:
+                try:
+                    stable = str(uuid.UUID(item["id"]))
+                except (KeyError, ValueError):
+                    pass
+                if stable:
+                    break
+    guid = str(uuid.UUID(stable)) if stable else str(uuid.uuid5(uuid.NAMESPACE_URL, f"https://github.com/{github_repo()}/templates/{tid}"))
+    if old_legacy_id:
+        meta["templateId"] = old_legacy_id
+    meta["id"] = guid
+    with tempfile.NamedTemporaryFile(dir=path.parent, suffix=".zip", delete=False) as tmp:
+        tmp_path = Path(tmp.name)
+    try:
+        with zipfile.ZipFile(path) as src, zipfile.ZipFile(tmp_path, "w") as dst:
+            for info in src.infolist():
+                data = json.dumps(meta, ensure_ascii=False, indent=2).encode("utf-8") + b"\n" if info.filename.casefold() == "template.json" else src.read(info.filename)
+                dst.writestr(info, data)
+        tmp_path.replace(path)
+    finally:
+        tmp_path.unlink(missing_ok=True)
+    return guid
 
 
 def run(args: list[str], *, capture: bool = True) -> str:
@@ -77,6 +126,50 @@ def release_view(repo: str, tag: str) -> dict | None:
         raise
 
 
+def latest_published_version(repo: str, tid: str, guid: str, index: dict) -> tuple | None:
+    """Find the highest version for this UUID in the index and existing releases."""
+    versions = [parse_semver(item["templateVersion"]) for item in index.get("releases", [])
+               if item.get("id") == guid]
+    try:
+        raw = run(["gh", "release", "list", "--repo", repo, "--limit", "1000",
+                   "--json", "tagName,isDraft,isPrerelease"])
+        releases = json.loads(raw)
+    except (VoomiError, json.JSONDecodeError) as exc:
+        raise VoomiError(f"Cannot check existing release versions: {exc}") from exc
+    prefix = f"template-{tid}-v"
+    for release in releases:
+        tag = release.get("tagName", "")
+        if release.get("isDraft") or release.get("isPrerelease") or not tag.startswith(prefix):
+            continue
+        version = tag[len(prefix):]
+        try:
+            version_key = parse_semver(version)
+        except VoomiError:
+            continue
+        view = release_view(repo, tag)
+        if not view:
+            continue
+        metadata_name = f"{tag}.metadata.json"
+        if not any(asset.get("name") == metadata_name for asset in view.get("assets", [])):
+            continue
+        with tempfile.TemporaryDirectory(prefix="voomi-version-check-") as temp:
+            try:
+                run(["gh", "release", "download", tag, "--repo", repo,
+                     "--pattern", metadata_name, "--dir", temp])
+                sidecar = json.loads((Path(temp) / metadata_name).read_text(encoding="utf-8"))
+            except (VoomiError, OSError, json.JSONDecodeError):
+                continue
+        sidecar_id = sidecar.get("id")
+        try:
+            sidecar_id = str(uuid.UUID(sidecar_id)) if sidecar_id else str(uuid.uuid5(
+                uuid.NAMESPACE_URL, f"https://github.com/{repo}/templates/{tid}"))
+        except (ValueError, TypeError, AttributeError):
+            continue
+        if sidecar_id == guid:
+            versions.append(version_key)
+    return max(versions) if versions else None
+
+
 def verify_release(repo: str, tag: str, asset_name: str, expected_sha: str, expected_size: int) -> None:
     for attempt in range(6):
         try:
@@ -103,6 +196,7 @@ def verify_release(repo: str, tag: str, asset_name: str, expected_sha: str, expe
 
 
 def process(path: Path, repo: str, dry_run: bool) -> dict:
+    guid = ensure_guid(path)
     report = validate(path)
     with __import__("zipfile").ZipFile(path) as zf:
         meta = json.loads(zf.read("template.json"))
@@ -115,7 +209,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
             slot_type = {"image_or_video": "imageOrVideo", "photo_or_video": "imageOrVideo"}.get(raw_type, raw_type)
             legacy_slots.append({"id": slot["id"], "type": slot_type, "required": slot.get("required", True) is not False})
         catalog_meta = {
-            "templateId": meta["id"],
+            "templateId": meta.get("templateId", meta["id"]),
             "templateVersion": meta["version"],
             "name": meta["name"],
             "description": meta.get("description") or meta["name"],
@@ -144,7 +238,11 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
         print(json.dumps({"action":"would-publish","path":str(path.relative_to(ROOT)),"tag":tag,"sha256":digest,"sizeBytes":size}, indent=2))
         return {"path":str(path.relative_to(ROOT)), "metadata":catalog_meta, "tag":tag, "assetName":expected_name,"sha256":digest,"sizeBytes":size}
     repo_index = load_json(INDEX) if INDEX.exists() else {"releases": []}
-    same = next((x for x in repo_index["releases"] if x["templateId"] == tid and x["templateVersion"] == version), None)
+    latest = latest_published_version(repo, tid, guid, repo_index)
+    if latest is not None and semver <= latest:
+        print(f"Skipping {tid} v{version}: published version for id {guid} is already current or newer")
+        return {"path":str(path.relative_to(ROOT)), "action":"skipped-not-newer", "id":guid, "version":version}
+    same = next((x for x in repo_index["releases"] if x.get("id") == guid and x["templateVersion"] == version), None)
     existing = release_view(repo, tag)
     if same:
         if same["sha256"] != digest:
@@ -170,7 +268,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
         tags = catalog_meta.get("tags") or []
         preview_member = catalog_meta["preview"]["poster"] if native or legacy else "preview/poster.jpg"
         preview_name = Path(preview_member).name
-        sidecar = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
+        sidecar = {"id":guid,"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
         with tempfile.TemporaryDirectory(prefix="voomi-release-") as temp:
             release_dir = Path(temp)
             zip_path = release_dir / expected_name
@@ -186,8 +284,8 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
     description = catalog_meta.get("description") or catalog_meta.get("shortDescription") or catalog_meta["name"]
     preview_member = catalog_meta["preview"]["poster"] if native or legacy else "preview/poster.jpg"
     preview_name = Path(preview_member).name
-    item = {"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
-    repo_index["releases"] = [x for x in repo_index["releases"] if not (x["templateId"] == tid and x["templateVersion"] == version)] + [item]
+    item = {"id":guid,"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
+    repo_index["releases"] = [x for x in repo_index["releases"] if not (x.get("id") == guid and x["templateVersion"] == version)] + [item]
     repo_index["releases"].sort(key=lambda x:(x["templateId"], __import__("common").semver_key(x["templateVersion"])))
     INDEX.write_text(json.dumps(repo_index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     preview_dir = ROOT / "previews" / tid / version

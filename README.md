@@ -6,7 +6,7 @@ This repository distributes immutable template ZIPs through public GitHub Releas
 
 `incoming/` is a short lived intake directory. The publishing workflow validates every new ZIP, creates a release named `template-<id>-v<version>` containing the ZIP and a JSON metadata sidecar, verifies the downloadable ZIP's byte count and SHA-256, writes validated release metadata to `release-index.json`, extracts only poster and thumbnail images into `previews/<id>/<version>/`, rebuilds `catalog.json`, then commits generated files and removes successfully processed ZIPs. Earlier release assets and versioned previews remain available.
 
-The repository accepts catalog distribution metadata and Voomi app-native ZIP exports. App-native archives are kept byte-for-byte as uploaded; their declared PNG preview is published as both catalog poster and thumbnail. The validator checks required metadata and referenced files, but does not guarantee renderer compatibility or prove that a package renders correctly in the app.
+The repository accepts catalog distribution metadata and Voomi app-native ZIP exports. Each package uses `id` as its stable UUID and `templateId` as its readable package key. Older ZIPs are upgraded in place during publishing, retaining their existing UUID when known or assigning a stable UUID. The declared PNG preview is published as both catalog poster and thumbnail. The validator checks required metadata and referenced files, but does not guarantee renderer compatibility or prove that a package renders correctly in the app.
 
 ## Repository setup
 
@@ -26,7 +26,7 @@ gh run list --workflow publish-template.yml
 gh run watch
 ```
 
-Inspect failures in the Actions run logs and download the `voomi-publishing-report-*` artifact. The validation report is emitted for individual validation commands and is uploaded with the publishing artifact when present. Fix the package, increment the template version if its content changes, and retry. Identical ID/version and checksum is idempotent; the same ID/version with different bytes is rejected. Older versions may be released for existing projects, but the catalog remains on the highest SemVer version. Drafts and prereleases are excluded.
+Inspect failures in the Actions run logs and download the `voomi-publishing-report-*` artifact. The validation report is emitted for individual validation commands and is uploaded with the publishing artifact when present. Fix the package, increment the template version if its content changes, and retry. The publisher matches by UUID `id`; it publishes only a version newer than the current release. Equal or older versions are skipped and removed from intake. `name` is display text and is not used for matching. Drafts and prereleases are excluded.
 
 ## Local commands
 
@@ -62,7 +62,7 @@ Catalog URL:
 https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/catalog.json
 ```
 
-The catalog contains one current entry per normalized template ID, ordered by ID. Each item includes `sourceId`, the exact ID from the ZIP manifest, alongside normalized `id`, plus the latest SemVer release, package SHA-256 and byte count, minimum app version, media slots, versioned poster and thumbnail URLs, and a public release download URL. App clients should match installed package metadata using `sourceId` while using `id` as the stable catalog key. `catalogVersion` changes only when the catalog content changes; `updatedAt` remains stable otherwise. GitHub's raw content cache can delay visibility briefly.
+The catalog contains one current entry per stable UUID, ordered by `id`. Each item includes the UUID `id`, readable `templateId`, exact manifest `sourceId`, latest SemVer version, package SHA-256 and byte count, minimum app version, media slots, versioned poster and thumbnail URLs, and a public release download URL. Clients match packages by UUID and compare `version`; a newer package replaces the current catalog entry while older immutable release downloads remain available. `catalogVersion` changes only when the catalog content changes; `updatedAt` remains stable otherwise. GitHub's raw content cache can delay visibility briefly.
 
 The Flutter app should display its cached catalog immediately, refresh remotely at launch and when the Templates page cache is older than 15 minutes, and support pull to refresh. Validate the catalog schema, compare catalog and template versions, update local metadata, and keep the last good copy on network failure. Download ZIPs only on user request, verify SHA-256 before safe extraction, check renderer and minimum app compatibility, install to versioned local storage, and preserve project references to prior versions. Public reads need no GitHub authentication. Use conditional HTTP requests when supported and retry later if GitHub caching delays a new catalog.
 

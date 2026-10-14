@@ -7,6 +7,7 @@ import hashlib
 import json
 import re
 import unicodedata
+import uuid
 import zipfile
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -96,7 +97,7 @@ def is_app_native(meta: Any) -> bool:
 def is_legacy_voomi(meta: Any) -> bool:
     """Recognize the earlier Voomi template.json package format."""
     return (isinstance(meta, dict)
-            and isinstance(meta.get("id"), str)
+            and isinstance(meta.get("templateId", meta.get("id")), str)
             and isinstance(meta.get("version"), str)
             and isinstance(meta.get("preview"), str)
             and isinstance(meta.get("canvas"), dict)
@@ -107,7 +108,7 @@ def is_legacy_voomi(meta: Any) -> bool:
 def validate_legacy_voomi(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
     """Validate the supported legacy shape without rewriting its ZIP."""
     try:
-        canonical_template_id(meta["id"])
+        canonical_template_id(meta.get("templateId", meta.get("id")))
         parse_semver(meta["version"])
     except (KeyError, VoomiError) as exc:
         fail(str(exc))
@@ -183,8 +184,11 @@ def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo
     if not (isinstance(meta.get("description"), str) and meta["description"].strip()) and not (isinstance(meta.get("shortDescription"), str) and meta["shortDescription"].strip()):
         fail("App template metadata requires description or shortDescription")
     canonical_template_id(meta["templateId"])
+    validate_guid(meta)
     parse_semver(meta["templateVersion"])
     parse_semver(meta["minimumAppVersion"])
+
+
     if not isinstance(meta["durationMs"], int) or isinstance(meta["durationMs"], bool) or meta["durationMs"] <= 0:
         fail("durationMs must be a positive integer")
     if not isinstance(meta["fps"], (int, float)) or isinstance(meta["fps"], bool) or meta["fps"] <= 0:
@@ -218,6 +222,8 @@ def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo
                 asset = layer.get("source")
                 if not isinstance(asset, str) or asset.casefold() not in files:
                     fail(f"Scene {scene['id']} references a missing image asset")
+
+
     preview_path = meta["preview"].get("poster")
     if not isinstance(preview_path, str) or preview_path.casefold() not in files:
         fail("preview.poster references a missing preview image")
@@ -235,6 +241,15 @@ def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo
     for audio in (meta.get("audio") or {}).values() if isinstance(meta.get("audio"), dict) else []:
         if isinstance(audio, dict) and isinstance(audio.get("source"), str) and audio["source"].casefold() not in files:
             fail(f"Audio references missing file: {audio['source']}")
+
+
+def validate_guid(meta: dict[str, Any]) -> None:
+    value = meta.get("id")
+    try:
+        if not isinstance(value, str) or str(uuid.UUID(value)) != value.lower():
+            raise ValueError(value)
+    except (ValueError, AttributeError):
+        fail("template.json id must be a UUID")
 
 
 def validate(zip_path: Path) -> dict[str, Any]:
@@ -261,6 +276,7 @@ def validate(zip_path: Path) -> dict[str, Any]:
             validate_app_native(meta, entries, zf)
         elif legacy:
             validate_legacy_voomi(meta, entries, zf)
+            validate_guid(meta)
         else:
             schema = load_json(ROOT / "schemas" / "template.schema.json")
             errors = sorted(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(meta), key=lambda e: list(map(str, e.path)))
@@ -271,6 +287,7 @@ def validate(zip_path: Path) -> dict[str, Any]:
                 parse_semver(meta["templateVersion"])
                 parse_semver(meta["minimumAppVersion"])
                 canonical_template_id(meta["templateId"])
+                validate_guid(meta)
             except VoomiError as exc:
                 fail(str(exc))
             slots = meta["mediaSlots"]
@@ -326,7 +343,7 @@ def validate(zip_path: Path) -> dict[str, Any]:
     with zip_path.open("rb") as package:
         for chunk in iter(lambda: package.read(1024 * 1024), b""):
             digest.update(chunk)
-    template_id = meta["templateId"] if native else meta["id"] if legacy else meta["templateId"]
+    template_id = meta.get("templateId", meta.get("id")) if legacy else meta["templateId"]
     template_version = meta["templateVersion"] if native else meta["version"] if legacy else meta["templateVersion"]
     return {"valid": True, "templateId": template_id, "templateVersion": template_version, "sha256": digest.hexdigest(), "sizeBytes": zip_path.stat().st_size, "errors": []}
 
