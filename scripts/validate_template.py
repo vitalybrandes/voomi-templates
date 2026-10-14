@@ -225,7 +225,8 @@ def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo
                     fail(f"Scene {scene['id']} references a missing image asset")
 
 
-    preview_path = meta["preview"].get("poster")
+    preview = meta["preview"]
+    preview_path = preview if isinstance(preview, str) else preview.get("poster") if isinstance(preview, dict) else None
     if not isinstance(preview_path, str) or preview_path.casefold() not in files:
         fail("preview.poster references a missing preview image")
     try:
