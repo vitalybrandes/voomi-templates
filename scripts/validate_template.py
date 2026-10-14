@@ -18,7 +18,7 @@ from PIL import Image, ImageFile
 from common import ROOT, VoomiError, canonical_template_id, load_json, parse_semver, safe_zip_entries
 
 ImageFile.LOAD_TRUNCATED_IMAGES = False
-REQUIRED_FILES = {"template.json", "README.md", "preview/poster.jpg", "preview/thumbnail.jpg", "preview/preview.mp4", "licenses/asset-manifest.json"}
+REQUIRED_FILES = {"template.json", "README.md", "preview/poster.jpg", "preview/thumbnail.jpg", "licenses/asset-manifest.json"}
 ALLOWED_TOP = {"template.json", "README.md", "placeholders", "assets", "audio", "preview", "licenses"}
 SUPPORTED_FEATURES = {"basic_timeline", "transitions", "text_overlay", "image_overlay", "audio_track", "video_slot", "photo_slot", "photo_or_video_slot", "keyframe_animation", "particle_effect", "mask", "blend_modes", "speed_control", "crop_transform"}
 ALLOWED_LICENSES = {"CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "Public-Domain", "Proprietary-Authorized"}
@@ -88,10 +88,11 @@ def validate_manifest(data: Any, entries: dict[str, zipfile.ZipInfo]) -> None:
 
 def is_app_native(meta: Any) -> bool:
     """Recognize the Voomi app export shape used by the supplied package."""
-    return (isinstance(meta, dict)
-            and isinstance(meta.get("preview"), dict)
-            and isinstance(meta["preview"].get("poster"), str)
-            and meta["preview"]["poster"].lower().endswith(".png"))
+    if not isinstance(meta, dict):
+        return False
+    preview = meta.get("preview")
+    image_path = preview if isinstance(preview, str) else preview.get("poster") if isinstance(preview, dict) else None
+    return isinstance(image_path, str) and image_path.lower().endswith((".png", ".jpg", ".jpeg", ".webp"))
 
 
 def is_legacy_voomi(meta: Any) -> bool:
@@ -234,8 +235,8 @@ def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo
         with zf.open(preview_path) as raw:
             im = Image.open(raw)
             im.load()
-            if im.format != "PNG":
-                fail("App-native preview image must be PNG")
+            if im.format not in {"PNG", "JPEG", "WEBP"}:
+                fail("App-native preview must be an image (PNG, JPEG, or WebP)")
     except (OSError, ValueError) as exc:
         fail(f"Invalid preview image {preview_path}: {exc}")
     for audio in (meta.get("audio") or {}).values() if isinstance(meta.get("audio"), dict) else []:
@@ -336,7 +337,7 @@ def validate(zip_path: Path) -> dict[str, Any]:
             image_info(zf, "preview/poster.jpg", (1080, 1920))
             image_info(zf, "preview/thumbnail.jpg", (720, 1280))
             # Validate declared preview paths match the required package locations.
-            for key, expected in (("poster", "preview/poster.jpg"), ("thumbnail", "preview/thumbnail.jpg"), ("video", "preview/preview.mp4")):
+            for key, expected in (("poster", "preview/poster.jpg"), ("thumbnail", "preview/thumbnail.jpg")):
                 if meta["preview"].get(key) != expected:
                     fail(f"preview.{key} must be {expected}")
     digest = hashlib.sha256()

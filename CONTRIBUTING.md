@@ -13,16 +13,15 @@ audio/                        # may be empty
 preview/
   poster.jpg                  # 1080 x 1920 JPEG
   thumbnail.jpg               # 720 x 1280 JPEG
-  preview.mp4                 # H.264, portrait 9:16, >=720 x 1280, 30 FPS
 licenses/
   asset-manifest.json
 ```
 
-Empty optional asset directories can be omitted. This distribution layout uses JPEG poster and thumbnail files and a machine-readable asset manifest. `LICENSES.md` is not required. `template.json` uses `schemaVersion: "1.0.0"`, a readable `templateId`, and a UUID `id` (older packages are upgraded during publishing). The pipeline checks that `preview.mp4` exists but does not inspect its streams, dimensions, frame rate, audio, or duration. Scene timing uses the pipeline's contiguous, ordered timeline policy when all scenes have explicit `startMs` and `durationMs`.
+Empty optional asset directories can be omitted. This distribution layout uses JPEG poster and thumbnail images and a machine-readable asset manifest; previews are images only. `LICENSES.md` is not required. `template.json` uses `schemaVersion: "1.0.0"`, a readable `templateId`, and a UUID `id` (older packages are upgraded during publishing). Scene timing uses the pipeline's contiguous, ordered timeline policy when all scenes have explicit `startMs` and `durationMs`.
 
 ## Voomi app-native ZIPs
 
-App-native ZIPs can use a namespaced `templateId` such as `com.voomi.samples.neon-dance-beat-drop`, the app's renderer feature names, and a single PNG declared by `preview.poster` (for example `preview/preview.png`). Their metadata must include a stable UUID `id`, readable `templateId`, SemVer versions, name, description, category, duration, fps, resolution, renderer features, media slots, scenes, and preview path. Referenced placeholders, scene image layers, audio files, and preview images must exist in the archive. For catalog display, the single app preview image is used for both poster and thumbnail. `licenses/asset-manifest.json` is not required or interpreted for this app-native format. Existing ZIPs without UUID `id` are normalized during publishing.
+App-native ZIPs can use a namespaced `templateId` such as `com.voomi.samples.neon-dance-beat-drop`, the app's renderer feature names, and a single PNG or JPEG declared by `preview.poster` (or a direct image path in `preview`). Their metadata must include a stable UUID `id`, readable `templateId`, SemVer versions, name, description, category, duration, fps, resolution, renderer features, media slots, scenes, and preview image path. Referenced placeholders, scene image layers, audio files, and preview images must exist in the archive. For catalog display, the single app preview image is used for both poster and thumbnail. `licenses/asset-manifest.json` is not required or interpreted for this app-native format. Existing ZIPs without UUID `id` are normalized during publishing.
 
 Media slot types are `photo`, `video`, `photo_or_video`, and `none`. Scene IDs and slot IDs must be unique. A scene can refer to zero, one, or multiple declared slots using `mediaSlotIds` (or legacy `mediaSlots` array). Required asset references must point to files in the ZIP. Do not add executable files, symlinks, encrypted ZIP entries, or paths that escape the package.
 

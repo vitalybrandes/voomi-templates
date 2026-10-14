@@ -24,14 +24,19 @@ def main() -> int:
             raise VoomiError("Unsafe or missing templateVersion")
         args.output.mkdir(parents=True, exist_ok=True)
         preview = meta.get("preview", {})
-        poster = preview.get("poster", "preview/poster.jpg")
-        thumbnail = preview.get("thumbnail", "preview/thumbnail.jpg")
+        if isinstance(preview, str):
+            poster = thumbnail = preview
+        elif isinstance(preview, dict):
+            poster = preview.get("poster", "preview/poster.jpg")
+            thumbnail = preview.get("thumbnail", poster)
+        else:
+            raise VoomiError("template.json preview must declare an image path")
         if not all(isinstance(name, str) and name in entries for name in (poster, thumbnail if "thumbnail" in preview else poster)):
             raise VoomiError("ZIP is missing its declared preview image(s)")
         extract_member(args.zip, poster, args.output / Path(poster).name)
-        if "thumbnail" in preview:
+        if isinstance(preview, dict) and "thumbnail" in preview:
             extract_member(args.zip, thumbnail, args.output / Path(thumbnail).name)
-        elif poster.lower().endswith(".png"):
+        elif poster.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
             extract_member(args.zip, poster, args.output / Path(poster).name)
         else:
             raise VoomiError("ZIP has no thumbnail preview")

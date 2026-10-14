@@ -30,7 +30,7 @@ Inspect failures in the Actions run logs and download the `voomi-publishing-repo
 
 ## Local commands
 
-Install Python 3.12 and GitHub CLI. Preview MP4 validation in the pipeline checks that the file is present and named correctly; the workflow does not decode or probe video streams.
+Install Python 3.12 and GitHub CLI. Template previews are images only; poster and thumbnail images are validated before publishing.
 
 ```bash
 python -m pip install -r requirements.txt
@@ -54,7 +54,7 @@ gh release download template-money-rain-v1.0.0 --pattern '*.zip' --dir ./downloa
 
 ## Catalog and Flutter contract
 
-The visual catalog is implemented as a buildless static page in `site/index.html`. It reads the generated `catalog.json`, so template cards, filters, preview images, and download links stay aligned with the app catalog. The Pages workflow deploys after successful catalog publication and can also be run manually. To make the site live the first time, select **Settings → Pages → Build and deployment → Source → GitHub Actions**. Its address will be `https://vitalybrandes.github.io/voomi-templates/`.
+The visual catalog is implemented as a buildless static page in `site/index.html`. It reads the generated `catalog.json`, so template cards, filters, preview images, and download links stay aligned with the app catalog. The Pages workflow deploys after successful catalog publication and can also be run manually. To make the site live the first time, select **Settings â†’ Pages â†’ Build and deployment â†’ Source â†’ GitHub Actions**. Its address will be `https://vitalybrandes.github.io/voomi-templates/`.
 
 Catalog URL:
 
@@ -74,6 +74,6 @@ Run `gh workflow run rebuild-catalog.yml --ref main` to reconstruct the catalog 
 
 ## Security and limitations
 
-ZIPs are untrusted. The validator rejects traversal, absolute and duplicate normalized names, symlinks, encryption, executable files, corrupt archives, excessive entry counts and configured compressed/uncompressed limits. It never executes package files and extracts only declared preview images after validation. Default limits are 250 MiB compressed and 1 GiB expanded; override with `VOOMI_MAX_ZIP_BYTES`, `VOOMI_MAX_UNCOMPRESSED_BYTES`, and `VOOMI_MAX_ZIP_ENTRIES` in a controlled environment. Distribution-format poster and thumbnail images are checked for content and dimensions. App-native previews are checked as PNG files. Preview-video codecs and renderer compatibility are not verified.
+ZIPs are untrusted. The validator rejects traversal, absolute and duplicate normalized names, symlinks, encryption, executable files, corrupt archives, excessive entry counts and configured compressed/uncompressed limits. It never executes package files and extracts only declared preview images after validation. Default limits are 250 MiB compressed and 1 GiB expanded; override with `VOOMI_MAX_ZIP_BYTES`, `VOOMI_MAX_UNCOMPRESSED_BYTES`, and `VOOMI_MAX_ZIP_ENTRIES` in a controlled environment. Distribution-format poster and thumbnail images are checked for content and dimensions. App-native previews are checked as images (PNG, JPEG, or WebP). Renderer compatibility is not verified.
 
 GitHub Releases and Actions have platform quotas and bandwidth limits. This initial setup uses public GitHub capabilities only. If distribution volume exceeds GitHub limits, migrate immutable package artifacts to an object store in a future project while retaining the catalog contract; no alternate provider is configured here. A successful live release, anonymous download, or in-app refresh cannot be claimed until a real conforming ZIP is uploaded and the published URL is checked.

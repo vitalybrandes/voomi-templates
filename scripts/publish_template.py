@@ -299,6 +299,8 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
     extract_member(path, preview_member, preview_dir / preview_name)
     if not native and not legacy:
         extract_member(path, "preview/thumbnail.jpg", preview_dir / "thumbnail.jpg")
+    elif preview_name != "thumbnail.jpg":
+        extract_member(path, preview_member, preview_dir / "thumbnail.jpg")
     return {"path":str(path.relative_to(ROOT)), "metadata":meta, "tag":tag, "assetName":expected_name,"sha256":digest,"sizeBytes":size}
 
 

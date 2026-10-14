@@ -30,7 +30,7 @@
     "scenes": {"type":"array","minItems":1,"items":{"type":"object","required":["id"],"properties":{"id":{"type":"string","pattern":"^[A-Za-z0-9_-]+$"},"order":{"type":"integer","minimum":0},"startMs":{"type":"integer","minimum":0},"durationMs":{"type":"integer","minimum":1},"mediaSlotIds":{"type":"array","items":{"type":"string"},"uniqueItems":true},"mediaSlots":{"type":"array","items":{"type":"string"},"uniqueItems":true},"transition":{"type":["object","string","null"]}},"additionalProperties":true}},
     "audio": {"oneOf":[{"type":"object"},{"type":"array"},{"type":"null"}]},
     "orientation": {"type":"string"},
-    "preview": {"type":"object","properties":{"poster":{"type":"string"},"thumbnail":{"type":"string"},"video":{"type":"string"}},"additionalProperties":true},
+    "preview": {"type":"object","properties":{"poster":{"type":"string"},"thumbnail":{"type":"string"}},"additionalProperties":true},
     "licenseManifest": {"type":"string","minLength":1}
   }
 }
