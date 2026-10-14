@@ -1,10 +1,46 @@
 import json
 import sys
+import uuid
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import publish_template
 from common import ROOT, VoomiError
+
+
+def test_latest_published_version_matches_uuid_and_semver(monkeypatch, tmp_path):
+    wanted_id = str(uuid.uuid4())
+    other_id = str(uuid.uuid4())
+    tags = [
+        {"tagName": "template-money-rain-v1.9.0", "isDraft": False, "isPrerelease": False},
+        {"tagName": "template-money-rain-v1.10.0", "isDraft": False, "isPrerelease": False},
+    ]
+
+    def fake_run(args, **_kwargs):
+        if args[1:3] == ["release", "list"]:
+            return json.dumps(tags)
+        tag = args[3]
+        version_id = other_id if tag.endswith("v1.10.0") else wanted_id
+        directory = Path(args[args.index("--dir") + 1])
+        (directory / f"{tag}.metadata.json").write_text(json.dumps({"id": version_id}), encoding="utf-8")
+        return ""
+
+    monkeypatch.setattr(publish_template, "run", fake_run)
+    monkeypatch.setattr(
+        publish_template,
+        "release_view",
+        lambda _repo, tag: {"assets": [{"name": f"{tag}.metadata.json"}]},
+    )
+    index = {"releases": [{"id": wanted_id, "templateVersion": "1.8.0"}]}
+
+    assert publish_template.latest_published_version("owner/repo", "money-rain", wanted_id, index) == (1, 9, 0, ())
+
+
+def test_publish_requires_strictly_newer_version():
+    current = (1, 10, 0, ())
+    assert publish_template.should_publish_version("1.10.1", current)
+    assert not publish_template.should_publish_version("1.10.0", current)
+    assert not publish_template.should_publish_version("1.9.9", current)
 
 
 def test_mixed_batch_keeps_failure_but_succeeds_for_valid_packages(tmp_path, monkeypatch):

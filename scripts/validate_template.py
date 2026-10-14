@@ -345,7 +345,7 @@ def validate(zip_path: Path) -> dict[str, Any]:
             digest.update(chunk)
     template_id = meta.get("templateId", meta.get("id")) if legacy else meta["templateId"]
     template_version = meta["templateVersion"] if native else meta["version"] if legacy else meta["templateVersion"]
-    return {"valid": True, "templateId": template_id, "templateVersion": template_version, "sha256": digest.hexdigest(), "sizeBytes": zip_path.stat().st_size, "errors": []}
+    return {"valid": True, "id": meta["id"], "templateId": template_id, "templateVersion": template_version, "sha256": digest.hexdigest(), "sizeBytes": zip_path.stat().st_size, "errors": []}
 
 
 def main() -> int:

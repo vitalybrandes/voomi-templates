@@ -170,6 +170,11 @@ def latest_published_version(repo: str, tid: str, guid: str, index: dict) -> tup
     return max(versions) if versions else None
 
 
+def should_publish_version(candidate: str, current: tuple | None) -> bool:
+    """Publish only when candidate SemVer is strictly newer than current."""
+    return current is None or parse_semver(candidate) > current
+
+
 def verify_release(repo: str, tag: str, asset_name: str, expected_sha: str, expected_size: int) -> None:
     for attempt in range(6):
         try:
@@ -239,7 +244,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
         return {"path":str(path.relative_to(ROOT)), "metadata":catalog_meta, "tag":tag, "assetName":expected_name,"sha256":digest,"sizeBytes":size}
     repo_index = load_json(INDEX) if INDEX.exists() else {"releases": []}
     latest = latest_published_version(repo, tid, guid, repo_index)
-    if latest is not None and semver <= latest:
+    if not should_publish_version(version, latest):
         print(f"Skipping {tid} v{version}: published version for id {guid} is already current or newer")
         return {"path":str(path.relative_to(ROOT)), "action":"skipped-not-newer", "id":guid, "version":version}
     same = next((x for x in repo_index["releases"] if x.get("id") == guid and x["templateVersion"] == version), None)
