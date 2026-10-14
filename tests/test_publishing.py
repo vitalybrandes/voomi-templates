@@ -9,8 +9,8 @@ from common import ROOT, VoomiError
 
 
 def test_preview_image_path_accepts_direct_and_object_metadata():
-    assert publish_template.preview_image_path("preview/poster.jpg") == "preview/poster.jpg"
-    assert publish_template.preview_image_path({"poster": "preview/poster.jpg"}) == "preview/poster.jpg"
+    assert publish_template.preview_image_path("preview/preview.jpg") == "preview/preview.jpg"
+    assert publish_template.preview_image_path({"preview": "preview/preview.jpg"}) == "preview/preview.jpg"
 
 
 def test_latest_published_version_matches_uuid_and_semver(monkeypatch, tmp_path):

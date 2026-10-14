@@ -317,7 +317,7 @@
       };
       const cardMarkup = (item) => {
         const tags = (item.tags || []).slice(0, 3).map((tag) => `<span class="tag">${esc(tag)}</span>`).join("");
-        const image = safeLink(item.thumbnailUrl || item.posterUrl);
+        const image = safeLink(item.previewUrl);
         const download = safeLink(item.downloadUrl);
         return `<article class="template-card" data-template-id="${esc(item.id)}">
           <div class="card-art"><img src="${esc(image)}" alt="Preview artwork for ${esc(item.name)}" loading="lazy"><span class="category-label">${esc(item.category)}</span><span class="version-label">v${esc(item.version)}</span></div>
@@ -340,10 +340,10 @@
       const showDetails = (id) => {
         const item = catalog.templates.find((entry) => entry.id === id);
         if (!item) return;
-        const poster = safeLink(item.posterUrl || item.thumbnailUrl);
+        const preview = safeLink(item.previewUrl);
         const download = safeLink(item.downloadUrl);
         const tags = (item.tags || []).join(", ") || "—";
-        dialogInner.innerHTML = `<div class="dialog-art"><img src="${esc(poster)}" alt="Preview artwork for ${esc(item.name)}"></div>
+        dialogInner.innerHTML = `<div class="dialog-art"><img src="${esc(preview)}" alt="Preview for ${esc(item.name)}"></div>
           <div class="dialog-content">
             <div class="dialog-top"><div><p class="section-kicker">${esc(item.category)} · v${esc(item.version)}</p><h2 id="dialog-title">${esc(item.name)}</h2></div><button class="close-dialog" type="button" aria-label="Close details">×</button></div>
             <p class="dialog-description">${esc(item.description)}</p>
@@ -376,7 +376,7 @@
           const featured = [...data.templates].sort((a, b) => compareVersions(b.version, a.version))[0];
           if (featured) {
             const wrap = document.querySelector("#spot-image-wrap");
-            wrap.innerHTML = `<img class="spot-image" src="${esc(safeLink(featured.posterUrl || featured.thumbnailUrl))}" alt="${esc(featured.name)} template preview">`;
+            wrap.innerHTML = `<img class="spot-image" src="${esc(safeLink(featured.previewUrl))}" alt="${esc(featured.name)} template preview">`;
             document.querySelector("#spot-label").textContent = featured.name.toUpperCase();
           }
         } catch (error) {

@@ -13,6 +13,7 @@ def test_catalog_selects_latest_semver_and_stable_version_without_change():
     index = {"releases":[record("1.9.0", "a"*64), record("1.10.0", "b"*64)]}
     first = build(index)
     assert first["templates"][0]["version"] == "1.10.0"
+    assert "previewUrl" in first["templates"][0]
     second = build(index, first)
     assert second["catalogVersion"] == first["catalogVersion"]
     assert second["updatedAt"] == first["updatedAt"]

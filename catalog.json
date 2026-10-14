@@ -1,44 +1,14 @@
 {
   "catalogSchemaVersion": "1.0.0",
   "catalogVersion": 2,
-  "updatedAt": "2026-10-14T05:43:44Z",
+  "updatedAt": "2026-10-14T05:44:17Z",
   "categories": [
-    "Dance",
     "Friendship",
     "Fun",
     "Travel",
     "fun"
   ],
   "templates": [
-    {
-      "id": "3e08093f-9f6d-5313-a023-5b2f8970cf4a",
-      "templateId": "com-voomi-neon-dance-layered",
-      "sourceId": "com.voomi.neon-dance-layered",
-      "name": "Neon Dance — Layered",
-      "version": "0.2.2",
-      "description": "Media-first transparent-overlay neon dance template; art-direction prototype.",
-      "category": "Dance",
-      "categories": [
-        "Dance"
-      ],
-      "tags": [],
-      "durationMs": 10000,
-      "mediaSlots": [
-        {
-          "id": "dance_video",
-          "type": "video",
-          "required": true,
-          "placeholder": "placeholders/dance_demo.mp4",
-          "fit": "cover"
-        }
-      ],
-      "minAppVersion": "1.0.0",
-      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/com-voomi-neon-dance-layered/0.2.2/poster.jpg",
-      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/com-voomi-neon-dance-layered/0.2.2/poster.jpg",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-com-voomi-neon-dance-layered-v0.2.2/com-voomi-neon-dance-layered-v0.2.2.zip",
-      "sizeBytes": 1806248,
-      "sha256": "2576868dee26869f1f9095d9537fc08c82845ac4b8062f97b5c443d99b410511"
-    },
     {
       "id": "58ec95e6-a1b4-5ab1-b3b4-52f912e69573",
       "templateId": "bff-best-friends-forever",
@@ -73,8 +43,7 @@
         }
       ],
       "minAppVersion": "1.0.0",
-      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
-      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-best-friends-forever-v0.1.0/bff-best-friends-forever-v0.1.0.zip",
       "sizeBytes": 1786390,
       "sha256": "d849893a54e6527699df9d14f0b62b287d4fa650e352262a108a546edafac986"
@@ -113,8 +82,7 @@
         }
       ],
       "minAppVersion": "1.0.0",
-      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
-      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-vacation-bye-bye-v0.1.0/vacation-bye-bye-v0.1.0.zip",
       "sizeBytes": 1561439,
       "sha256": "7839b3c1d60761c5dc0fd7f93d85641e2456a0c59a287ca7ced76b365de51e50"
@@ -140,8 +108,7 @@
         }
       ],
       "minAppVersion": "1.0.0",
-      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
-      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-money-fall-2-v0.2.0/money-fall-2-v0.2.0.zip",
       "sizeBytes": 2373145,
       "sha256": "a3c52fbf9af55f1e111db13c1f78ba1aa459a250f837341c61e6569805d44200"
@@ -167,8 +134,7 @@
         }
       ],
       "minAppVersion": "1.0.0",
-      "thumbnailUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
-      "posterUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-layered-polaroids-v0.7.0/bff-layered-polaroids-v0.7.0.zip",
       "sizeBytes": 797073,
       "sha256": "c71b414fb241ac58b799b35e69986135882f534b828eb2373b871089bd037f85"

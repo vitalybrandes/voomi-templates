@@ -43,9 +43,8 @@ def verify(path: Path, check_remote: bool = True) -> None:
             raise VoomiError(f"Invalid SHA-256 for {item['id']}")
         if item["sizeBytes"] <= 0:
             raise VoomiError(f"Invalid package size for {item['id']}")
-        for key in ("thumbnailUrl", "posterUrl"):
-            if not item[key].startswith("https://raw.githubusercontent.com/"):
-                raise VoomiError(f"Invalid {key} for {item['id']}")
+        if not item["previewUrl"].startswith("https://raw.githubusercontent.com/"):
+            raise VoomiError(f"Invalid previewUrl for {item['id']}")
         if not item["downloadUrl"].startswith("https://github.com/"):
             raise VoomiError(f"Invalid download URL for {item['id']}")
         if check_remote:

@@ -25,21 +25,14 @@ def main() -> int:
         args.output.mkdir(parents=True, exist_ok=True)
         preview = meta.get("preview", {})
         if isinstance(preview, str):
-            poster = thumbnail = preview
+            image_path = preview
         elif isinstance(preview, dict):
-            poster = preview.get("poster", "preview/poster.jpg")
-            thumbnail = preview.get("thumbnail", poster)
+            image_path = preview.get("preview", "preview/preview.jpg")
         else:
             raise VoomiError("template.json preview must declare an image path")
-        if not all(isinstance(name, str) and name in entries for name in (poster, thumbnail if "thumbnail" in preview else poster)):
-            raise VoomiError("ZIP is missing its declared preview image(s)")
-        extract_member(args.zip, poster, args.output / Path(poster).name)
-        if isinstance(preview, dict) and "thumbnail" in preview:
-            extract_member(args.zip, thumbnail, args.output / Path(thumbnail).name)
-        elif poster.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
-            extract_member(args.zip, poster, args.output / Path(poster).name)
-        else:
-            raise VoomiError("ZIP has no thumbnail preview")
+        if not isinstance(image_path, str) or image_path not in entries:
+            raise VoomiError("ZIP is missing its declared preview image")
+        extract_member(args.zip, image_path, args.output / Path(image_path).name)
         print(f"Extracted previews for {template_id} {version} into {args.output}")
         return 0
     except (VoomiError, json.JSONDecodeError, KeyError, OSError) as exc:

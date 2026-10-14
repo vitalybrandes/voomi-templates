@@ -22,8 +22,8 @@ CATALOG = ROOT / "catalog.json"
 
 
 def preview_image_path(preview: object) -> str:
-    """Return the declared poster path for either supported metadata shape."""
-    image_path = preview if isinstance(preview, str) else preview.get("poster") if isinstance(preview, dict) else None
+    """Return the declared image path for either supported metadata shape."""
+    image_path = preview if isinstance(preview, str) else preview.get("preview") if isinstance(preview, dict) else None
     if not isinstance(image_path, str) or not image_path:
         raise VoomiError("Template preview must declare an image path")
     return image_path
@@ -232,7 +232,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
             "durationMs": round(meta["durationSeconds"] * 1000),
             "mediaSlots": legacy_slots,
             "minimumAppVersion": meta.get("minimumAppVersion") or "1.0.0",
-            "preview": {"poster": meta["preview"]},
+            "preview": {"preview": meta["preview"]},
         }
     else:
         catalog_meta = meta
@@ -279,7 +279,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
         notes = f"{description}\n\nTemplate ID: `{tid}`\nVersion: `{version}`\nMinimum app version: `{catalog_meta['minimumAppVersion']}`\nSHA-256: `{digest}`"
         categories = catalog_meta.get("categories") or [catalog_meta["category"]]
         tags = catalog_meta.get("tags") or []
-        preview_member = preview_image_path(catalog_meta["preview"]) if native or legacy else "preview/poster.jpg"
+        preview_member = preview_image_path(catalog_meta["preview"]) if native or legacy else "preview/preview.jpg"
         preview_name = Path(preview_member).name
         sidecar = {"id":guid,"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size}
         with tempfile.TemporaryDirectory(prefix="voomi-release-") as temp:
@@ -295,7 +295,7 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
     categories = catalog_meta.get("categories") or [catalog_meta["category"]]
     tags = catalog_meta.get("tags") or []
     description = catalog_meta.get("description") or catalog_meta.get("shortDescription") or catalog_meta["name"]
-    preview_member = preview_image_path(catalog_meta["preview"]) if native or legacy else "preview/poster.jpg"
+    preview_member = preview_image_path(catalog_meta["preview"]) if native or legacy else "preview/preview.jpg"
     preview_name = Path(preview_member).name
     item = {"id":guid,"templateId":tid,"sourceId":source_id,"templateVersion":version,"name":catalog_meta["name"],"description":description,"category":catalog_meta["category"],"categories":categories,"tags":tags,"durationMs":catalog_meta["durationMs"],"mediaSlots":catalog_meta["mediaSlots"],"minimumAppVersion":catalog_meta["minimumAppVersion"],"previewImageName":preview_name,"tag":tag,"assetName":expected_name,"sha256":digest,"sizeBytes":size,"draft":False,"prerelease":False}
     repo_index["releases"] = [x for x in repo_index["releases"] if not (x.get("id") == guid and x["templateVersion"] == version)] + [item]
@@ -305,10 +305,6 @@ def process(path: Path, repo: str, dry_run: bool) -> dict:
     preview_dir.mkdir(parents=True, exist_ok=True)
     from common import extract_member
     extract_member(path, preview_member, preview_dir / preview_name)
-    if not native and not legacy:
-        extract_member(path, "preview/thumbnail.jpg", preview_dir / "thumbnail.jpg")
-    elif preview_name != "thumbnail.jpg":
-        extract_member(path, preview_member, preview_dir / "thumbnail.jpg")
     return {"path":str(path.relative_to(ROOT)), "metadata":meta, "tag":tag, "assetName":expected_name,"sha256":digest,"sizeBytes":size}
 
 

@@ -18,7 +18,7 @@ from PIL import Image, ImageFile
 from common import ROOT, VoomiError, canonical_template_id, load_json, parse_semver, safe_zip_entries
 
 ImageFile.LOAD_TRUNCATED_IMAGES = False
-REQUIRED_FILES = {"template.json", "README.md", "preview/poster.jpg", "preview/thumbnail.jpg", "licenses/asset-manifest.json"}
+REQUIRED_FILES = {"template.json", "README.md", "preview/preview.jpg", "licenses/asset-manifest.json"}
 ALLOWED_TOP = {"template.json", "README.md", "placeholders", "assets", "audio", "preview", "licenses"}
 SUPPORTED_FEATURES = {"basic_timeline", "transitions", "text_overlay", "image_overlay", "audio_track", "video_slot", "photo_slot", "photo_or_video_slot", "keyframe_animation", "particle_effect", "mask", "blend_modes", "speed_control", "crop_transform"}
 ALLOWED_LICENSES = {"CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "Public-Domain", "Proprietary-Authorized"}
@@ -91,7 +91,7 @@ def is_app_native(meta: Any) -> bool:
     if not isinstance(meta, dict):
         return False
     preview = meta.get("preview")
-    image_path = preview if isinstance(preview, str) else preview.get("poster") if isinstance(preview, dict) else None
+    image_path = preview if isinstance(preview, str) else preview.get("preview") if isinstance(preview, dict) else None
     return isinstance(image_path, str) and image_path.lower().endswith((".png", ".jpg", ".jpeg", ".webp"))
 
 
@@ -226,9 +226,9 @@ def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo
 
 
     preview = meta["preview"]
-    preview_path = preview if isinstance(preview, str) else preview.get("poster") if isinstance(preview, dict) else None
+    preview_path = preview if isinstance(preview, str) else preview.get("preview") if isinstance(preview, dict) else None
     if not isinstance(preview_path, str) or preview_path.casefold() not in files:
-        fail("preview.poster references a missing preview image")
+        fail("preview references a missing image")
     try:
         with zf.open(preview_path) as raw:
             im = Image.open(raw)
@@ -335,12 +335,9 @@ def validate(zip_path: Path) -> dict[str, Any]:
             except (KeyError, json.JSONDecodeError, UnicodeDecodeError) as exc:
                 fail(f"Invalid license manifest: {exc}")
             validate_manifest(manifest, entries)
-            image_info(zf, "preview/poster.jpg", (1080, 1920))
-            image_info(zf, "preview/thumbnail.jpg", (720, 1280))
-            # Validate declared preview paths match the required package locations.
-            for key, expected in (("poster", "preview/poster.jpg"), ("thumbnail", "preview/thumbnail.jpg")):
-                if meta["preview"].get(key) != expected:
-                    fail(f"preview.{key} must be {expected}")
+            image_info(zf, "preview/preview.jpg", (1080, 1920))
+            if meta["preview"].get("preview") != "preview/preview.jpg":
+                fail("preview.preview must be preview/preview.jpg")
     digest = hashlib.sha256()
     with zip_path.open("rb") as package:
         for chunk in iter(lambda: package.read(1024 * 1024), b""):
