@@ -1,14 +1,43 @@
 {
   "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 2,
-  "updatedAt": "2026-10-14T05:44:17Z",
+  "catalogVersion": 3,
+  "updatedAt": "2026-10-14T05:45:51Z",
   "categories": [
+    "Dance",
     "Friendship",
     "Fun",
     "Travel",
     "fun"
   ],
   "templates": [
+    {
+      "id": "3e08093f-9f6d-5313-a023-5b2f8970cf4a",
+      "templateId": "com-voomi-neon-dance-layered",
+      "sourceId": "com.voomi.neon-dance-layered",
+      "name": "Neon Dance — Layered",
+      "version": "0.2.2",
+      "description": "Media-first transparent-overlay neon dance template; art-direction prototype.",
+      "category": "Dance",
+      "categories": [
+        "Dance"
+      ],
+      "tags": [],
+      "durationMs": 10000,
+      "mediaSlots": [
+        {
+          "id": "dance_video",
+          "type": "video",
+          "required": true,
+          "placeholder": "placeholders/dance_demo.mp4",
+          "fit": "cover"
+        }
+      ],
+      "minAppVersion": "1.0.0",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/com-voomi-neon-dance-layered/0.2.2/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-com-voomi-neon-dance-layered-v0.2.2/com-voomi-neon-dance-layered-v0.2.2.zip",
+      "sizeBytes": 1806248,
+      "sha256": "2576868dee26869f1f9095d9537fc08c82845ac4b8062f97b5c443d99b410511"
+    },
     {
       "id": "58ec95e6-a1b4-5ab1-b3b4-52f912e69573",
       "templateId": "bff-best-friends-forever",
