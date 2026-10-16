@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 7,
-  "updatedAt": "2026-10-16T13:54:31Z",
+  "catalogVersion": 8,
+  "updatedAt": "2026-10-16T14:29:36Z",
   "templates": [
     {
       "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
@@ -138,6 +138,36 @@
         "alpha-compositing",
         "media-crop",
         "keyframe-animation"
+      ]
+    },
+    {
+      "templateId": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Birthday Cake Party",
+      "description": "Turn your full-screen birthday video into a 10-second celebration with animated Happy Birthday lettering, floating balloons, colorful confetti, hearts, stars and a candlelit cake. Includes a cheerful CC0 music track.",
+      "categories": [
+        "Birthday",
+        "Fun"
+      ],
+      "tags": [
+        "balloons",
+        "birthday",
+        "cake",
+        "celebration",
+        "party"
+      ],
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-d6b5cc38-1a4c-44c4-906a-bf40744c53b1-v1.0.0/template.zip",
+      "fileSize": 3990188,
+      "sha256": "e362b19258adf095d2bbfb613d4bdf5c83cbef9569e427e2ba32c9a8a8c18402",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing"
       ]
     },
     {
