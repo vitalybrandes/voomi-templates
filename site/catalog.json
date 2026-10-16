@@ -1,14 +1,14 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 6,
-  "updatedAt": "2026-10-16T12:23:14Z",
+  "catalogVersion": 7,
+  "updatedAt": "2026-10-16T13:54:31Z",
   "templates": [
     {
       "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
-      "templateVersion": "1.0.0",
+      "templateVersion": "1.0.1",
       "schemaVersion": "2.0",
       "name": "Bitcoin Money Rain",
-      "description": "Your photo with the original falling Bitcoin video overlay.",
+      "description": "Turn your photo into a playful Bitcoin celebration as animated golden coins rain across the frame. The full-screen video overlay adds lively motion and a bold money-themed look, creating a punchy 7-second social video.",
       "categories": [
         "Fun",
         "Trending"
@@ -19,10 +19,10 @@
         "money"
       ],
       "durationMs": 7000,
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.0/preview.jpg",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.0/template.zip",
-      "fileSize": 10944671,
-      "sha256": "4b23f8118de41034b65dd2a91633360c65196d09043e10a4534783666aebf27a",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.1/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.1/template.zip",
+      "fileSize": 10944764,
+      "sha256": "5634cdeab3cd7a1de2a74fe6ae4999f4d1f8cdb1fd3b1d89e2e829ce2aa615d3",
       "requiredFeatures": [
         "layer-transform",
         "media-crop",
