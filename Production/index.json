@@ -3,6 +3,16 @@
   "repository": "vitalybrandes/voomi-templates",
   "versions": [
     {
+      "templateId": "14de269e-5d40-411c-b80a-27f6a8c63f6a",
+      "templateVersion": "1.0.0",
+      "name": "Halloween Party",
+      "tag": "template-14de269e-5d40-411c-b80a-27f6a8c63f6a-v1.0.0",
+      "sha256": "fd7fb007fafe6074ad99e39fcbcbca3c5a0d31519212d6b171cebb5f41726df0",
+      "fileSize": 1151737,
+      "archivePath": "14de269e-5d40-411c-b80a-27f6a8c63f6a/1.0.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-14de269e-5d40-411c-b80a-27f6a8c63f6a-v1.0.0"
+    },
+    {
       "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
       "templateVersion": "1.0.0",
       "name": "Bitcoin Money Rain",
@@ -91,6 +101,16 @@
       "fileSize": 13430373,
       "archivePath": "814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.0.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.0.0"
+    },
+    {
+      "templateId": "814d61aa-61a2-4f13-8d4b-924cfffd0a75",
+      "templateVersion": "1.1.0",
+      "name": "Wizard Sisters: Magic Duel",
+      "tag": "template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.1.0",
+      "sha256": "e35ebff1b74a30bf33e7412a29c5ed707979536d3cafefd76c6679b071551a35",
+      "fileSize": 13430636,
+      "archivePath": "814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.1.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.1.0"
     },
     {
       "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
@@ -253,6 +273,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-b126c6c2-03da-4ecc-8471-1fcc879c297d-v1.0.0"
     },
     {
+      "templateId": "b126c6c2-03da-4ecc-8471-1fcc879c297d",
+      "templateVersion": "1.1.0",
+      "name": "Pop Cosmic Star",
+      "tag": "template-b126c6c2-03da-4ecc-8471-1fcc879c297d-v1.1.0",
+      "sha256": "501fd5016dac471e68fcecfac7b77386e30c0cbe1a1480a224ab3d7a10622a07",
+      "fileSize": 4526144,
+      "archivePath": "b126c6c2-03da-4ecc-8471-1fcc879c297d/1.1.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-b126c6c2-03da-4ecc-8471-1fcc879c297d-v1.1.0"
+    },
+    {
       "templateId": "c623322c-cb78-4364-a0bb-1c3f148c2c16",
       "templateVersion": "1.0.0",
       "name": "Let's Go Travel",
@@ -381,6 +411,16 @@
       "fileSize": 4534338,
       "archivePath": "f326148f-8826-4223-aa7c-03ee89216a59/1.0.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-f326148f-8826-4223-aa7c-03ee89216a59-v1.0.0"
+    },
+    {
+      "templateId": "f326148f-8826-4223-aa7c-03ee89216a59",
+      "templateVersion": "1.1.0",
+      "name": "Thailand Vacation Calling",
+      "tag": "template-f326148f-8826-4223-aa7c-03ee89216a59-v1.1.0",
+      "sha256": "fb310152527474ecddb5b827807c7c3342cd113ec3558238c74250d375708c93",
+      "fileSize": 4534604,
+      "archivePath": "f326148f-8826-4223-aa7c-03ee89216a59/1.1.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-f326148f-8826-4223-aa7c-03ee89216a59-v1.1.0"
     }
   ]
 }

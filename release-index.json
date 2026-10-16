@@ -1,6 +1,58 @@
 {
   "releases": [
     {
+      "templateId": "14de269e-5d40-411c-b80a-27f6a8c63f6a",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Halloween Party",
+      "description": "Turn one photo or video into a playful 10-second Halloween party with animated spooky stickers, a customizable title, glowing accents and upbeat music.",
+      "categories": [
+        "Halloween",
+        "Seasonal",
+        "Fun"
+      ],
+      "tags": [
+        "editable-title",
+        "halloween",
+        "party",
+        "spooky",
+        "spooky-fun",
+        "stickers",
+        "video"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-14de269e-5d40-411c-b80a-27f6a8c63f6a-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "fd7fb007fafe6074ad99e39fcbcbca3c5a0d31519212d6b171cebb5f41726df0",
+      "fileSize": 1151737,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/14de269e-5d40-411c-b80a-27f6a8c63f6a/1.0.0/preview.jpg"
+    },
+    {
       "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -351,6 +403,55 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "814d61aa-61a2-4f13-8d4b-924cfffd0a75",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Wizard Sisters: Magic Duel",
+      "description": "Bring two photos together in a 10-second wizard duel with spell trails, floating magic, a playful owl and animated versus lettering.",
+      "categories": [
+        "Fantasy",
+        "Fun"
+      ],
+      "tags": [
+        "editable-text",
+        "fantasy",
+        "magic-duel",
+        "schema-3-motion",
+        "sisters",
+        "wizard"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "e35ebff1b74a30bf33e7412a29c5ed707979536d3cafefd76c6679b071551a35",
+      "fileSize": 13430636,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.1.0/preview.jpg"
     },
     {
       "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
@@ -1017,6 +1118,52 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/b126c6c2-03da-4ecc-8471-1fcc879c297d/1.0.0/preview.jpg"
     },
     {
+      "templateId": "b126c6c2-03da-4ecc-8471-1fcc879c297d",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Pop Cosmic Star",
+      "description": "Turn one photo into a bright 10-second cosmic comic with a gentle zoom, rising planet, spinning starburst and pulsing sparkles.",
+      "categories": [
+        "Fun",
+        "Trending"
+      ],
+      "tags": [
+        "cosmic",
+        "photo",
+        "pop-art",
+        "schema-3-motion",
+        "stars"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "tag": "template-b126c6c2-03da-4ecc-8471-1fcc879c297d-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "501fd5016dac471e68fcecfac7b77386e30c0cbe1a1480a224ab3d7a10622a07",
+      "fileSize": 4526144,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/b126c6c2-03da-4ecc-8471-1fcc879c297d/1.1.0/preview.jpg"
+    },
+    {
       "id": "58ec95e6-a1b4-5ab1-b3b4-52f912e69573",
       "templateId": "bff-best-friends-forever",
       "sourceId": "bff-best-friends-forever",
@@ -1663,6 +1810,53 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f326148f-8826-4223-aa7c-03ee89216a59/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "f326148f-8826-4223-aa7c-03ee89216a59",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Thailand Vacation Calling",
+      "description": "Turn one vacation photo into a 12-second Thailand escape with a smooth photo reveal, incoming call moment, floating tropical flowers and animated destination title.",
+      "categories": [
+        "Vacation",
+        "Travel"
+      ],
+      "tags": [
+        "calling",
+        "schema-3-motion",
+        "thailand",
+        "travel",
+        "vacation"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
+      ],
+      "tag": "template-f326148f-8826-4223-aa7c-03ee89216a59-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "fb310152527474ecddb5b827807c7c3342cd113ec3558238c74250d375708c93",
+      "fileSize": 4534604,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f326148f-8826-4223-aa7c-03ee89216a59/1.1.0/preview.jpg"
     },
     {
       "id": "9ee60ce6-88f5-5000-802c-2a183c1728b4",
