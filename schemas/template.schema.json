@@ -1,36 +1,79 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://voomi.example/schemas/template.schema.json",
-  "title": "Voomi template metadata v1",
-  "description": "Accepts catalog distribution metadata and Voomi app-native package metadata.",
+  "$id": "https://voomi.example/schemas/template-v2.schema.json",
+  "title": "Voomi template metadata v2",
+  "description": "Template package metadata using the Voomi Schema v2 layer and timeline contract.",
   "type": "object",
-  "additionalProperties": true,
-  "anyOf": [
-    {"required": ["schemaVersion", "id", "templateId", "templateVersion", "name", "shortDescription", "description", "category", "categories", "tags", "durationMs", "fps", "resolution", "aspectRatio", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "audio", "preview", "licenseManifest"]},
-    {"required": ["schemaVersion", "id", "templateId", "templateVersion", "name", "category", "durationMs", "fps", "resolution", "orientation", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "audio", "preview"], "allOf": [{"anyOf": [{"required": ["description"]}, {"required": ["shortDescription"]}]}]}
-  ],
+  "required": ["schemaVersion", "templateId", "templateVersion", "name", "description", "durationMs", "canvas", "preview", "mediaSlots", "layers"],
   "properties": {
-    "schemaVersion": {"type":"string","const":"1.0.0"},
-    "id": {"type":"string","format":"uuid"},
-    "templateId": {"type":"string","pattern":"^[A-Za-z0-9]+(?:[-_.][A-Za-z0-9]+)*$","maxLength":120},
-    "templateVersion": {"type":"string","pattern":"^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"},
-    "name": {"type":"string","minLength":1,"maxLength":120},
-    "shortDescription": {"type":"string","minLength":1,"maxLength":200},
-    "description": {"type":"string","minLength":1,"maxLength":5000},
-    "category": {"type":"string","minLength":1},
-    "categories": {"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
-    "tags": {"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
-    "durationMs": {"type":"integer","minimum":1,"maximum":300000},
-    "fps": {"type":"number","exclusiveMinimum":0,"maximum":120},
-    "resolution": {"oneOf":[{"type":"string","pattern":"^[1-9][0-9]*x[1-9][0-9]*$"},{"type":"object","required":["width","height"],"properties":{"width":{"type":"integer","minimum":1},"height":{"type":"integer","minimum":1}},"additionalProperties":false}]},
-    "aspectRatio": {"type":"string","pattern":"^[1-9][0-9]*:[1-9][0-9]*$"},
-    "minimumAppVersion": {"type":"string","pattern":"^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"},
-    "requiredRendererFeatures": {"type":"array","items":{"type":"string","pattern":"^[a-z][a-z0-9_.-]*$"},"uniqueItems":true},
-    "mediaSlots": {"type":"array","items":{"type":"object","required":["id","type","required"],"properties":{"id":{"type":"string","pattern":"^[A-Za-z0-9_-]+$"},"type":{"enum":["photo","video","photo_or_video","none"]},"required":{"type":"boolean"},"minCount":{"type":"integer","minimum":0},"maxCount":{"type":"integer","minimum":0}},"additionalProperties":true}},
-    "scenes": {"type":"array","minItems":1,"items":{"type":"object","required":["id"],"properties":{"id":{"type":"string","pattern":"^[A-Za-z0-9_-]+$"},"order":{"type":"integer","minimum":0},"startMs":{"type":"integer","minimum":0},"durationMs":{"type":"integer","minimum":1},"mediaSlotIds":{"type":"array","items":{"type":"string"},"uniqueItems":true},"mediaSlots":{"type":"array","items":{"type":"string"},"uniqueItems":true},"transition":{"type":["object","string","null"]}},"additionalProperties":true}},
-    "audio": {"oneOf":[{"type":"object"},{"type":"array"},{"type":"null"}]},
-    "orientation": {"type":"string"},
-    "preview": {"type":"object","properties":{"preview":{"type":"string"}},"additionalProperties":true},
-    "licenseManifest": {"type":"string","minLength":1}
-  }
+    "schemaVersion": {"const": "2.0"},
+    "templateId": {"type": "string", "format": "uuid"},
+    "templateVersion": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 120},
+    "description": {"type": "string", "minLength": 1, "maxLength": 5000},
+    "categories": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "tags": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "durationMs": {"type": "integer", "minimum": 1, "maximum": 300000},
+    "canvas": {
+      "type": "object", "required": ["width", "height", "fps"],
+      "properties": {"width": {"type": "integer", "minimum": 1, "maximum": 4320}, "height": {"type": "integer", "minimum": 1, "maximum": 4320}, "fps": {"type": "number", "exclusiveMinimum": 0, "maximum": 120}},
+      "additionalProperties": false
+    },
+    "preview": {"const": "preview.jpg"},
+    "requiredFeatures": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "mediaSlots": {"type": "array", "items": {"$ref": "#/$defs/mediaSlot"}},
+    "stages": {"type": "array", "items": {"$ref": "#/$defs/stage"}},
+    "layers": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/layer"}}
+  },
+  "$defs": {
+    "mediaSlot": {
+      "type": "object", "required": ["id", "type", "label", "required"],
+      "properties": {"id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"}, "type": {"enum": ["photo", "video", "photo_or_video"]}, "label": {"type": "string", "minLength": 1}, "required": {"type": "boolean"}},
+      "additionalProperties": false
+    },
+    "stage": {
+      "type": "object", "required": ["id", "name", "startMs", "durationMs"],
+      "properties": {"id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"}, "name": {"type": "string", "minLength": 1}, "startMs": {"type": "integer", "minimum": 0}, "durationMs": {"type": "integer", "minimum": 1}},
+      "additionalProperties": false
+    },
+    "layout": {
+      "type": "object", "required": ["unit", "x", "y", "width", "height", "rotationDeg", "anchor"],
+      "properties": {"unit": {"const": "normalized"}, "x": {"type": "number"}, "y": {"type": "number"}, "width": {"type": "number", "exclusiveMinimum": 0}, "height": {"type": "number", "exclusiveMinimum": 0}, "rotationDeg": {"type": "number"}, "anchor": {"enum": ["topLeft", "center"]}},
+      "additionalProperties": false
+    },
+    "content": {
+      "type": "object", "required": ["fit", "scale", "offsetX", "offsetY"],
+      "properties": {"fit": {"enum": ["cover", "contain", "fill"]}, "scale": {"type": "number", "exclusiveMinimum": 0}, "offsetX": {"type": "number"}, "offsetY": {"type": "number"}},
+      "additionalProperties": false
+    },
+    "compositing": {
+      "oneOf": [
+        {"type": "object", "required": ["mode"], "properties": {"mode": {"const": "alpha"}}, "additionalProperties": false},
+        {"type": "object", "required": ["mode", "keyColor", "similarity", "smoothness"], "properties": {"mode": {"const": "chromaKey"}, "keyColor": {"type": "string", "minLength": 1}, "similarity": {"type": "number", "minimum": 0, "maximum": 1}, "smoothness": {"type": "number", "minimum": 0, "maximum": 1}}, "additionalProperties": false}
+      ]
+    },
+    "animation": {
+      "type": "object", "required": ["target", "property", "keyframes"],
+      "properties": {"target": {"enum": ["layout", "content", "volume"]}, "property": {"type": "string", "minLength": 1}, "keyframes": {"type": "array", "minItems": 2, "items": {"type": "object", "required": ["timeMs", "value"], "properties": {"timeMs": {"type": "integer", "minimum": 0}, "value": {"type": "number"}, "easing": {"enum": ["linear", "easeIn", "easeOut", "easeInOut"]}}, "additionalProperties": false}}, "additionalProperties": false}
+    },
+    "layer": {
+      "type": "object", "required": ["id", "type", "startMs", "durationMs"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
+        "type": {"enum": ["image", "sticker", "frame", "videoOverlay", "userMedia", "audio"]},
+        "source": {"type": "string", "minLength": 1}, "slotId": {"type": "string", "minLength": 1},
+        "zIndex": {"type": "integer"}, "startMs": {"type": "integer", "minimum": 0}, "durationMs": {"type": "integer", "minimum": 1}, "sourceStartMs": {"type": "integer", "minimum": 0}, "stageId": {"type": "string"},
+        "layout": {"$ref": "#/$defs/layout"}, "content": {"$ref": "#/$defs/content"}, "compositing": {"$ref": "#/$defs/compositing"}, "animations": {"type": "array", "items": {"$ref": "#/$defs/animation"}},
+        "userAdjustable": {"type": "object", "properties": {"crop": {"type": "boolean"}, "contentScale": {"type": "boolean"}, "contentOffset": {"type": "boolean"}, "layerSize": {"type": "boolean"}, "layerPosition": {"type": "boolean"}}, "additionalProperties": false},
+        "volume": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "allOf": [
+        {"if": {"properties": {"type": {"const": "userMedia"}}, "required": ["type"]}, "then": {"required": ["slotId", "layout", "content"]}},
+        {"if": {"properties": {"type": {"const": "audio"}}, "required": ["type"]}, "then": {"required": ["source", "volume"]}},
+        {"if": {"properties": {"type": {"enum": ["image", "sticker", "frame", "videoOverlay"]}}, "required": ["type"]}, "then": {"required": ["source"]}}
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
 }

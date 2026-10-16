@@ -1,13 +1,13 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "title":"Voomi public catalog v1",
-  "type":"object",
-  "required":["catalogSchemaVersion","catalogVersion","updatedAt","categories","templates"],
-  "properties":{
-    "catalogSchemaVersion":{"type":"string","const":"1.0.0"},
-    "catalogVersion":{"type":"integer","minimum":0},
-    "updatedAt":{"type":"string","format":"date-time"},
-    "categories":{"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
-    "templates":{"type":"array","items":{"type":"object","required":["id","templateId","name","version","description","category","categories","tags","durationMs","mediaSlots","minAppVersion","previewUrl","downloadUrl","sizeBytes","sha256"],"properties":{"id":{"type":"string","format":"uuid"},"templateId":{"type":"string","pattern":"^[a-z0-9]+(?:-[a-z0-9]+)*$"},"sourceId":{"type":"string","minLength":1},"name":{"type":"string"},"version":{"type":"string"},"description":{"type":"string"},"category":{"type":"string"},"categories":{"type":"array","items":{"type":"string"}},"tags":{"type":"array","items":{"type":"string"}},"durationMs":{"type":"integer","minimum":1},"mediaSlots":{"type":"array"},"minAppVersion":{"type":"string"},"previewUrl":{"type":"string","format":"uri"},"downloadUrl":{"type":"string","format":"uri"},"sizeBytes":{"type":"integer","minimum":1},"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"}},"additionalProperties":true}}},
-  "additionalProperties":false
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Voomi public catalog v2",
+  "type": "object",
+  "required": ["catalogSchemaVersion", "catalogVersion", "updatedAt", "templates"],
+  "properties": {
+    "catalogSchemaVersion": {"const": "2.0"},
+    "catalogVersion": {"type": "integer", "minimum": 0},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "templates": {"type": "array", "items": {"type": "object", "required": ["templateId", "templateVersion", "schemaVersion", "name", "description", "categories", "tags", "durationMs", "previewUrl", "downloadUrl", "fileSize", "sha256"], "properties": {"templateId": {"type": "string", "format": "uuid"}, "templateVersion": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"}, "schemaVersion": {"const": "2.0"}, "name": {"type": "string", "minLength": 1}, "description": {"type": "string", "minLength": 1}, "categories": {"type": "array", "items": {"type": "string"}}, "tags": {"type": "array", "items": {"type": "string"}}, "durationMs": {"type": "integer", "minimum": 1}, "previewUrl": {"type": "string", "format": "uri"}, "downloadUrl": {"type": "string", "format": "uri"}, "fileSize": {"type": "integer", "minimum": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "requiredFeatures": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": false}}
+  },
+  "additionalProperties": false
 }

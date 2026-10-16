@@ -293,21 +293,17 @@
         for (let i = 0; i < 3; i++) if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0);
         return String(left).localeCompare(String(right));
       };
-      const mediaSummary = (slots = []) => {
-        const types = [...new Set(slots.map((slot) => String(slot.type || "media").replaceAll("_", " ")))];
-        if (!types.length) return "No media required";
-        return `${types.join(" + ")} · ${slots.length} slot${slots.length === 1 ? "" : "s"}`;
-      };
       const visibleTemplates = () => {
         const query = search.value.trim().toLowerCase();
         return (catalog?.templates || []).filter((item) => {
-          const categoryMatch = activeCategory === "All" || (item.categories || [item.category]).includes(activeCategory);
-          const text = [item.name, item.description, item.category, ...(item.categories || []), ...(item.tags || []), item.id].join(" ").toLowerCase();
+          const categories = item.categories || [];
+          const categoryMatch = activeCategory === "All" || categories.includes(activeCategory);
+          const text = [item.name, item.description, ...categories, ...(item.tags || []), item.templateId].join(" ").toLowerCase();
           return categoryMatch && (!query || text.includes(query));
         }).sort((a, b) => a.name.localeCompare(b.name));
       };
       const renderFilters = () => {
-        const categories = ["All", ...(catalog?.categories || [])];
+        const categories = ["All", ...new Set((catalog?.templates || []).flatMap((item) => item.categories || []))].sort((a, b) => a === "All" ? -1 : a.localeCompare(b));
         filters.innerHTML = categories.map((name) => `<button class="filter" type="button" data-category="${esc(name)}" aria-pressed="${name === activeCategory}">${esc(name)}</button>`).join("");
         filters.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => {
           activeCategory = button.dataset.category;
@@ -319,13 +315,16 @@
         const tags = (item.tags || []).slice(0, 3).map((tag) => `<span class="tag">${esc(tag)}</span>`).join("");
         const image = safeLink(item.previewUrl);
         const download = safeLink(item.downloadUrl);
-        return `<article class="template-card" data-template-id="${esc(item.id)}">
-          <div class="card-art"><img src="${esc(image)}" alt="Preview artwork for ${esc(item.name)}" loading="lazy"><span class="category-label">${esc(item.category)}</span><span class="version-label">v${esc(item.version)}</span></div>
+        const itemId = item.templateId;
+        const version = item.templateVersion;
+        const category = (item.categories || [])[0] || "Voomi";
+        return `<article class="template-card" data-template-id="${esc(itemId)}">
+          <div class="card-art"><img src="${esc(image)}" alt="Preview artwork for ${esc(item.name)}" loading="lazy"><span class="category-label">${esc(category)}</span><span class="version-label">v${esc(version)}</span></div>
           <div class="card-body">
             <div class="card-title-row"><h3 class="card-title">${esc(item.name)}</h3><span class="duration-pill">${duration(item.durationMs)}</span></div>
             <p class="card-description">${esc(item.description)}</p>
             <div class="tag-row">${tags}</div>
-            <div class="card-footer"><span class="slot-note">${esc(mediaSummary(item.mediaSlots))}</span><span class="card-actions"><button class="text-action" type="button" data-details="${esc(item.id)}">Details</button><a class="text-action download-action" href="${esc(download)}" download>Get template&nbsp; ↗</a></span></div>
+            <div class="card-footer"><span class="slot-note">Schema ${esc(item.schemaVersion)}</span><span class="card-actions"><button class="text-action" type="button" data-details="${esc(itemId)}">Details</button><a class="text-action download-action" href="${esc(download)}" download>Get template&nbsp; ↗</a></span></div>
           </div>
         </article>`;
       };
@@ -338,21 +337,19 @@
         grid.querySelectorAll("[data-details]").forEach((button) => button.addEventListener("click", () => showDetails(button.dataset.details)));
       };
       const showDetails = (id) => {
-        const item = catalog.templates.find((entry) => entry.id === id);
+        const item = catalog.templates.find((entry) => entry.templateId === id);
         if (!item) return;
         const preview = safeLink(item.previewUrl);
         const download = safeLink(item.downloadUrl);
         const tags = (item.tags || []).join(", ") || "—";
         dialogInner.innerHTML = `<div class="dialog-art"><img src="${esc(preview)}" alt="Preview for ${esc(item.name)}"></div>
           <div class="dialog-content">
-            <div class="dialog-top"><div><p class="section-kicker">${esc(item.category)} · v${esc(item.version)}</p><h2 id="dialog-title">${esc(item.name)}</h2></div><button class="close-dialog" type="button" aria-label="Close details">×</button></div>
+            <div class="dialog-top"><div><p class="section-kicker">${esc((item.categories || [])[0] || "Voomi")} · v${esc(item.templateVersion)}</p><h2 id="dialog-title">${esc(item.name)}</h2></div><button class="close-dialog" type="button" aria-label="Close details">×</button></div>
             <p class="dialog-description">${esc(item.description)}</p>
             <div class="detail-list">
               <div class="detail-row"><span>Duration</span><span>${duration(item.durationMs)}</span></div>
-              <div class="detail-row"><span>Media</span><span>${esc(mediaSummary(item.mediaSlots))}</span></div>
-              <div class="detail-row"><span>Minimum app version</span><span>${esc(item.minAppVersion)}</span></div>
-              <div class="detail-row"><span>Template ID</span><span>${esc(item.id)}</span></div>
-              <div class="detail-row"><span>Package size</span><span>${formatBytes(item.sizeBytes)}</span></div>
+              <div class="detail-row"><span>Template ID</span><span>${esc(item.templateId)}</span></div>
+              <div class="detail-row"><span>Package size</span><span>${formatBytes(item.fileSize)}</span></div>
               <div class="detail-row"><span>Tags</span><span>${esc(tags)}</span></div>
             </div>
             <div class="dialog-hash">SHA-256 · ${esc(item.sha256)}</div>
@@ -368,12 +365,13 @@
           const response = await fetch(new URL("catalog.json", document.baseURI), { cache: "no-cache" });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const data = await response.json();
-          if (!Array.isArray(data.templates) || !Array.isArray(data.categories)) throw new Error("Catalog format is not recognized");
+          if (!Array.isArray(data.templates)) throw new Error("Catalog format is not recognized");
+          if (data.catalogSchemaVersion !== "2.0") throw new Error("Catalog schema version is not supported");
           catalog = data;
           document.querySelector("#catalog-updated").textContent = `${data.templates.length} templates · catalog ${data.catalogVersion}`;
           renderFilters();
           renderCards();
-          const featured = [...data.templates].sort((a, b) => compareVersions(b.version, a.version))[0];
+          const featured = [...data.templates].sort((a, b) => compareVersions(b.templateVersion, a.templateVersion))[0];
           if (featured) {
             const wrap = document.querySelector("#spot-image-wrap");
             wrap.innerHTML = `<img class="spot-image" src="${esc(safeLink(featured.previewUrl))}" alt="${esc(featured.name)} template preview">`;

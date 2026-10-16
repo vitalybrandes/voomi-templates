@@ -1,92 +1,62 @@
 import json
 import sys
 import uuid
+import zipfile
 from pathlib import Path
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import publish_template
-from common import ROOT, VoomiError
+from common import VoomiError
 
 
-def test_preview_image_path_accepts_direct_and_object_metadata():
-    assert publish_template.preview_image_path("preview/preview.jpg") == "preview/preview.jpg"
-    assert publish_template.preview_image_path({"preview": "preview/preview.jpg"}) == "preview/preview.jpg"
+def test_batch_rejects_before_any_package_is_processed(monkeypatch, tmp_path):
+    packages = [tmp_path / "a.zip", tmp_path / "b.zip"]
+    monkeypatch.setattr(publish_template, "validate", lambda path: (_ for _ in ()).throw(VoomiError("bad package")) if path.name == "b.zip" else {"valid": True})
+    with pytest.raises(VoomiError, match="before publishing") as error:
+        publish_template.validate_batch(packages)
+    assert "bad package" in str(error.value)
 
 
-def test_latest_published_version_matches_uuid_and_semver(monkeypatch, tmp_path):
-    wanted_id = str(uuid.uuid4())
-    other_id = str(uuid.uuid4())
-    tags = [
-        {"tagName": "template-money-rain-v1.9.0", "isDraft": False, "isPrerelease": False},
-        {"tagName": "template-money-rain-v1.10.0", "isDraft": False, "isPrerelease": False},
-    ]
-
-    def fake_run(args, **_kwargs):
-        if args[1:3] == ["release", "list"]:
-            return json.dumps(tags)
-        tag = args[3]
-        version_id = other_id if tag.endswith("v1.10.0") else wanted_id
-        directory = Path(args[args.index("--dir") + 1])
-        (directory / f"{tag}.metadata.json").write_text(json.dumps({"id": version_id}), encoding="utf-8")
-        return ""
-
-    monkeypatch.setattr(publish_template, "run", fake_run)
-    monkeypatch.setattr(
-        publish_template,
-        "release_view",
-        lambda _repo, tag: {"assets": [{"name": f"{tag}.metadata.json"}]},
-    )
-    index = {"releases": [{"id": wanted_id, "templateVersion": "1.8.0"}]}
-
-    assert publish_template.latest_published_version("owner/repo", "money-rain", wanted_id, index) == (1, 9, 0, ())
+def test_release_tag_uses_uuid_and_version(monkeypatch, tmp_path):
+    template_id = str(uuid.uuid4())
+    meta = {"schemaVersion": "2.0", "templateId": template_id, "templateVersion": "1.0.0", "name": "T", "description": "D", "durationMs": 1000, "canvas": {"width": 720, "height": 1280, "fps": 30}, "preview": "preview.jpg", "mediaSlots": [], "layers": [{"id": "image", "type": "image", "source": "assets/images/a.png", "startMs": 0, "durationMs": 1000}]}
+    path = tmp_path / "sample.zip"
+    from PIL import Image
+    import io
+    buffer = io.BytesIO()
+    Image.new("RGB", (10, 10)).save(buffer, "JPEG")
+    with zipfile.ZipFile(path, "w") as archive:
+        archive.writestr("template.json", json.dumps(meta))
+        archive.writestr("preview.jpg", buffer.getvalue())
+        archive.writestr("assets/images/a.png", buffer.getvalue())
+    monkeypatch.setattr(publish_template, "ROOT", tmp_path)
+    monkeypatch.setattr(publish_template, "INDEX", tmp_path / "release-index.json")
+    monkeypatch.setattr(publish_template, "validate", lambda _path: {"sha256": "a" * 64, "sizeBytes": path.stat().st_size})
+    monkeypatch.setattr(publish_template, "release_view", lambda *_args: None)
+    monkeypatch.setattr(publish_template, "run", lambda *_args, **_kwargs: "")
+    monkeypatch.setattr(publish_template, "verify_release", lambda *_args: None)
+    monkeypatch.setattr(publish_template, "semver_key", lambda value: (1, 0, 0, ()))
+    result = publish_template.process(path, "owner/repo", report={"sha256": "a" * 64, "sizeBytes": path.stat().st_size})
+    assert result["tag"] == f"template-{template_id}-v1.0.0"
+    assert result["assetName"] == "template.zip"
 
 
-def test_publish_requires_strictly_newer_version():
-    current = (1, 10, 0, ())
-    assert publish_template.should_publish_version("1.10.1", current)
-    assert not publish_template.should_publish_version("1.10.0", current)
-    assert not publish_template.should_publish_version("1.9.9", current)
+def test_duplicate_version_with_different_content_is_rejected(monkeypatch, tmp_path):
+    template_id = str(uuid.uuid4())
+    path = tmp_path / "sample.zip"
+    meta = {"schemaVersion": "2.0", "templateId": template_id, "templateVersion": "1.0.0"}
+    with zipfile.ZipFile(path, "w") as archive:
+        archive.writestr("template.json", json.dumps(meta))
+    monkeypatch.setattr(publish_template, "validate", lambda _path: {"sha256": "b" * 64, "sizeBytes": 1})
+    monkeypatch.setattr(publish_template, "INDEX", tmp_path / "release-index.json")
+    (tmp_path / "release-index.json").write_text(json.dumps({"releases": [{"templateId": template_id, "templateVersion": "1.0.0", "sha256": "a" * 64}]}))
+    with pytest.raises(VoomiError, match="different content"):
+        publish_template.process(path, "owner/repo")
 
 
-def test_mixed_batch_keeps_failure_but_succeeds_for_valid_packages(tmp_path, monkeypatch):
-    packages = [ROOT / "incoming" / f"template-{i}.zip" for i in range(5)]
-    monkeypatch.chdir(tmp_path)
-    monkeypatch.setattr(publish_template, "discover", lambda: packages)
-    monkeypatch.setattr(publish_template, "github_repo", lambda: "owner/repo")
-
-    def process(package, _repo, _dry_run):
-        if package.name == "template-2.zip":
-            raise VoomiError("invalid license manifest")
-        return {"path": str(package.relative_to(ROOT)), "tag": package.stem}
-
-    monkeypatch.setattr(publish_template, "process", process)
-
-    assert publish_template.main() == 0
-    report = json.loads((tmp_path / "publish-report.json").read_text(encoding="utf-8"))
-    processed = (tmp_path / "processed-packages.txt").read_text(encoding="utf-8").splitlines()
-    assert len(report["publishedOrSkipped"]) == 4
-    assert report["failures"] == [{"path": str(packages[2].relative_to(ROOT)), "error": "invalid license manifest"}]
-    assert len(processed) == 4
-    assert str(packages[2].relative_to(ROOT)) not in processed
-
-
-def test_all_failed_batch_warns_and_retains_paths(tmp_path, monkeypatch):
-    packages = [ROOT / "incoming" / "bad.zip"]
-    monkeypatch.chdir(tmp_path)
-    monkeypatch.setattr(publish_template, "discover", lambda: packages)
-    monkeypatch.setattr(publish_template, "github_repo", lambda: "owner/repo")
-    monkeypatch.setattr(publish_template, "process", lambda *_args: (_ for _ in ()).throw(VoomiError("invalid package")))
-
-    assert publish_template.main() == 0
-    report = json.loads((tmp_path / "publish-report.json").read_text(encoding="utf-8"))
-    assert report["failures"][0]["error"] == "invalid package"
-    assert (tmp_path / "processed-packages.txt").read_text(encoding="utf-8") == ""
-
-
-def test_cleanup_only_push_does_not_rediscover_unrelated_incoming_zip(tmp_path, monkeypatch):
-    event = tmp_path / "event.json"
-    event.write_text(json.dumps({"commits": [{"added": [], "modified": [], "removed": ["incoming/previously-published.zip"]}]}), encoding="utf-8")
-    monkeypatch.setenv("GITHUB_EVENT_NAME", "push")
-    monkeypatch.setenv("GITHUB_EVENT_PATH", str(event))
-
+def test_manual_dispatch_without_path_does_not_select_everything(monkeypatch):
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "workflow_dispatch")
+    monkeypatch.delenv("INPUT_ZIP_PATH", raising=False)
     assert publish_template.discover() == []

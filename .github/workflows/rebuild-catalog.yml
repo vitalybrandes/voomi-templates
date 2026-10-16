@@ -2,8 +2,6 @@ name: Rebuild Voomi Catalog
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17 4 * * 1'
 
 permissions:
   contents: write
@@ -18,20 +16,17 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.12'
-      - run: python -m pip install -r requirements.txt
-      - name: Setup GitHub CLI
-        run: |
-          type -p gh >/dev/null || (sudo apt-get update && sudo apt-get install -y gh)
-          gh --version
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: python -m pip install --disable-pip-version-check jsonschema==4.25.1
       - name: Rebuild and verify
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          gh --version
           python scripts/rebuild_catalog.py
           python scripts/verify_catalog.py
       - name: Commit catalog

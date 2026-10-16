@@ -1,57 +1,47 @@
-# Packaging Voomi templates
+# Submit a Voomi template
 
-Contributors submit packages under `incoming/` as ZIPs. Versions use SemVer. Never change bytes of an already released ID/version; publish a new version. The pipeline accepts both the catalog distribution layout below and the Voomi app-native export layout described at the end of this document. During publishing, the package metadata is normalized to include a stable UUID in `id`; the resulting ZIP is the one published.
+The template generator should produce the ZIP and composition preview. Submit only generated Schema v2 packages in `incoming/`; CI validates, publishes, and catalogs them.
 
-## Required archive layout
+## ZIP layout
 
 ```text
-template.json
-README.md
-placeholders/                 # may be empty
-assets/                       # may be empty
-audio/                        # may be empty
-preview/
-  preview.jpg                 # 1080 x 1920 JPEG
-licenses/
-  asset-manifest.json
+template.zip
+├── template.json
+├── preview.jpg
+└── assets/
+    ├── backgrounds/
+    ├── images/
+    ├── stickers/
+    ├── frames/
+    ├── animations/
+    ├── overlays/
+    ├── audio/
+    └── fonts/
 ```
 
-Empty optional asset directories can be omitted. This distribution layout uses one JPEG preview image and a machine-readable asset manifest. `LICENSES.md` is not required. `template.json` uses `schemaVersion: "1.0.0"`, a readable `templateId`, and a UUID `id` (older packages are upgraded during publishing). Scene timing uses the pipeline's contiguous, ordered timeline policy when all scenes have explicit `startMs` and `durationMs`.
+Empty asset directories may be omitted. No other asset folders are allowed. All file references must resolve inside the ZIP. Include only one preview image: root `preview.jpg`. Do not include `poster.jpg`, `thumbnail.jpg`, or `preview.mp4`.
 
-## Voomi app-native ZIPs
+## Metadata
 
-App-native ZIPs can use a namespaced `templateId` such as `com.voomi.samples.neon-dance-beat-drop`, the app's renderer feature names, and a single PNG or JPEG declared directly in `preview` (or as `preview.preview`). Their metadata must include a stable UUID `id`, readable `templateId`, SemVer versions, name, description, category, duration, fps, resolution, renderer features, media slots, scenes, and preview image path. Referenced placeholders, scene image layers, audio files, and preview images must exist in the archive. The single app preview image is published in the catalog. `licenses/asset-manifest.json` is not required or interpreted for this app-native format. Existing ZIPs without UUID `id` are normalized during publishing.
+Use [schemas/template.schema.json](schemas/template.schema.json) and the single-stage and multi-stage examples provided for Schema v2. Required fields include:
 
-Media slot types are `photo`, `video`, `photo_or_video`, and `none`. Scene IDs and slot IDs must be unique. A scene can refer to zero, one, or multiple declared slots using `mediaSlotIds` (or legacy `mediaSlots` array). Required asset references must point to files in the ZIP. Do not add executable files, symlinks, encrypted ZIP entries, or paths that escape the package.
+- `schemaVersion`: `"2.0"`
+- `templateId`: UUID v4
+- `templateVersion`: SemVer
+- `name`, `description`, `durationMs`, `canvas`, `preview`, `mediaSlots`, and `layers`
 
-## License manifest
+Optional fields include `stages`, `categories`, `tags`, and `requiredFeatures`. Do not add `templateVersionId`. A version is uniquely identified by `(templateId, templateVersion)`.
 
-`licenses/asset-manifest.json` has an `assets` array. Include one record for each distributed file under `assets/`, `audio/`, and `placeholders/`:
+Layer intervals use milliseconds and must fit inside `durationMs`. `userMedia` layers must reference a declared `mediaSlots[].id` via `slotId`; other visual/audio layers reference files with `source`. Use normalized layout coordinates. Stages can be sequential and visual layers may overlap. Declare required renderer features.
 
-```json
-{
-  "assets": [
-    {
-      "path": "assets/background.jpg",
-      "creator": "Creator name",
-      "sourceUrl": "https://example.org/source",
-      "license": "CC-BY-4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-      "attribution": "Creator, source, CC BY 4.0",
-      "redistributionApproved": true
-    }
-  ]
-}
-```
+The JPEG preview should be rendered from the actual layer composition with temporary sample media so it represents the template as users will see it.
 
-Allowed license identifiers are maintained in `scripts/validate_template.py`. A declaration must be backed by evidence that permits redistribution. The checker confirms fields and allowlist membership; it cannot establish legal permission. Ask for review when a license or source is unclear.
-
-## Validate before upload
+## Local checks
 
 ```bash
-python -m pip install -r requirements.txt
-python scripts/validate_template.py --zip incoming/money-rain-v1.0.0.zip --report validation-report.json
+python -m pip install -r requirements-dev.txt
+python scripts/validate_template.py --zip incoming/template.zip
 python -m pytest tests/ -v
 ```
 
-The repository currently has no app renderer schema or sample template. Confirm renderer features and scene timing against the app before relying on a template in production.
+CI publishes the ZIP as `template.zip` under `template-{templateId}-v{templateVersion}`. Published versions are immutable. Retry identical bytes to recover an interrupted run; change the version when content changes.

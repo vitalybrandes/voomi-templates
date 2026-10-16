@@ -1,354 +1,242 @@
 #!/usr/bin/env python3
-"""Validate an untrusted Voomi template ZIP without executing its contents."""
+"""Validate an untrusted Voomi Template Schema v2 ZIP package."""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
 import re
-import unicodedata
 import uuid
 import zipfile
 from pathlib import Path, PurePosixPath
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
-from PIL import Image, ImageFile
+from PIL import Image
 
-from common import ROOT, VoomiError, canonical_template_id, load_json, parse_semver, safe_zip_entries
+from common import ROOT, VoomiError, load_json, parse_semver, safe_zip_entries
 
-ImageFile.LOAD_TRUNCATED_IMAGES = False
-REQUIRED_FILES = {"template.json", "README.md", "preview/preview.jpg", "licenses/asset-manifest.json"}
-ALLOWED_TOP = {"template.json", "README.md", "placeholders", "assets", "audio", "preview", "licenses"}
-SUPPORTED_FEATURES = {"basic_timeline", "transitions", "text_overlay", "image_overlay", "audio_track", "video_slot", "photo_slot", "photo_or_video_slot", "keyframe_animation", "particle_effect", "mask", "blend_modes", "speed_control", "crop_transform"}
-ALLOWED_LICENSES = {"CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "Public-Domain", "Proprietary-Authorized"}
-
-
-def fail(msg: str) -> None:
-    raise VoomiError(msg)
+ALLOWED_ASSET_DIRS = {"backgrounds", "images", "stickers", "frames", "animations", "overlays", "audio", "fonts"}
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+VIDEO_EXTENSIONS = {".mp4", ".mov", ".webm"}
+AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".aac", ".ogg"}
+SUPPORTED_FEATURES = {"layer-transform", "alpha-compositing", "media-crop", "keyframe-animation", "chroma-key", "audio-mixing"}
+ANIMATABLE_PROPERTIES = {"x", "y", "width", "height", "rotationDeg", "scale", "offsetX", "offsetY", "opacity", "volume"}
 
 
-def member_map(entries: dict[str, zipfile.ZipInfo]) -> dict[str, zipfile.ZipInfo]:
-    return {name.casefold(): info for name, info in entries.items()}
+def fail(message: str) -> None:
+    raise VoomiError(message)
 
 
-def image_info(zf: zipfile.ZipFile, name: str, expected: tuple[int, int]) -> None:
+def _safe_member_path(value: Any, label: str) -> str:
+    if not isinstance(value, str) or not value or "\\" in value:
+        fail(f"{label} must be a safe relative package path")
+    path = PurePosixPath(value)
+    if path.is_absolute() or any(part in {"", ".", ".."} for part in value.split("/")):
+        fail(f"{label} contains an unsafe path: {value}")
+    return path.as_posix()
+
+
+def _require_number(value: Any, label: str, minimum: float | None = None, maximum: float | None = None) -> None:
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        fail(f"{label} must be a number")
+    if minimum is not None and value < minimum or maximum is not None and value > maximum:
+        fail(f"{label} must be between {minimum} and {maximum}")
+
+
+def _check_image(zf: zipfile.ZipFile, path: str, label: str, jpeg_only: bool = False) -> None:
     try:
-        with zf.open(name) as raw:
-            im = Image.open(raw)
-            im.verify()
-        with zf.open(name) as raw:
-            im = Image.open(raw)
-            im.load()
-            if im.format != "JPEG":
-                fail(f"{name} must be JPEG")
-            if im.size != expected:
-                fail(f"{name} resolution is {im.width}x{im.height}; expected {expected[0]}x{expected[1]}")
-            if im.getexif().get(274, 1) != 1:
-                fail(f"{name} must have normal orientation (EXIF orientation 1 or absent)")
-    except (OSError, ValueError) as exc:
-        fail(f"Invalid image {name}: {exc}")
-
-
-def validate_manifest(data: Any, entries: dict[str, zipfile.ZipInfo]) -> None:
-    if not isinstance(data, dict):
-        fail("licenses/asset-manifest.json must contain an object")
-    assets = data.get("assets")
-    if not isinstance(assets, list):
-        fail("License manifest must contain an assets array")
-    known = {unicodedata.normalize("NFC", n).casefold() for n, info in entries.items() if not info.is_dir()}
-    seen: set[str] = set()
-    for i, item in enumerate(assets):
-        label = f"License manifest asset {i + 1}"
-        if not isinstance(item, dict):
-            fail(f"{label} must be an object")
-        path = item.get("path")
-        if not isinstance(path, str) or unicodedata.normalize("NFC", path).casefold() not in known:
-            fail(f"{label} references a missing asset")
-        if path.casefold() in seen:
-            fail(f"Duplicate license manifest path: {path}")
-        seen.add(unicodedata.normalize("NFC", path).casefold())
-        for key in ("creator", "sourceUrl", "license", "licenseUrl", "attribution"):
-            if not isinstance(item.get(key), str) or not item[key].strip():
-                fail(f"{label} missing {key}")
-        if item["license"] not in ALLOWED_LICENSES:
-            fail(f"{label} uses license outside allowlist: {item['license']}")
-        if item.get("redistributionApproved") is not True:
-            fail(f"Asset license redistribution not approved: {path}")
-        for key in ("sourceUrl", "licenseUrl"):
-            if not item[key].startswith(("https://", "http://")):
-                fail(f"{label} has invalid {key}")
-    # Require each distributable asset (except metadata and previews) to be represented.
-    for path, info in entries.items():
-        if info.is_dir() or path.casefold().split("/", 1)[0] not in {"assets", "audio", "placeholders"}:
-            continue
-        if path.casefold() not in seen:
-            fail(f"Asset license manifest entry missing for {path}")
-
-
-def is_app_native(meta: Any) -> bool:
-    """Recognize the Voomi app export shape used by the supplied package."""
-    if not isinstance(meta, dict):
-        return False
-    preview = meta.get("preview")
-    image_path = preview if isinstance(preview, str) else preview.get("preview") if isinstance(preview, dict) else None
-    return isinstance(image_path, str) and image_path.lower().endswith((".png", ".jpg", ".jpeg", ".webp"))
-
-
-def is_legacy_voomi(meta: Any) -> bool:
-    """Recognize the earlier Voomi template.json package format."""
-    return (isinstance(meta, dict)
-            and isinstance(meta.get("templateId", meta.get("id")), str)
-            and isinstance(meta.get("version"), str)
-            and isinstance(meta.get("preview"), str)
-            and isinstance(meta.get("canvas"), dict)
-            and isinstance(meta.get("mediaSlots"), list)
-            and isinstance(meta.get("layers"), list))
-
-
-def validate_legacy_voomi(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
-    """Validate the supported legacy shape without rewriting its ZIP."""
-    try:
-        canonical_template_id(meta.get("templateId", meta.get("id")))
-        parse_semver(meta["version"])
-    except (KeyError, VoomiError) as exc:
-        fail(str(exc))
-    if not isinstance(meta.get("name"), str) or not meta["name"].strip():
-        fail("Legacy template metadata requires a non-empty name")
-    duration = meta.get("durationSeconds")
-    if not isinstance(duration, (int, float)) or isinstance(duration, bool) or not 1 <= duration <= 60:
-        fail("durationSeconds must be between 1 and 60")
-    canvas = meta["canvas"]
-    if not all(isinstance(canvas.get(k), int) and 360 <= canvas[k] <= 2160 for k in ("width", "height")):
-        fail("canvas width and height must be integers from 360 to 2160")
-    if canvas.get("fps") not in {24, 25, 30}:
-        fail("canvas.fps must be 24, 25, or 30")
-    files = {name.casefold() for name, info in entries.items() if not info.is_dir()}
-    preview = meta["preview"]
-    if preview.casefold() not in files:
-        fail(f"preview references a missing image: {preview}")
-    try:
-        with zf.open(preview) as raw:
-            image = Image.open(raw)
+        with zf.open(path) as stream:
+            image = Image.open(stream)
             image.verify()
-        with zf.open(preview) as raw:
-            image = Image.open(raw)
+        with zf.open(path) as stream:
+            image = Image.open(stream)
             image.load()
-            if image.format not in {"PNG", "JPEG"}:
-                fail("Legacy preview must be PNG or JPEG")
+            if jpeg_only and image.format != "JPEG":
+                fail(f"{label} must be JPEG encoded")
+            if not jpeg_only and image.format not in {"JPEG", "PNG", "WEBP"}:
+                fail(f"Unsupported image format for {label}: {image.format}")
     except (OSError, ValueError) as exc:
-        fail(f"Invalid preview image {preview}: {exc}")
-    slots = meta["mediaSlots"]
-    slot_ids = set()
-    for index, slot in enumerate(slots):
-        if not isinstance(slot, dict) or not isinstance(slot.get("id"), str) or not isinstance(slot.get("type"), str):
-            fail(f"mediaSlots[{index}] must have string id and type")
-        if slot["id"] in slot_ids:
-            fail(f"Duplicate media-slot ID: {slot['id']}")
-        slot_ids.add(slot["id"])
-        placeholder = slot.get("placeholder")
-        if placeholder is not None and (not isinstance(placeholder, str) or placeholder.casefold() not in files):
-            fail(f"Media slot {slot['id']} references a missing placeholder")
-    if not meta["layers"]:
-        fail("Legacy template must contain at least one layer")
-    for index, layer in enumerate(meta["layers"]):
-        if not isinstance(layer, dict) or layer.get("type") not in {"media", "video", "image"}:
-            fail(f"Unsupported legacy layer at index {index}")
-        bounds = layer.get("bounds")
-        if not isinstance(bounds, dict) or not all(isinstance(bounds.get(k), (int, float)) and not isinstance(bounds.get(k), bool) for k in ("x", "y", "width", "height")):
-            fail(f"Layer {index} requires numeric bounds")
-        if layer["type"] == "media":
-            if layer.get("slot") not in slot_ids:
-                fail(f"Layer {index} references an unknown media slot")
-        else:
-            source = layer.get("src")
-            if not isinstance(source, str) or source.casefold() not in files:
-                fail(f"Layer {index} references a missing asset")
-        key = layer.get("chromaKey")
-        if key is not None:
-            if (layer["type"] != "video" or not isinstance(key, dict)
-                    or key.get("mode") != "luma"
-                    or str(key.get("keyColor", "#000000")).upper() != "#000000"):
-                fail(f"Layer {index} uses unsupported chromaKey settings")
-            threshold, softness = key.get("threshold"), key.get("softness")
-            if (not isinstance(threshold, (int, float)) or isinstance(threshold, bool)
-                    or not isinstance(softness, (int, float)) or isinstance(softness, bool)
-                    or threshold < 0 or softness <= 0 or threshold + softness > 1):
-                fail(f"Layer {index} has invalid luma-key threshold or softness")
+        fail(f"Invalid image {label}: {exc}")
 
 
-def validate_app_native(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
-    required = ("templateId", "templateVersion", "name", "category", "durationMs", "fps", "resolution", "minimumAppVersion", "requiredRendererFeatures", "mediaSlots", "scenes", "preview")
-    missing = [key for key in required if key not in meta]
-    if missing:
-        fail(f"App template metadata missing {missing[0]}")
-    if not (isinstance(meta.get("description"), str) and meta["description"].strip()) and not (isinstance(meta.get("shortDescription"), str) and meta["shortDescription"].strip()):
-        fail("App template metadata requires description or shortDescription")
-    canonical_template_id(meta["templateId"])
-    validate_guid(meta)
-    parse_semver(meta["templateVersion"])
-    parse_semver(meta["minimumAppVersion"])
+def _check_asset_extension(path: str, media_type: str, label: str) -> None:
+    suffix = PurePosixPath(path).suffix.lower()
+    if media_type in {"image", "sticker", "frame"} and suffix not in IMAGE_EXTENSIONS:
+        fail(f"{label} must reference a supported image file")
+    if media_type in {"videoOverlay", "video"} and suffix not in VIDEO_EXTENSIONS:
+        fail(f"{label} must reference a supported video file")
+    if media_type == "audio" and suffix not in AUDIO_EXTENSIONS:
+        fail(f"{label} must reference a supported audio file")
 
 
-    if not isinstance(meta["durationMs"], int) or isinstance(meta["durationMs"], bool) or meta["durationMs"] <= 0:
-        fail("durationMs must be a positive integer")
-    if not isinstance(meta["fps"], (int, float)) or isinstance(meta["fps"], bool) or meta["fps"] <= 0:
-        fail("fps must be positive")
-    if not isinstance(meta["resolution"], dict) or not all(isinstance(meta["resolution"].get(k), int) and meta["resolution"][k] > 0 for k in ("width", "height")):
-        fail("resolution must contain positive width and height")
-    if not isinstance(meta["requiredRendererFeatures"], list) or not all(isinstance(x, str) and x for x in meta["requiredRendererFeatures"]):
-        fail("requiredRendererFeatures must be an array of non-empty strings")
-    if not isinstance(meta["mediaSlots"], list) or not isinstance(meta["scenes"], list) or not meta["scenes"]:
-        fail("mediaSlots and scenes must be arrays, and scenes cannot be empty")
-    files = {name.casefold() for name, info in entries.items() if not info.is_dir()}
-    for slot in meta["mediaSlots"]:
-        if not isinstance(slot, dict) or not isinstance(slot.get("id"), str) or not isinstance(slot.get("type"), str):
-            fail("Each media slot must have string id and type")
-        placeholder = slot.get("placeholder")
-        if placeholder and (not isinstance(placeholder, str) or placeholder.casefold() not in files):
-            fail(f"Media slot {slot['id']} references a missing placeholder")
-    known_slots = {slot["id"] for slot in meta["mediaSlots"] if isinstance(slot, dict) and isinstance(slot.get("id"), str)}
-    scene_ids: set[str] = set()
-    for scene in meta["scenes"]:
-        if not isinstance(scene, dict) or not isinstance(scene.get("id"), str):
-            fail("Each scene must have a string id")
-        if scene["id"] in scene_ids:
-            fail(f"Duplicate scene ID: {scene['id']}")
-        scene_ids.add(scene["id"])
-        for slot_id in scene.get("mediaSlotIds", []):
-            if slot_id not in known_slots:
-                fail(f"Scene {scene['id']} references unknown media slot: {slot_id}")
-        for layer in scene.get("layers", []):
-            if isinstance(layer, dict) and layer.get("type") == "image":
-                asset = layer.get("source")
-                if not isinstance(asset, str) or asset.casefold() not in files:
-                    fail(f"Scene {scene['id']} references a missing image asset")
-
-
-    preview = meta["preview"]
-    preview_path = preview if isinstance(preview, str) else preview.get("preview") if isinstance(preview, dict) else None
-    if not isinstance(preview_path, str) or preview_path.casefold() not in files:
-        fail("preview references a missing image")
+def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
     try:
-        with zf.open(preview_path) as raw:
-            im = Image.open(raw)
-            im.verify()
-        with zf.open(preview_path) as raw:
-            im = Image.open(raw)
-            im.load()
-            if im.format not in {"PNG", "JPEG", "WEBP"}:
-                fail("App-native preview must be an image (PNG, JPEG, or WebP)")
-    except (OSError, ValueError) as exc:
-        fail(f"Invalid preview image {preview_path}: {exc}")
-    for audio in (meta.get("audio") or {}).values() if isinstance(meta.get("audio"), dict) else []:
-        if isinstance(audio, dict) and isinstance(audio.get("source"), str) and audio["source"].casefold() not in files:
-            fail(f"Audio references missing file: {audio['source']}")
-
-
-def validate_guid(meta: dict[str, Any]) -> None:
-    value = meta.get("id")
-    try:
-        if not isinstance(value, str) or str(uuid.UUID(value)) != value.lower():
-            raise ValueError(value)
+        parsed = uuid.UUID(meta["templateId"])
+        if parsed.version != 4 or str(parsed) != meta["templateId"].lower():
+            fail("templateId must be a canonical UUID v4")
     except (ValueError, AttributeError):
-        fail("template.json id must be a UUID")
+        fail("templateId must be a UUID v4")
+    parse_semver(meta["templateVersion"])
+    if not isinstance(meta["name"], str) or not meta["name"].strip():
+        fail("name must not be empty")
+    if not isinstance(meta["description"], str) or not meta["description"].strip():
+        fail("description must not be empty")
+    duration = meta["durationMs"]
+    if not isinstance(duration, int) or isinstance(duration, bool) or not 1 <= duration <= 300000:
+        fail("durationMs must be an integer between 1 and 300000")
+    canvas = meta["canvas"]
+    if not isinstance(canvas["width"], int) or not 1 <= canvas["width"] <= 4320 or not isinstance(canvas["height"], int) or not 1 <= canvas["height"] <= 4320:
+        fail("canvas width and height must be integers between 1 and 4320")
+    if not isinstance(canvas["fps"], (int, float)) or isinstance(canvas["fps"], bool) or not 1 <= canvas["fps"] <= 120:
+        fail("canvas.fps must be between 1 and 120")
+
+    files = {name.casefold(): name for name, info in entries.items() if not info.is_dir()}
+    for name, info in entries.items():
+        if info.is_dir():
+            continue
+        parts = name.split("/")
+        if parts[0] == "template.json":
+            continue
+        if parts[0] != "preview.jpg" and (len(parts) < 2 or parts[0] != "assets" or parts[1] not in ALLOWED_ASSET_DIRS):
+            fail(f"Unsupported package path: {name}. Assets must be inside approved assets/ folders")
+        if len(parts) > 2 and parts[0] == "assets" and parts[1] not in ALLOWED_ASSET_DIRS:
+            fail(f"Unsupported asset directory: assets/{parts[1]}")
+    if "preview.jpg" not in files:
+        fail("Package must contain exactly one root preview.jpg")
+    preview_files = [name for name in files.values() if PurePosixPath(name).name.lower() in {"preview.jpg", "poster.jpg", "thumbnail.jpg", "preview.png", "preview.webp", "preview.mp4"}]
+    if preview_files != ["preview.jpg"]:
+        fail("Package may contain only one preview image named preview.jpg")
+    if meta["preview"] != "preview.jpg":
+        fail("preview must be preview.jpg")
+    _check_image(zf, "preview.jpg", "preview.jpg", jpeg_only=True)
+
+    slots = meta["mediaSlots"]
+    slot_ids: set[str] = set()
+    for index, slot in enumerate(slots):
+        sid = slot["id"]
+        if sid in slot_ids:
+            fail(f"Duplicate media-slot ID: {sid}")
+        slot_ids.add(sid)
+        if not isinstance(slot.get("label"), str) or not slot["label"].strip():
+            fail(f"mediaSlots[{index}].label must not be empty")
+
+    stages = meta.get("stages", [])
+    stage_ids: set[str] = set()
+    for stage in stages:
+        if stage["id"] in stage_ids:
+            fail(f"Duplicate stage ID: {stage['id']}")
+        stage_ids.add(stage["id"])
+    ordered_stages = sorted(stages, key=lambda item: item["startMs"])
+    for previous, current in zip(ordered_stages, ordered_stages[1:]):
+        if current["startMs"] < previous["startMs"] + previous["durationMs"]:
+            fail(f"Stages {previous['id']} and {current['id']} overlap")
+    if ordered_stages and max(s["startMs"] + s["durationMs"] for s in stages) > duration:
+        fail("Stage timeline exceeds durationMs")
+
+    layers = meta["layers"]
+    layer_ids: set[str] = set()
+    for index, layer in enumerate(layers):
+        label = f"layers[{index}]"
+        if layer["id"] in layer_ids:
+            fail(f"Duplicate layer ID: {layer['id']}")
+        layer_ids.add(layer["id"])
+        start, layer_duration = layer["startMs"], layer["durationMs"]
+        if start + layer_duration > duration:
+            fail(f"{label} timing exceeds durationMs")
+        if "zIndex" in layer and not isinstance(layer["zIndex"], int):
+            fail(f"{label}.zIndex must be an integer")
+        if layer.get("stageId") is not None and layer["stageId"] not in stage_ids:
+            fail(f"{label} references unknown stageId: {layer['stageId']}")
+        layout = layer.get("layout")
+        if layout:
+            for key in ("x", "y", "width", "height"):
+                _require_number(layout[key], f"{label}.layout.{key}", -4 if key in {"x", "y"} else 0, 4 if key in {"x", "y"} else 4)
+            if layout["width"] <= 0 or layout["height"] <= 0:
+                fail(f"{label} layout width and height must be positive")
+            if not -360 <= layout.get("rotationDeg", 0) <= 360:
+                fail(f"{label}.layout.rotationDeg must be between -360 and 360")
+        content = layer.get("content")
+        if content:
+            _require_number(content.get("scale", 1), f"{label}.content.scale", 0.01, 20)
+            _require_number(content.get("offsetX", 0), f"{label}.content.offsetX", -10, 10)
+            _require_number(content.get("offsetY", 0), f"{label}.content.offsetY", -10, 10)
+        if layer["type"] == "userMedia":
+            if layer["slotId"] not in slot_ids:
+                fail(f"{label} references invalid media slot: {layer['slotId']}")
+        else:
+            source = layer.get("source")
+            path = _safe_member_path(source, f"{label}.source")
+            if path.casefold() not in files:
+                fail(f"{label} references missing asset: {path}")
+            if path.startswith("assets/") and path.split("/")[1] not in ALLOWED_ASSET_DIRS:
+                fail(f"Unsupported asset directory in {label}: {path}")
+            _check_asset_extension(path, layer["type"], f"{label}.source")
+            if layer["type"] in {"image", "sticker", "frame"}:
+                _check_image(zf, files[path.casefold()], f"{label}.source")
+        comp = layer.get("compositing")
+        if comp:
+            if comp["mode"] == "chromaKey":
+                if layer["type"] not in {"videoOverlay", "video"}:
+                    fail(f"{label} chromaKey compositing requires a video layer")
+                if comp.get("keyColor") not in {"green", "#00FF00", "#00ff00"}:
+                    fail(f"{label} chroma-key keyColor must be green or #00FF00")
+                _require_number(comp.get("similarity"), f"{label}.compositing.similarity", 0, 1)
+                _require_number(comp.get("smoothness"), f"{label}.compositing.smoothness", 0, 1)
+            elif comp["mode"] != "alpha":
+                fail(f"Unsupported compositing mode in {label}: {comp['mode']}")
+        for animation in layer.get("animations", []):
+            prop = animation["property"]
+            if prop not in ANIMATABLE_PROPERTIES:
+                fail(f"Unsupported animation property: {prop}")
+            frames = animation["keyframes"]
+            if len(frames) < 2:
+                fail(f"{label} animation requires at least two keyframes")
+            previous_time = -1
+            for frame in frames:
+                if frame["timeMs"] <= previous_time or frame["timeMs"] > layer_duration:
+                    fail(f"{label} animation keyframe times must increase within the layer duration")
+                previous_time = frame["timeMs"]
+                if isinstance(frame["value"], bool) or not isinstance(frame["value"], (int, float)):
+                    fail(f"{label} animation keyframe values must be numbers")
+
+    known_features = set(meta.get("requiredFeatures", []))
+    unsupported = known_features - SUPPORTED_FEATURES
+    if unsupported:
+        fail(f"Unsupported required feature: {sorted(unsupported)[0]}")
+    if any(layer.get("compositing", {}).get("mode") == "alpha" for layer in layers):
+        known_features.add("alpha-compositing")
+    if any(layer.get("compositing", {}).get("mode") == "chromaKey" for layer in layers):
+        known_features.add("chroma-key")
+    if any(layer.get("animations") for layer in layers):
+        known_features.add("keyframe-animation")
 
 
 def validate(zip_path: Path) -> dict[str, Any]:
     entries = safe_zip_entries(zip_path)
-    actual = {name.casefold() for name in entries if not name.endswith("/")}
-    if "template.json" not in actual:
+    files = {name.casefold() for name, info in entries.items() if not info.is_dir()}
+    if "template.json" not in files:
         fail("Required package file missing: template.json")
     with zipfile.ZipFile(zip_path) as zf:
         try:
             meta = json.loads(zf.read("template.json"))
         except (KeyError, json.JSONDecodeError, UnicodeDecodeError) as exc:
             fail(f"Invalid template.json: {exc}")
-        native = is_app_native(meta)
-        legacy = is_legacy_voomi(meta)
-        required_files = {"template.json", "README.md"} if native else ({"template.json", "README.md", meta["preview"]} if legacy else REQUIRED_FILES)
-    missing = sorted(p for p in required_files if p.casefold() not in actual)
-    if missing:
-        fail(f"Required package file missing: {missing[0]}")
-    for name in actual:
-        if name.split("/", 1)[0] not in {x.casefold() for x in ALLOWED_TOP}:
-            fail(f"Unexpected package root path: {name}")
-    with zipfile.ZipFile(zip_path) as zf:
-        if native:
-            validate_app_native(meta, entries, zf)
-        elif legacy:
-            validate_legacy_voomi(meta, entries, zf)
-            validate_guid(meta)
-        else:
-            schema = load_json(ROOT / "schemas" / "template.schema.json")
-            errors = sorted(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(meta), key=lambda e: list(map(str, e.path)))
-            if errors:
-                err = errors[0]
-                fail(f"template.json schema error at {'.'.join(map(str, err.path)) or '<root>'}: {err.message}")
-            try:
-                parse_semver(meta["templateVersion"])
-                parse_semver(meta["minimumAppVersion"])
-                canonical_template_id(meta["templateId"])
-                validate_guid(meta)
-            except VoomiError as exc:
-                fail(str(exc))
-            slots = meta["mediaSlots"]
-            slot_ids = [s["id"] for s in slots]
-            if len(slot_ids) != len(set(slot_ids)):
-                fail("Duplicate media-slot ID")
-            unknown = sorted(set(meta["requiredRendererFeatures"]) - SUPPORTED_FEATURES)
-            if unknown:
-                fail(f"Unsupported renderer feature: {unknown[0]}")
-            scene_ids = [scene["id"] for scene in meta["scenes"]]
-            if len(scene_ids) != len(set(scene_ids)):
-                fail("Duplicate scene ID")
-            previous_order = -1
-            previous_end = 0
-            slot_set = set(slot_ids)
-            for index, scene in enumerate(meta["scenes"]):
-                order = scene.get("order", index)
-                if order <= previous_order:
-                    fail("Scene ordering must be strictly increasing")
-                previous_order = order
-                refs = scene.get("mediaSlotIds", scene.get("mediaSlots", []))
-                if not isinstance(refs, list):
-                    fail(f"Scene {scene['id']} media slot references must be an array")
-                for ref in refs:
-                    if ref not in slot_set:
-                        fail(f"Scene {scene['id']} references unknown media slot: {ref}")
-                if "startMs" in scene and "durationMs" in scene:
-                    start, end = scene["startMs"], scene["startMs"] + scene["durationMs"]
-                    if index and start < previous_end:
-                        fail(f"Scene {scene['id']} has invalid overlap")
-                    if index and start > previous_end:
-                        fail(f"Scene {scene['id']} creates an unintended timeline gap")
-                    previous_end = end
-            if all("startMs" in s and "durationMs" in s for s in meta["scenes"]):
-                timeline_end = max(s["startMs"] + s["durationMs"] for s in meta["scenes"])
-                if abs(timeline_end - meta["durationMs"]) > 50:
-                    fail("Scene timeline total does not match durationMs within 50 ms")
-            manifest_path = meta["licenseManifest"]
-            if manifest_path != "licenses/asset-manifest.json":
-                fail("licenseManifest must be licenses/asset-manifest.json")
-            try:
-                manifest = json.loads(zf.read(manifest_path))
-            except (KeyError, json.JSONDecodeError, UnicodeDecodeError) as exc:
-                fail(f"Invalid license manifest: {exc}")
-            validate_manifest(manifest, entries)
-            image_info(zf, "preview/preview.jpg", (1080, 1920))
-            if meta["preview"].get("preview") != "preview/preview.jpg":
-                fail("preview.preview must be preview/preview.jpg")
+        schema = load_json(ROOT / "schemas" / "template.schema.json")
+        errors = sorted(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(meta), key=lambda error: list(map(str, error.path)))
+        if errors:
+            error = errors[0]
+            fail(f"template.json schema error at {'.'.join(map(str, error.path)) or '<root>'}: {error.message}")
+        validate_semantics(meta, entries, zf)
     digest = hashlib.sha256()
     with zip_path.open("rb") as package:
         for chunk in iter(lambda: package.read(1024 * 1024), b""):
             digest.update(chunk)
-    template_id = meta.get("templateId", meta.get("id")) if legacy else meta["templateId"]
-    template_version = meta["templateVersion"] if native else meta["version"] if legacy else meta["templateVersion"]
-    return {"valid": True, "id": meta["id"], "templateId": template_id, "templateVersion": template_version, "sha256": digest.hexdigest(), "sizeBytes": zip_path.stat().st_size, "errors": []}
+    return {"valid": True, "templateId": meta["templateId"], "templateVersion": meta["templateVersion"], "sha256": digest.hexdigest(), "sizeBytes": zip_path.stat().st_size, "errors": []}
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--zip", required=True, type=Path)
     parser.add_argument("--report", type=Path)
     args = parser.parse_args()

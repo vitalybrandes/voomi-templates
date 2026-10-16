@@ -5,9 +5,6 @@ on:
     branches: [main]
     paths:
       - 'incoming/**/*.zip'
-      - 'scripts/**'
-      - 'schemas/**'
-      - '.github/workflows/publish-template.yml'
   workflow_dispatch:
     inputs:
       zip_path:
@@ -29,32 +26,25 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          fetch-depth: 0
       - name: Setup Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.12'
-      - name: Install dependencies
-        run: python -m pip install -r requirements.txt
-      - name: Install GitHub CLI
-        run: |
-          if ! command -v gh >/dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y gh
-          fi
-      - name: Verify required tools
-        run: |
-          python --version
-          gh --version
-      - name: Run automated tests
-        run: python -m pytest tests/ -v
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - name: Install runtime and test dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+      - name: Verify GitHub CLI
+        run: gh --version
+      - name: Run tests
+        run: python -m pytest tests/ -q
       - name: Publish templates
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           INPUT_ZIP_PATH: ${{ inputs.zip_path }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
         run: python scripts/publish_template.py
       - name: Summarize package results
         if: always()
@@ -123,13 +113,3 @@ jobs:
             echo "Unable to push generated publication data after retries" >&2
             exit 1
           fi
-      - name: Upload publishing report
-        if: always()
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-        with:
-          name: voomi-publishing-report-${{ github.run_id }}
-          path: |
-            publish-report.json
-            validation-report.json
-          if-no-files-found: ignore
-          retention-days: 7

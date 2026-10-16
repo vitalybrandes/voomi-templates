@@ -15,19 +15,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MAX_ZIP_BYTES = int(os.getenv("VOOMI_MAX_ZIP_BYTES", str(250 * 1024 * 1024)))
 DEFAULT_MAX_UNCOMPRESSED_BYTES = int(os.getenv("VOOMI_MAX_UNCOMPRESSED_BYTES", str(1024 * 1024 * 1024)))
 MAX_ZIP_ENTRIES = int(os.getenv("VOOMI_MAX_ZIP_ENTRIES", "10000"))
-ID_RE = re.compile(r"^[A-Za-z0-9]+(?:[-_.][A-Za-z0-9]+)*$")
 SEMVER_RE = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z.-]+))?(?:\+([0-9A-Za-z.-]+))?$")
 
 
 class VoomiError(Exception):
     pass
-
-
-def canonical_template_id(value: str) -> str:
-    """Normalize human supplied IDs such as Voomi_POP to voomi-pop."""
-    if not isinstance(value, str) or not ID_RE.fullmatch(value):
-        raise VoomiError(f"Invalid template ID: {value}")
-    return re.sub(r"-+", "-", re.sub(r"[-_.]+", "-", value.strip().lower()))
 
 
 def load_json(path: Path) -> Any:
