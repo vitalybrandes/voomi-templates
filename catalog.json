@@ -1,8 +1,34 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 5,
-  "updatedAt": "2026-10-16T12:14:13Z",
+  "catalogVersion": 6,
+  "updatedAt": "2026-10-16T12:23:14Z",
   "templates": [
+    {
+      "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Bitcoin Money Rain",
+      "description": "Your photo with the original falling Bitcoin video overlay.",
+      "categories": [
+        "Fun",
+        "Trending"
+      ],
+      "tags": [
+        "bitcoin",
+        "coins",
+        "money"
+      ],
+      "durationMs": 7000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.0/template.zip",
+      "fileSize": 10944671,
+      "sha256": "4b23f8118de41034b65dd2a91633360c65196d09043e10a4534783666aebf27a",
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "chroma-key"
+      ]
+    },
     {
       "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
       "templateVersion": "1.0.0",
