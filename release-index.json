@@ -59,6 +59,35 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.1/preview.jpg"
     },
     {
+      "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
+      "templateVersion": "1.0.2",
+      "schemaVersion": "2.0",
+      "name": "Bitcoin Money Rain",
+      "description": "Turn your photo into a playful Bitcoin celebration as animated golden coins rain across the frame. The full-screen video overlay adds lively motion and a bold money-themed look, creating a punchy 7-second social video.",
+      "categories": [
+        "Fun",
+        "Trending"
+      ],
+      "tags": [
+        "bitcoin",
+        "money",
+        "coins"
+      ],
+      "durationMs": 7000,
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "chroma-key"
+      ],
+      "tag": "template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.2",
+      "assetName": "template.zip",
+      "sha256": "db2c09b903c3ef9331ac16aae3ea714f83a35dc047ec6adb753ae10c6a0c1dbd",
+      "fileSize": 11050358,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.2/preview.jpg"
+    },
+    {
       "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -122,6 +151,39 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Happy Birthday ? Confetti Party",
+      "description": "Turn one birthday photo or video into a colorful 10-second celebration. A custom birthday greeting pops in, then balloons, gifts, a candlelit cake and bright confetti stickers animate over the full-screen user media.",
+      "categories": [
+        "Birthday",
+        "Fun"
+      ],
+      "tags": [
+        "birthday",
+        "confetti",
+        "party",
+        "celebration",
+        "animated-stickers"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "cd37bdaf336daf3fa98ec019b14c21fe82f50194700471979abf4573ab8a8795",
+      "fileSize": 2858080,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.0.0/preview.jpg"
     },
     {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",

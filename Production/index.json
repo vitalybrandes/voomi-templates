@@ -23,6 +23,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.1"
     },
     {
+      "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
+      "templateVersion": "1.0.2",
+      "name": "Bitcoin Money Rain",
+      "tag": "template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.2",
+      "sha256": "db2c09b903c3ef9331ac16aae3ea714f83a35dc047ec6adb753ae10c6a0c1dbd",
+      "fileSize": 11050358,
+      "archivePath": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.2/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.2"
+    },
+    {
       "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
       "templateVersion": "1.0.0",
       "name": "Underwater Adventure",
@@ -41,6 +51,16 @@
       "fileSize": 13430373,
       "archivePath": "814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.0.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.0.0"
+    },
+    {
+      "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
+      "templateVersion": "1.0.0",
+      "name": "Happy Birthday ? Confetti Party",
+      "tag": "template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.0.0",
+      "sha256": "cd37bdaf336daf3fa98ec019b14c21fe82f50194700471979abf4573ab8a8795",
+      "fileSize": 2858080,
+      "archivePath": "8c15cccd-8ef4-4d99-a685-6af69821b843/1.0.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.0.0"
     },
     {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
