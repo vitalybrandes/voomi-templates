@@ -1,4 +1,4 @@
-name: Deploy Voomi Catalog Site
+name: Build and Deploy Voomi HTML Catalog
 
 on:
   workflow_run:
@@ -33,8 +33,10 @@ jobs:
           ref: main
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
-      - name: Prepare static site
+      - name: Build HTML catalog
         run: |
+          test -s site/index.html
+          test -s catalog.json
           mkdir -p _site
           cp site/index.html _site/index.html
           cp catalog.json _site/catalog.json
