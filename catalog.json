@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 8,
-  "updatedAt": "2026-10-16T14:29:36Z",
+  "catalogVersion": 9,
+  "updatedAt": "2026-10-16T14:58:56Z",
   "templates": [
     {
       "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
@@ -59,6 +59,36 @@
       ]
     },
     {
+      "templateId": "814d61aa-61a2-4f13-8d4b-924cfffd0a75",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Wizard Sisters – Magic Duel",
+      "description": "A 10-second fantasy duel with two user photos, editable VS text, and gold and magenta spell effects.",
+      "categories": [
+        "Fantasy",
+        "Fun"
+      ],
+      "tags": [
+        "editable-text",
+        "fantasy",
+        "magic-duel",
+        "sisters",
+        "wizard"
+      ],
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.0.0/template.zip",
+      "fileSize": 13430373,
+      "sha256": "f00263b64116a613979e261cc91ed78498c58632e9dee05294e196bd9e043ebc",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ]
+    },
+    {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -83,6 +113,63 @@
         "layer-transform",
         "alpha-compositing",
         "media-crop"
+      ]
+    },
+    {
+      "templateId": "a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Shabbat Shalom",
+      "description": "A warm Shabbat greeting with one photo and two editable text fields.",
+      "categories": [
+        "Celebration",
+        "Family"
+      ],
+      "tags": [
+        "editable-text",
+        "family",
+        "shabbat",
+        "shabbat-shalom"
+      ],
+      "durationMs": 8500,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d-v1.0.0/template.zip",
+      "fileSize": 5532733,
+      "sha256": "d2681f91fe0f91394819ee15b14ec078736088445d5f31c9f81501af09895c61",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "editable-text"
+      ]
+    },
+    {
+      "templateId": "adbd2477-2542-4860-a76e-df19de71ffac",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Study Time",
+      "description": "Turn one photo into a bright 8-second study-time moment with animated Study Time lettering, a smiling school cat, colorful books, a checklist, pencil, lightbulb, hearts and stars.",
+      "categories": [
+        "Education",
+        "Fun"
+      ],
+      "tags": [
+        "motivation",
+        "school",
+        "stickers",
+        "student",
+        "study"
+      ],
+      "durationMs": 8000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/adbd2477-2542-4860-a76e-df19de71ffac/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-adbd2477-2542-4860-a76e-df19de71ffac-v1.0.0/template.zip",
+      "fileSize": 1802610,
+      "sha256": "26d5f95572887aec6aa29da3b9e74b2b91a91819d71d53a52aeab38269945006",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
       ]
     },
     {
@@ -171,6 +258,36 @@
       ]
     },
     {
+      "templateId": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Love – Virtual Kiss",
+      "description": "Send a virtual kiss with one photo, editable text, and animated hearts.",
+      "categories": [
+        "Fun",
+        "Love"
+      ],
+      "tags": [
+        "editable-text",
+        "hearts",
+        "love",
+        "romantic",
+        "virtual-kiss"
+      ],
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e471b4a8-3471-4c2d-9b41-71a4d62e86cf/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-e471b4a8-3471-4c2d-9b41-71a4d62e86cf-v1.0.0/template.zip",
+      "fileSize": 10007049,
+      "sha256": "cfe077d98b75213eafc8973eb67d4b6c3acf40e267b48576b1d86db67e667dac",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ]
+    },
+    {
       "templateId": "e9963c4f-f7fd-4a32-9664-e9ffcae13619",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -195,6 +312,36 @@
         "media-crop",
         "keyframe-animation",
         "audio-mixing"
+      ]
+    },
+    {
+      "templateId": "f15a8c2e-03d6-4b97-95a2-8e4c1d63b720",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Prague is Calling",
+      "description": "A travel scrapbook video with one photo, editable text, and animated Prague postcards.",
+      "categories": [
+        "Travel",
+        "Vacation"
+      ],
+      "tags": [
+        "editable-text",
+        "postcards",
+        "prague",
+        "travel",
+        "vacation"
+      ],
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f15a8c2e-03d6-4b97-95a2-8e4c1d63b720/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-f15a8c2e-03d6-4b97-95a2-8e4c1d63b720-v1.0.0/template.zip",
+      "fileSize": 8820891,
+      "sha256": "da0de3d2595bf0633b6f29cb3dd952ae3995e270113bcb70efc5416a38b9b3ba",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
       ]
     },
     {

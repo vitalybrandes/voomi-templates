@@ -91,6 +91,39 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/3bc15169-8f85-4732-857c-f81f65c50628/1.0.0/preview.jpg"
     },
     {
+      "templateId": "814d61aa-61a2-4f13-8d4b-924cfffd0a75",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Wizard Sisters – Magic Duel",
+      "description": "A 10-second fantasy duel with two user photos, editable VS text, and gold and magenta spell effects.",
+      "categories": [
+        "Fantasy",
+        "Fun"
+      ],
+      "tags": [
+        "wizard",
+        "magic-duel",
+        "sisters",
+        "fantasy",
+        "editable-text"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "f00263b64116a613979e261cc91ed78498c58632e9dee05294e196bd9e043ebc",
+      "fileSize": 13430373,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.0.0/preview.jpg"
+    },
+    {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -119,6 +152,69 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Shabbat Shalom",
+      "description": "A warm Shabbat greeting with one photo and two editable text fields.",
+      "categories": [
+        "Family",
+        "Celebration"
+      ],
+      "tags": [
+        "shabbat",
+        "shabbat-shalom",
+        "family",
+        "editable-text"
+      ],
+      "durationMs": 8500,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "editable-text"
+      ],
+      "tag": "template-a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "d2681f91fe0f91394819ee15b14ec078736088445d5f31c9f81501af09895c61",
+      "fileSize": 5532733,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "adbd2477-2542-4860-a76e-df19de71ffac",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Study Time",
+      "description": "Turn one photo into a bright 8-second study-time moment with animated Study Time lettering, a smiling school cat, colorful books, a checklist, pencil, lightbulb, hearts and stars.",
+      "categories": [
+        "Education",
+        "Fun"
+      ],
+      "tags": [
+        "school",
+        "study",
+        "student",
+        "motivation",
+        "stickers"
+      ],
+      "durationMs": 8000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
+      ],
+      "tag": "template-adbd2477-2542-4860-a76e-df19de71ffac-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "26d5f95572887aec6aa29da3b9e74b2b91a91819d71d53a52aeab38269945006",
+      "fileSize": 1802610,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/adbd2477-2542-4860-a76e-df19de71ffac/1.0.0/preview.jpg"
     },
     {
       "templateId": "b126c6c2-03da-4ecc-8471-1fcc879c297d",
@@ -348,6 +444,39 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.0.0/preview.jpg"
     },
     {
+      "templateId": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Love – Virtual Kiss",
+      "description": "Send a virtual kiss with one photo, editable text, and animated hearts.",
+      "categories": [
+        "Love",
+        "Fun"
+      ],
+      "tags": [
+        "love",
+        "virtual-kiss",
+        "hearts",
+        "romantic",
+        "editable-text"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-e471b4a8-3471-4c2d-9b41-71a4d62e86cf-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "cfe077d98b75213eafc8973eb67d4b6c3acf40e267b48576b1d86db67e667dac",
+      "fileSize": 10007049,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e471b4a8-3471-4c2d-9b41-71a4d62e86cf/1.0.0/preview.jpg"
+    },
+    {
       "templateId": "e9963c4f-f7fd-4a32-9664-e9ffcae13619",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -376,6 +505,39 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e9963c4f-f7fd-4a32-9664-e9ffcae13619/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "f15a8c2e-03d6-4b97-95a2-8e4c1d63b720",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Prague is Calling",
+      "description": "A travel scrapbook video with one photo, editable text, and animated Prague postcards.",
+      "categories": [
+        "Travel",
+        "Vacation"
+      ],
+      "tags": [
+        "prague",
+        "travel",
+        "vacation",
+        "postcards",
+        "editable-text"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-f15a8c2e-03d6-4b97-95a2-8e4c1d63b720-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "da0de3d2595bf0633b6f29cb3dd952ae3995e270113bcb70efc5416a38b9b3ba",
+      "fileSize": 8820891,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f15a8c2e-03d6-4b97-95a2-8e4c1d63b720/1.0.0/preview.jpg"
     },
     {
       "templateId": "f326148f-8826-4223-aa7c-03ee89216a59",
