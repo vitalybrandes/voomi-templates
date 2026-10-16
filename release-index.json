@@ -154,6 +154,41 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e/1.0.0/preview.jpg"
     },
     {
+      "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Neon Dance Beat Drop - Pink Pulse",
+      "description": "Turn your dance video into a 10-second neon clip with a glowing magenta frame, animated hearts, stars, music notes and light trails. Edit the DANCE and BEAT DROP text to make it yours.",
+      "categories": [
+        "Dance",
+        "Music",
+        "Trending"
+      ],
+      "tags": [
+        "dance",
+        "beat-drop",
+        "neon",
+        "pink",
+        "music"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-a4d301f2-1e76-448a-b51f-4a0ef44c0080-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "8462523b92e61f37892eb1e36c564e8eb672e349886be59bdf6d8be45f2c6c7b",
+      "fileSize": 3383641,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a4d301f2-1e76-448a-b51f-4a0ef44c0080/1.0.0/preview.jpg"
+    },
+    {
       "templateId": "a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -215,6 +250,76 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/adbd2477-2542-4860-a76e-df19de71ffac/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "ae9a3d67-d4f0-4721-80ca-e59aae898bd6",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Halloween Night ? Moonlit Mischief",
+      "description": "A 10-second video-first edit: your own video fills the canvas while animated stickers, an editable title and included CC0 music add the theme.",
+      "categories": [
+        "Halloween",
+        "Seasonal",
+        "Fun"
+      ],
+      "tags": [
+        "halloween",
+        "spooky",
+        "video",
+        "stickers",
+        "editable-title"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-ae9a3d67-d4f0-4721-80ca-e59aae898bd6-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "4f7ec3ce0165df32b227d42e77d3237d94e2a382e8f30e0d489b27c828485c6f",
+      "fileSize": 1109743,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/ae9a3d67-d4f0-4721-80ca-e59aae898bd6/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "afff9ea7-2e6d-4311-9932-f39b3f2a5117",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Neon Dance Beat Drop - Electric Rush",
+      "description": "Give your dance video an electric cyan-and-orange beat drop with animated neon arrows, crowns, stars, hearts and light trails. A 10-second vertical video template with editable DANCE and BEAT DROP text.",
+      "categories": [
+        "Dance",
+        "Music",
+        "Trending"
+      ],
+      "tags": [
+        "dance",
+        "beat-drop",
+        "neon",
+        "electric",
+        "music"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-afff9ea7-2e6d-4311-9932-f39b3f2a5117-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "38ae488d5106a107b31765e8246c0379919c3bb290122e71b1d24c4abe406282",
+      "fileSize": 3918078,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/afff9ea7-2e6d-4311-9932-f39b3f2a5117/1.0.0/preview.jpg"
     },
     {
       "templateId": "b126c6c2-03da-4ecc-8471-1fcc879c297d",
@@ -347,6 +452,41 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/c623322c-cb78-4364-a0bb-1c3f148c2c16/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "cad80f99-2a46-422e-b73b-c5ca3a68376b",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Pop Comic Star ? Pow!",
+      "description": "A 5-second photo-first edit: your own photo fills the canvas while animated stickers, an editable title and included CC0 music add the theme.",
+      "categories": [
+        "Fun",
+        "Trending",
+        "Pop Art"
+      ],
+      "tags": [
+        "pop-art",
+        "comic",
+        "photo",
+        "stickers",
+        "editable-title"
+      ],
+      "durationMs": 5000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-cad80f99-2a46-422e-b73b-c5ca3a68376b-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "c31366ba108eec17655bb3d1e5f2738041d4858a351dbb0b3db865297d337019",
+      "fileSize": 649066,
+      "draft": false,
+      "prerelease": false,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/cad80f99-2a46-422e-b73b-c5ca3a68376b/1.0.0/preview.jpg"
     },
     {
       "id": "3e08093f-9f6d-5313-a023-5b2f8970cf4a",
