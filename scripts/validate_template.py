@@ -20,7 +20,7 @@ ALLOWED_ASSET_DIRS = {"backgrounds", "images", "stickers", "frames", "animations
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".webm"}
 AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".aac", ".ogg"}
-SUPPORTED_FEATURES = {"layer-transform", "alpha-compositing", "media-crop", "keyframe-animation", "chroma-key", "audio-mixing"}
+SUPPORTED_FEATURES = {"layer-transform", "alpha-compositing", "media-crop", "keyframe-animation", "chroma-key", "audio-mixing", "editable-text"}
 ANIMATABLE_PROPERTIES = {"x", "y", "width", "height", "rotationDeg", "scale", "offsetX", "offsetY", "opacity", "volume"}
 
 
@@ -121,6 +121,16 @@ def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo]
         if not isinstance(slot.get("label"), str) or not slot["label"].strip():
             fail(f"mediaSlots[{index}].label must not be empty")
 
+    text_slots = meta.get("textSlots", [])
+    text_slot_ids: set[str] = set()
+    for index, slot in enumerate(text_slots):
+        sid = slot["id"]
+        if sid in text_slot_ids:
+            fail(f"Duplicate text-slot ID: {sid}")
+        text_slot_ids.add(sid)
+        if len(slot["defaultValue"]) > slot["maxLength"]:
+            fail(f"textSlots[{index}].defaultValue exceeds maxLength")
+
     stages = meta.get("stages", [])
     stage_ids: set[str] = set()
     for stage in stages:
@@ -164,6 +174,18 @@ def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo]
         if layer["type"] == "userMedia":
             if layer["slotId"] not in slot_ids:
                 fail(f"{label} references invalid media slot: {layer['slotId']}")
+        elif layer["type"] == "text":
+            if layer["slotId"] not in text_slot_ids:
+                fail(f"{label} references invalid text slot: {layer['slotId']}")
+            if "editable-text" not in meta.get("requiredFeatures", []):
+                fail(f"{label} requires editable-text in requiredFeatures")
+            font_source = layer["textStyle"].get("fontSource")
+            if font_source:
+                path = _safe_member_path(font_source, f"{label}.textStyle.fontSource")
+                if path.casefold() not in files:
+                    fail(f"{label} references missing font asset: {path}")
+                if not path.lower().endswith((".ttf", ".otf", ".woff", ".woff2")):
+                    fail(f"{label}.textStyle.fontSource must reference a supported font file")
         else:
             source = layer.get("source")
             path = _safe_member_path(source, f"{label}.source")
