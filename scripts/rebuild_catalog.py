@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild catalog v2 from successfully validated and published release records."""
+"""Rebuild catalog from successfully validated and published release records."""
 from __future__ import annotations
 
 import argparse
@@ -23,7 +23,7 @@ def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str,
         raise VoomiError("GITHUB_REPOSITORY must have OWNER/REPOSITORY form")
     latest: dict[str, dict[str, Any]] = {}
     for record in index.get("releases", []):
-        if record.get("schemaVersion") != "2.0" or record.get("draft") or record.get("prerelease"):
+        if record.get("schemaVersion") not in {"2.0", "3.0"} or record.get("draft") or record.get("prerelease"):
             continue
         template_id, version = record.get("templateId"), record.get("templateVersion")
         try:
@@ -40,9 +40,11 @@ def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str,
         version = record["templateVersion"]
         tag = record["tag"]
         asset_name = record["assetName"]
-        entry = {"templateId": template_id, "templateVersion": version, "schemaVersion": "2.0", "name": record["name"], "description": record["description"], "categories": sorted(set(record.get("categories", []))), "tags": sorted(set(record.get("tags", []))), "durationMs": record["durationMs"], "previewUrl": f"{raw_base(repo)}/previews/{template_id}/{version}/preview.jpg", "downloadUrl": f"https://github.com/{repo}/releases/download/{tag}/{asset_name}", "fileSize": record["fileSize"], "sha256": record["sha256"]}
+        entry = {"templateId": template_id, "templateVersion": version, "schemaVersion": record["schemaVersion"], "name": record["name"], "description": record["description"], "categories": sorted(set(record.get("categories", []))), "tags": sorted(set(record.get("tags", []))), "durationMs": record["durationMs"], "previewUrl": f"{raw_base(repo)}/previews/{template_id}/{version}/preview.jpg", "downloadUrl": f"https://github.com/{repo}/releases/download/{tag}/{asset_name}", "fileSize": record["fileSize"], "sha256": record["sha256"]}
         if "requiredFeatures" in record:
             entry["requiredFeatures"] = record["requiredFeatures"]
+        if "engine" in record:
+            entry["engine"] = record["engine"]
         templates.append(entry)
     templates.sort(key=lambda item: item["templateId"])
     content = {"catalogSchemaVersion": "2.0", "templates": templates}

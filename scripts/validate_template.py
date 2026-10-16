@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate an untrusted Voomi Template Schema v2 ZIP package."""
+"""Validate an untrusted Voomi Template Schema v2/v3 ZIP package."""
 from __future__ import annotations
 
 import argparse
@@ -22,6 +22,10 @@ VIDEO_EXTENSIONS = {".mp4", ".mov", ".webm"}
 AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".aac", ".ogg"}
 SUPPORTED_FEATURES = {"layer-transform", "alpha-compositing", "media-crop", "keyframe-animation", "chroma-key", "audio-mixing", "editable-text"}
 ANIMATABLE_PROPERTIES = {"x", "y", "width", "height", "rotationDeg", "scale", "offsetX", "offsetY", "opacity", "volume"}
+SUPPORTED_MOTIONS = {"fade-in", "fade-out", "zoom-in", "zoom-out", "slide-in", "slide-out", "pop", "pulse", "spin", "shake", "swing", "fall", "float-up", "move", "blink", "bounce"}
+MOTION_CAPABILITIES = {"fade-in": "motion.fade-in.v1", "fade-out": "motion.fade-out.v1", "zoom-in": "motion.zoom-in.v1", "zoom-out": "motion.zoom-out.v1", "slide-in": "motion.slide-in.v1", "slide-out": "motion.slide-out.v1", "pop": "motion.pop.v1", "pulse": "motion.pulse.v1", "spin": "motion.spin.v1", "shake": "motion.shake.v1", "swing": "motion.swing.v1", "fall": "motion.fall.v1", "float-up": "motion.float-up.v1", "move": "motion.move.v1", "blink": "motion.blink.v1", "bounce": "motion.bounce.v1"}
+MOTION_PARAMS = {"pop": {"fromScale", "toScale"}, "pulse": {"minScale", "maxScale", "cycles"}, "float-up": {"distance"}, "move": {"fromX", "fromY", "toX", "toY"}, "slide-in": {"direction", "distance"}, "slide-out": {"direction", "distance"}, "zoom-in": {"fromScale", "toScale"}, "zoom-out": {"fromScale", "toScale"}, "spin": {"rotations"}, "shake": {"intensity", "cycles"}, "swing": {"angleDeg", "cycles"}, "fall": {"distance", "rotationDeg"}, "bounce": {"fromScale", "toScale", "cycles"}, "blink": {"cycles"}}
+BASE_CAPABILITIES = {"media.image.v1", "media.video.v1", "text.render.v1", "compositing.alpha.v1", "audio.mix.v1"}
 
 
 def fail(message: str) -> None:
@@ -71,6 +75,15 @@ def _check_asset_extension(path: str, media_type: str, label: str) -> None:
 
 
 def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
+    schema_version = meta["schemaVersion"]
+    if schema_version == "3.0" and not isinstance(meta.get("engine"), dict):
+        fail("Schema 3.0 requires engine.requiredCapabilities")
+    if schema_version == "3.0":
+        capabilities = meta["engine"].get("requiredCapabilities", [])
+        known_capabilities = BASE_CAPABILITIES | set(MOTION_CAPABILITIES.values())
+        unknown = set(capabilities) - known_capabilities
+        if unknown:
+            fail(f"Unsupported engine capability: {sorted(unknown)[0]}")
     try:
         parsed = uuid.UUID(meta["templateId"])
         if parsed.version != 4 or str(parsed) != meta["templateId"].lower():
@@ -207,6 +220,21 @@ def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo]
                 _require_number(comp.get("smoothness"), f"{label}.compositing.smoothness", 0, 1)
             elif comp["mode"] != "alpha":
                 fail(f"Unsupported compositing mode in {label}: {comp['mode']}")
+        if schema_version == "3.0":
+            if "animations" in layer:
+                fail(f"{label} uses Schema 2.0 animations in a Schema 3.0 template")
+            for motion in layer.get("motions", []):
+                motion_id = motion["id"]
+                if motion_id not in SUPPORTED_MOTIONS:
+                    fail(f"Unsupported motion ID: {motion_id}")
+                if motion["startMs"] + motion["durationMs"] > layer_duration:
+                    fail(f"{label} motion {motion_id} exceeds layer duration")
+                unknown_params = set(motion.get("params", {})) - MOTION_PARAMS.get(motion_id, set())
+                if unknown_params:
+                    fail(f"Unsupported parameter for motion {motion_id}: {sorted(unknown_params)[0]}")
+        else:
+            if "motions" in layer:
+                fail(f"{label} uses Schema 3.0 motions in a Schema 2.0 template")
         for animation in layer.get("animations", []):
             prop = animation["property"]
             if prop not in ANIMATABLE_PROPERTIES:
@@ -232,6 +260,11 @@ def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo]
         known_features.add("chroma-key")
     if any(layer.get("animations") for layer in layers):
         known_features.add("keyframe-animation")
+    if schema_version == "3.0":
+        declared = set(meta["engine"]["requiredCapabilities"])
+        used = {MOTION_CAPABILITIES[motion["id"]] for layer in layers for motion in layer.get("motions", [])}
+        if not used <= declared:
+            fail(f"Missing required engine capability: {sorted(used - declared)[0]}")
 
 
 def validate(zip_path: Path) -> dict[str, Any]:

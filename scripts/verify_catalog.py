@@ -28,8 +28,8 @@ def verify(path: Path, check_remote: bool = True) -> None:
     if ids != sorted(ids):
         raise VoomiError("Catalog templates are not deterministically ordered")
     for item in catalog["templates"]:
-        if item.get("schemaVersion") != "2.0":
-            raise VoomiError(f"Catalog contains a non-v2 entry: {item.get('templateId', '<missing id>')}")
+        if item.get("schemaVersion") not in {"2.0", "3.0"}:
+            raise VoomiError(f"Catalog contains an unsupported schema version: {item.get('templateId', '<missing id>')}")
         try:
             if str(uuid.UUID(item["templateId"])) != item["templateId"].lower():
                 raise ValueError(item["templateId"])

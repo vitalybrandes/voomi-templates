@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and publish immutable Schema v2 template ZIP releases."""
+"""Validate and publish immutable Schema v2/v3 template ZIP releases."""
 from __future__ import annotations
 
 import json
@@ -102,13 +102,15 @@ def process(path: Path, repo: str, dry_run: bool = False, report: dict | None = 
     tag = f"template-{template_id}-v{version}"
     asset_name = "template.zip"
     record = {
-        "templateId": template_id, "templateVersion": version, "schemaVersion": "2.0",
+        "templateId": template_id, "templateVersion": version, "schemaVersion": meta["schemaVersion"],
         "name": meta["name"], "description": meta["description"],
         "categories": meta.get("categories", []), "tags": meta.get("tags", []),
         "durationMs": meta["durationMs"], "requiredFeatures": meta.get("requiredFeatures", []),
         "tag": tag, "assetName": asset_name, "sha256": digest, "fileSize": size,
         "draft": False, "prerelease": False,
     }
+    if "engine" in meta:
+        record["engine"] = meta["engine"]
     if dry_run:
         return {"path": str(path.relative_to(ROOT)), "action": "would-publish", **record}
     existing = release_view(repo, tag)
