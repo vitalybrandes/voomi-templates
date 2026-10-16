@@ -121,3 +121,9 @@ def test_invalid_chroma_key_fails(tmp_path):
     meta["layers"][2]["compositing"]["similarity"] = 2
     with pytest.raises(VoomiError, match="similarity"):
         validate(package(tmp_path, meta, {"assets/backgrounds/gold.jpg": image_bytes(), "assets/overlays/coins.mp4": b"mp4"}))
+
+
+def test_black_chroma_key_is_supported(tmp_path):
+    meta = single_template()
+    meta["layers"][2]["compositing"]["keyColor"] = "black"
+    assert validate(package(tmp_path, meta, {"assets/backgrounds/gold.jpg": image_bytes(), "assets/overlays/coins.mp4": b"mp4"}))["valid"]

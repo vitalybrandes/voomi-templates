@@ -179,8 +179,8 @@ def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo]
             if comp["mode"] == "chromaKey":
                 if layer["type"] not in {"videoOverlay", "video"}:
                     fail(f"{label} chromaKey compositing requires a video layer")
-                if comp.get("keyColor") not in {"green", "#00FF00", "#00ff00"}:
-                    fail(f"{label} chroma-key keyColor must be green or #00FF00")
+                if comp.get("keyColor") not in {"green", "#00FF00", "#00ff00", "black", "#000000"}:
+                    fail(f"{label} chroma-key keyColor must be green, black, #00FF00, or #000000")
                 _require_number(comp.get("similarity"), f"{label}.compositing.similarity", 0, 1)
                 _require_number(comp.get("smoothness"), f"{label}.compositing.smoothness", 0, 1)
             elif comp["mode"] != "alpha":
