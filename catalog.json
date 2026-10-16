@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 12,
-  "updatedAt": "2026-10-16T21:11:22Z",
+  "catalogVersion": 13,
+  "updatedAt": "2026-10-16T21:31:52Z",
   "templates": [
     {
       "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
@@ -223,10 +223,10 @@
     },
     {
       "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
-      "templateVersion": "1.2.0",
+      "templateVersion": "1.3.0",
       "schemaVersion": "3.0",
       "name": "Happy Birthday: Confetti Party",
-      "description": "Turn one birthday photo or video into a colorful 10-second celebration. The greeting pops in, balloons float and swing, confetti falls in coordinated bursts, gifts slide into view, and the candlelit cake bounces before the party fades out.",
+      "description": "A polished 10-second birthday celebration with warm pastel party art. Your photo stays clear while a greeting, floating balloons, gentle confetti, a candlelit cake and gifts animate into a festive frame.",
       "categories": [
         "Birthday",
         "Fun"
@@ -234,15 +234,17 @@
       "tags": [
         "animated-stickers",
         "birthday",
+        "birthday-photo",
         "celebration",
         "confetti",
-        "party"
+        "party",
+        "pastel-party"
       ],
       "durationMs": 10000,
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.2.0/preview.jpg",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.2.0/template.zip",
-      "fileSize": 2633785,
-      "sha256": "c281cf589fad583f86af22bb00cd1128fffb8b0df138c853f8b53a6e9e7e13e8",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.3.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.3.0/template.zip",
+      "fileSize": 2914316,
+      "sha256": "ec7b59958bbf402121ee2131cf058a50f347c59b67000b1a69632295ee270fb3",
       "requiredFeatures": [
         "layer-transform",
         "alpha-compositing",

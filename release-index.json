@@ -443,6 +443,65 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.2.0/preview.jpg"
     },
     {
+      "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
+      "templateVersion": "1.3.0",
+      "schemaVersion": "3.0",
+      "name": "Happy Birthday: Confetti Party",
+      "description": "A polished 10-second birthday celebration with warm pastel party art. Your photo stays clear while a greeting, floating balloons, gentle confetti, a candlelit cake and gifts animate into a festive frame.",
+      "categories": [
+        "Birthday",
+        "Fun"
+      ],
+      "tags": [
+        "animated-stickers",
+        "birthday",
+        "birthday-photo",
+        "celebration",
+        "confetti",
+        "party",
+        "pastel-party"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.3.0",
+      "assetName": "template.zip",
+      "sha256": "ec7b59958bbf402121ee2131cf058a50f347c59b67000b1a69632295ee270fb3",
+      "fileSize": 2914316,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.blink.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.fall.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.shake.v1",
+          "motion.slide-in.v1",
+          "motion.slide-out.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "motion.zoom-out.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.3.0/preview.jpg"
+    },
+    {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
