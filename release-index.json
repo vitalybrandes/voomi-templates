@@ -603,6 +603,61 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.3.0/preview.jpg"
     },
     {
+      "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
+      "templateVersion": "1.4.0",
+      "schemaVersion": "3.0",
+      "name": "Happy Birthday: Confetti Party",
+      "description": "A polished 10-second birthday celebration with warm pastel party art. Your photo stays clear while a greeting, floating balloons, gentle confetti, a candlelit cake and gifts animate into a festive frame.",
+      "categories": [
+        "Birthday",
+        "Fun"
+      ],
+      "tags": [
+        "animated-stickers",
+        "birthday",
+        "birthday-photo",
+        "celebration",
+        "confetti",
+        "party",
+        "pastel-party"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.4.0",
+      "assetName": "template.zip",
+      "sha256": "f4de160c500837990121e9d95c7dedbbe23a224a7d01992ae924f9e85436ea41",
+      "fileSize": 2914316,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.slide-out.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.4.0/preview.jpg"
+    },
+    {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -1540,6 +1595,56 @@
         ]
       },
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.1.0/preview.jpg"
+    },
+    {
+      "templateId": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1",
+      "templateVersion": "1.2.0",
+      "schemaVersion": "3.0",
+      "name": "Birthday Cake Party",
+      "description": "Turn your full-screen birthday video into a 10-second celebration with animated Happy Birthday lettering, floating balloons, colorful confetti, hearts, stars and a candlelit cake. Includes a cheerful CC0 music track.",
+      "categories": [
+        "Birthday",
+        "Fun"
+      ],
+      "tags": [
+        "birthday",
+        "cake",
+        "celebration",
+        "party",
+        "balloons"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing"
+      ],
+      "tag": "template-d6b5cc38-1a4c-44c4-906a-bf40744c53b1-v1.2.0",
+      "assetName": "template.zip",
+      "sha256": "9548b3247b17441423858e2beb107fe52d90820314fbe9d011b4b8a76b2a8884",
+      "fileSize": 3990594,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.2.0/preview.jpg"
     },
     {
       "templateId": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf",

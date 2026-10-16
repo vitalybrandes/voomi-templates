@@ -143,6 +143,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.3.0"
     },
     {
+      "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
+      "templateVersion": "1.4.0",
+      "name": "Happy Birthday: Confetti Party",
+      "tag": "template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.4.0",
+      "sha256": "f4de160c500837990121e9d95c7dedbbe23a224a7d01992ae924f9e85436ea41",
+      "fileSize": 2914316,
+      "archivePath": "8c15cccd-8ef4-4d99-a685-6af69821b843/1.4.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.4.0"
+    },
+    {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
       "templateVersion": "1.0.0",
       "name": "BFF Forever",
@@ -341,6 +351,16 @@
       "fileSize": 3991950,
       "archivePath": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.1.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-d6b5cc38-1a4c-44c4-906a-bf40744c53b1-v1.1.0"
+    },
+    {
+      "templateId": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1",
+      "templateVersion": "1.2.0",
+      "name": "Birthday Cake Party",
+      "tag": "template-d6b5cc38-1a4c-44c4-906a-bf40744c53b1-v1.2.0",
+      "sha256": "9548b3247b17441423858e2beb107fe52d90820314fbe9d011b4b8a76b2a8884",
+      "fileSize": 3990594,
+      "archivePath": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.2.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-d6b5cc38-1a4c-44c4-906a-bf40744c53b1-v1.2.0"
     },
     {
       "templateId": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf",
