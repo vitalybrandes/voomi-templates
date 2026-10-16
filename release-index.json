@@ -88,6 +88,45 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.2/preview.jpg"
     },
     {
+      "templateId": "1ac592ff-b613-4a17-bfd7-fe0fb4eed11f",
+      "templateVersion": "1.0.3",
+      "schemaVersion": "3.0",
+      "name": "Bitcoin Money Rain",
+      "description": "Turn your photo into a playful Bitcoin celebration as animated golden coins rain across the frame. The full-screen video overlay adds lively motion and a bold money-themed look, creating a punchy 7-second social video.",
+      "categories": [
+        "Fun",
+        "Trending"
+      ],
+      "tags": [
+        "bitcoin",
+        "money",
+        "coins"
+      ],
+      "durationMs": 7000,
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "chroma-key"
+      ],
+      "tag": "template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.3",
+      "assetName": "template.zip",
+      "sha256": "a1b19b1e4b14659ccd074e8252e0b25ace33232ef7bed46bd0e093c85957fafa",
+      "fileSize": 11050536,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.3/preview.jpg"
+    },
+    {
       "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -118,6 +157,167 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/3bc15169-8f85-4732-857c-f81f65c50628/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Underwater Adventure: Treasure Dive",
+      "description": "Dive into a 10-second underwater adventure with your photo, swimming sea life, rising bubbles, a treasure reveal and CC0 sound effects.",
+      "categories": [
+        "Adventure",
+        "Fun"
+      ],
+      "tags": [
+        "underwater",
+        "ocean",
+        "treasure",
+        "sea-life"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing"
+      ],
+      "tag": "template-3bc15169-8f85-4732-857c-f81f65c50628-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "9b4715f921d215a6c9a2949a5b5180401647f30645f02fb55dce64304c63d4bc",
+      "fileSize": 5493429,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/3bc15169-8f85-4732-857c-f81f65c50628/1.1.0/preview.jpg"
+    },
+    {
+      "templateId": "59d2781a-05a4-4f8e-86f5-16d513dcd6a6",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Wizard Level Up",
+      "description": "Turn one photo into a playful wizard transformation. The golden spell ring spins around the scene as the hat pops in, wand swings, starlight pulses and spins, and the enchanted book bounces into place before the editable LEVEL UP! title springs into view. Your photo remains full-screen throughout; no cutout or face tracking is needed.",
+      "categories": [
+        "Fantasy",
+        "Fun",
+        "Trending"
+      ],
+      "tags": [
+        "wizard",
+        "magic",
+        "level-up",
+        "photo",
+        "stickers"
+      ],
+      "durationMs": 8000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-59d2781a-05a4-4f8e-86f5-16d513dcd6a6-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "1783ec5fbcf8b15b978652bd0fe68a2a9d0c9df41f5912ec1a3404e4e1c642d1",
+      "fileSize": 5320589,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.blink.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.fall.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.shake.v1",
+          "motion.slide-in.v1",
+          "motion.slide-out.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "motion.zoom-out.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/59d2781a-05a4-4f8e-86f5-16d513dcd6a6/1.1.0/preview.jpg"
+    },
+    {
+      "templateId": "7209914b-bed0-4911-a9fc-b947f2f69c07",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Underwater Adventure",
+      "description": "Turn two photos into a 12-second underwater adventure. Start with a selfie, dive into the reef, then explore with a dolphin, turtle, tropical fish, bubbles and an editable closing message.",
+      "categories": [
+        "Adventure",
+        "Ocean",
+        "Fun"
+      ],
+      "tags": [
+        "underwater",
+        "ocean",
+        "reef",
+        "dolphin",
+        "turtle",
+        "kids",
+        "photo"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "editable-text"
+      ],
+      "tag": "template-7209914b-bed0-4911-a9fc-b947f2f69c07-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "8bf7708308a37d5b19f27e52473e7c624bfc626c5da73a2fc7066570d5e99307",
+      "fileSize": 2579887,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/7209914b-bed0-4911-a9fc-b947f2f69c07/1.0.0/preview.jpg"
     },
     {
       "templateId": "814d61aa-61a2-4f13-8d4b-924cfffd0a75",
@@ -186,6 +386,63 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.0.0/preview.jpg"
     },
     {
+      "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
+      "templateVersion": "1.2.0",
+      "schemaVersion": "3.0",
+      "name": "Happy Birthday: Confetti Party",
+      "description": "Turn one birthday photo or video into a colorful 10-second celebration. The greeting pops in, balloons float and swing, confetti falls in coordinated bursts, gifts slide into view, and the candlelit cake bounces before the party fades out.",
+      "categories": [
+        "Birthday",
+        "Fun"
+      ],
+      "tags": [
+        "birthday",
+        "confetti",
+        "party",
+        "celebration",
+        "animated-stickers"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "editable-text"
+      ],
+      "tag": "template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.2.0",
+      "assetName": "template.zip",
+      "sha256": "c281cf589fad583f86af22bb00cd1128fffb8b0df138c853f8b53a6e9e7e13e8",
+      "fileSize": 2633785,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.blink.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.fall.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.shake.v1",
+          "motion.slide-in.v1",
+          "motion.slide-out.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "motion.zoom-out.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.2.0/preview.jpg"
+    },
+    {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -214,6 +471,51 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "BFF Forever",
+      "description": "Celebrate your best-friend photo with joyful scrapbook hearts, a crowned BFF badge, sparkles and a camera sticker.",
+      "categories": [
+        "Friends",
+        "Fun"
+      ],
+      "tags": [
+        "best-friends",
+        "bff",
+        "friendship",
+        "hearts"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "tag": "template-9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "3fdf5a216a9f4bb9c7b7643ce95c3c7a500d89b727d29ce86b3ab54537e0f5e4",
+      "fileSize": 6566174,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e/1.1.0/preview.jpg"
     },
     {
       "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",
@@ -251,6 +553,56 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a4d301f2-1e76-448a-b51f-4a0ef44c0080/1.0.0/preview.jpg"
     },
     {
+      "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Neon Dance Beat Drop: Pink Pulse",
+      "description": "Turn your dance video into a 10-second neon clip with a glowing magenta frame, animated hearts, stars, music notes and light trails. Edit the DANCE and BEAT DROP text to make it yours.",
+      "categories": [
+        "Dance",
+        "Music",
+        "Trending"
+      ],
+      "tags": [
+        "dance",
+        "beat-drop",
+        "neon",
+        "pink",
+        "music"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-a4d301f2-1e76-448a-b51f-4a0ef44c0080-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "92876438703773141e0f8741bdc10b1f590f093411d76ecd2f010f6a1d4a248a",
+      "fileSize": 3383813,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a4d301f2-1e76-448a-b51f-4a0ef44c0080/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -280,6 +632,50 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Shabbat Shalom",
+      "description": "A warm Shabbat greeting with one photo and two editable text fields.",
+      "categories": [
+        "Family",
+        "Celebration"
+      ],
+      "tags": [
+        "shabbat",
+        "shabbat-shalom",
+        "family",
+        "editable-text"
+      ],
+      "durationMs": 8500,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "editable-text"
+      ],
+      "tag": "template-a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "79e2bc9a2155b1fab1dc579c226da611c87925e9ee52a612fca2fbc7e1786b21",
+      "fileSize": 5533055,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "motion.fade-in.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d/1.1.0/preview.jpg"
     },
     {
       "templateId": "adbd2477-2542-4860-a76e-df19de71ffac",
@@ -312,6 +708,53 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/adbd2477-2542-4860-a76e-df19de71ffac/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "adbd2477-2542-4860-a76e-df19de71ffac",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Study Time",
+      "description": "Turn one photo into a bright 8-second study-time moment with animated Study Time lettering, a smiling school cat, colorful books, a checklist, pencil, lightbulb, hearts and stars.",
+      "categories": [
+        "Education",
+        "Fun"
+      ],
+      "tags": [
+        "school",
+        "study",
+        "student",
+        "motivation",
+        "stickers"
+      ],
+      "durationMs": 8000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "tag": "template-adbd2477-2542-4860-a76e-df19de71ffac-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "d682d69c647cf6c36bcc37087aa5f7e738628c838cd7d766aeb56f55b82c68bd",
+      "fileSize": 1802764,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/adbd2477-2542-4860-a76e-df19de71ffac/1.1.0/preview.jpg"
     },
     {
       "templateId": "ae9a3d67-d4f0-4721-80ca-e59aae898bd6",
@@ -349,6 +792,56 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/ae9a3d67-d4f0-4721-80ca-e59aae898bd6/1.0.0/preview.jpg"
     },
     {
+      "templateId": "ae9a3d67-d4f0-4721-80ca-e59aae898bd6",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Halloween Night: Moonlit Mischief",
+      "description": "A 10-second video-first edit: your own video fills the canvas while animated stickers, an editable title and included CC0 music add the theme.",
+      "categories": [
+        "Halloween",
+        "Seasonal",
+        "Fun"
+      ],
+      "tags": [
+        "halloween",
+        "spooky",
+        "video",
+        "stickers",
+        "editable-title"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-ae9a3d67-d4f0-4721-80ca-e59aae898bd6-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "aa0d65f14c480e22c0c65544b5c8631bbfb24c8082ea9a17a034fdfb7e439808",
+      "fileSize": 1110006,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/ae9a3d67-d4f0-4721-80ca-e59aae898bd6/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "afff9ea7-2e6d-4311-9932-f39b3f2a5117",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -382,6 +875,57 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/afff9ea7-2e6d-4311-9932-f39b3f2a5117/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "afff9ea7-2e6d-4311-9932-f39b3f2a5117",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Neon Dance Beat Drop: Electric Rush",
+      "description": "Give your dance video an electric cyan-and-orange beat drop with animated neon arrows, crowns, stars, hearts and light trails. A 10-second vertical video template with editable DANCE and BEAT DROP text.",
+      "categories": [
+        "Dance",
+        "Music",
+        "Trending"
+      ],
+      "tags": [
+        "dance",
+        "beat-drop",
+        "neon",
+        "electric",
+        "music"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-afff9ea7-2e6d-4311-9932-f39b3f2a5117-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "203dd291d251f67803b2118fc479c141065bf9db76209416bab575bea759e4d4",
+      "fileSize": 3918267,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.shake.v1",
+          "motion.slide-in.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/afff9ea7-2e6d-4311-9932-f39b3f2a5117/1.1.0/preview.jpg"
     },
     {
       "templateId": "b126c6c2-03da-4ecc-8471-1fcc879c297d",
@@ -516,6 +1060,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/c623322c-cb78-4364-a0bb-1c3f148c2c16/1.0.0/preview.jpg"
     },
     {
+      "templateId": "c623322c-cb78-4364-a0bb-1c3f148c2c16",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Let's Go Travel",
+      "description": "Turn your photo or video into a cheerful travel postcard with a flying plane, destination snapshots and a boarding-pass sticker.",
+      "categories": [
+        "Travel",
+        "Trending"
+      ],
+      "tags": [
+        "travel",
+        "vacation",
+        "adventure",
+        "lets-go"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "tag": "template-c623322c-cb78-4364-a0bb-1c3f148c2c16-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "a869039a108e4e318a69b44ec1f5f72665c9218077cbd8f218c708852fc9a96b",
+      "fileSize": 11509577,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/c623322c-cb78-4364-a0bb-1c3f148c2c16/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "cad80f99-2a46-422e-b73b-c5ca3a68376b",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -549,6 +1140,55 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/cad80f99-2a46-422e-b73b-c5ca3a68376b/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "cad80f99-2a46-422e-b73b-c5ca3a68376b",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Pop Comic Star: Pow!",
+      "description": "A 5-second photo-first edit: your own photo fills the canvas while animated stickers, an editable title and included CC0 music add the theme.",
+      "categories": [
+        "Fun",
+        "Trending",
+        "Pop Art"
+      ],
+      "tags": [
+        "pop-art",
+        "comic",
+        "photo",
+        "stickers",
+        "editable-title"
+      ],
+      "durationMs": 5000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing",
+        "editable-text"
+      ],
+      "tag": "template-cad80f99-2a46-422e-b73b-c5ca3a68376b-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "f4e32bfcb22f7caf9cbc6109c5dc89e8d44d273b79a7bad1929b3d10267fe225",
+      "fileSize": 649252,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.shake.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/cad80f99-2a46-422e-b73b-c5ca3a68376b/1.1.0/preview.jpg"
     },
     {
       "id": "3e08093f-9f6d-5313-a023-5b2f8970cf4a",
@@ -646,6 +1286,56 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.0.0/preview.jpg"
     },
     {
+      "templateId": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Birthday Cake Party",
+      "description": "Turn your full-screen birthday video into a 10-second celebration with animated Happy Birthday lettering, floating balloons, colorful confetti, hearts, stars and a candlelit cake. Includes a cheerful CC0 music track.",
+      "categories": [
+        "Birthday",
+        "Fun"
+      ],
+      "tags": [
+        "birthday",
+        "cake",
+        "celebration",
+        "party",
+        "balloons"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing"
+      ],
+      "tag": "template-d6b5cc38-1a4c-44c4-906a-bf40744c53b1-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "0b6153cfc242e23ec5e1cd7086ca212a71c1a7c95aafa2244c135fb04db4ab45",
+      "fileSize": 3991950,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fall.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -679,6 +1369,54 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e471b4a8-3471-4c2d-9b41-71a4d62e86cf/1.0.0/preview.jpg"
     },
     {
+      "templateId": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Love: Virtual Kiss",
+      "description": "Send a virtual kiss with one photo, editable text, and animated hearts.",
+      "categories": [
+        "Love",
+        "Fun"
+      ],
+      "tags": [
+        "love",
+        "virtual-kiss",
+        "hearts",
+        "romantic",
+        "editable-text"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "editable-text"
+      ],
+      "tag": "template-e471b4a8-3471-4c2d-9b41-71a4d62e86cf-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "2c89251b0c97d94abaf5e0599fd0a853eceb1eac5e3651cc91336c31469e52cc",
+      "fileSize": 10007291,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e471b4a8-3471-4c2d-9b41-71a4d62e86cf/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "e9963c4f-f7fd-4a32-9664-e9ffcae13619",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -707,6 +1445,52 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e9963c4f-f7fd-4a32-9664-e9ffcae13619/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "e9963c4f-f7fd-4a32-9664-e9ffcae13619",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Neon Dance: Layered",
+      "description": "10-second neon dance template with a replaceable video, animated sticker layers and a beat.",
+      "categories": [
+        "Dance"
+      ],
+      "tags": [
+        "neon",
+        "dance",
+        "music"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "audio-mixing"
+      ],
+      "tag": "template-e9963c4f-f7fd-4a32-9664-e9ffcae13619-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "5f0f6f14913fb6c03e7006a3c270f6098bfd4c40801b6467637eb8910efdee1d",
+      "fileSize": 775275,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "audio.mix.v1",
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.blink.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e9963c4f-f7fd-4a32-9664-e9ffcae13619/1.1.0/preview.jpg"
     },
     {
       "templateId": "f15a8c2e-03d6-4b97-95a2-8e4c1d63b720",
@@ -740,6 +1524,55 @@
       "draft": false,
       "prerelease": false,
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f15a8c2e-03d6-4b97-95a2-8e4c1d63b720/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "f15a8c2e-03d6-4b97-95a2-8e4c1d63b720",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Prague Is Calling",
+      "description": "A travel scrapbook video with one photo, editable text, and animated Prague postcards.",
+      "categories": [
+        "Travel",
+        "Vacation"
+      ],
+      "tags": [
+        "prague",
+        "travel",
+        "vacation",
+        "postcards",
+        "editable-text"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "editable-text"
+      ],
+      "tag": "template-f15a8c2e-03d6-4b97-95a2-8e4c1d63b720-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "9fab37e238aac302022699696b848e4d794c6b6c1791129da31c5d91ca1f656e",
+      "fileSize": 8821190,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f15a8c2e-03d6-4b97-95a2-8e4c1d63b720/1.1.0/preview.jpg"
     },
     {
       "templateId": "f326148f-8826-4223-aa7c-03ee89216a59",
