@@ -1,6 +1,13 @@
 name: Build and Deploy Voomi HTML Catalog
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'catalog.json'
+      - 'site/catalog.json'
+      - 'site/index.html'
+      - '.github/workflows/deploy-catalog-site.yml'
   workflow_run:
     workflows:
       - Publish Voomi Template
@@ -40,6 +47,9 @@ jobs:
           mkdir -p _site
           cp site/index.html _site/index.html
           cp catalog.json _site/catalog.json
+          mkdir -p _site/site
+          cp site/index.html _site/site/index.html
+          cp catalog.json _site/site/catalog.json
           touch _site/.nojekyll
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

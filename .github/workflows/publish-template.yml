@@ -85,6 +85,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           python scripts/rebuild_catalog.py
+          cp catalog.json site/catalog.json
           python scripts/verify_catalog.py
       - name: Commit generated files and remove processed packages
         env:
@@ -95,7 +96,7 @@ jobs:
           if [ -f processed-packages.txt ]; then
             while IFS= read -r f; do [ -z "$f" ] || rm -- "$f"; done < processed-packages.txt
           fi
-          git add catalog.json release-index.json previews/ incoming/
+          git add catalog.json site/catalog.json release-index.json previews/ incoming/
           if git diff --cached --quiet; then
             echo "No generated catalog changes"
           else

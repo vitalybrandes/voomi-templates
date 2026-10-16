@@ -28,12 +28,13 @@ jobs:
         run: |
           gh --version
           python scripts/rebuild_catalog.py
+          cp catalog.json site/catalog.json
           python scripts/verify_catalog.py
       - name: Commit catalog
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog.json
+          git add catalog.json site/catalog.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: rebuild Voomi template catalog"
             git fetch origin main
