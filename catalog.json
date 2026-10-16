@@ -1,172 +1,173 @@
 {
-  "catalogSchemaVersion": "1.0.0",
-  "catalogVersion": 4,
-  "updatedAt": "2026-10-14T05:46:32Z",
-  "categories": [
-    "Dance",
-    "Friendship",
-    "Fun",
-    "Travel",
-    "fun"
-  ],
+  "catalogSchemaVersion": "2.0",
+  "catalogVersion": 5,
+  "updatedAt": "2026-10-16T12:14:13Z",
   "templates": [
     {
-      "id": "3e08093f-9f6d-5313-a023-5b2f8970cf4a",
-      "templateId": "com-voomi-neon-dance-layered",
-      "sourceId": "com.voomi.neon-dance-layered",
-      "name": "Neon Dance — Layered",
-      "version": "0.2.3",
-      "description": "Media-first transparent-overlay neon dance template; art-direction prototype.",
-      "category": "Dance",
+      "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Underwater Adventure",
+      "description": "Dive into a 10-second underwater adventure with your photo, swimming sea life, rising bubbles, a treasure reveal and CC0 sound effects.",
       "categories": [
-        "Dance"
-      ],
-      "tags": [],
-      "durationMs": 10000,
-      "mediaSlots": [
-        {
-          "id": "dance_video",
-          "type": "video",
-          "required": true,
-          "placeholder": "placeholders/dance_demo.mp4",
-          "fit": "cover"
-        }
-      ],
-      "minAppVersion": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/com-voomi-neon-dance-layered/0.2.3/preview.jpg",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-com-voomi-neon-dance-layered-v0.2.3/com-voomi-neon-dance-layered-v0.2.3.zip",
-      "sizeBytes": 1806248,
-      "sha256": "3789e46150c66bd8cf75fc446a885212308c4309c61ec794a0dc987b59102508"
-    },
-    {
-      "id": "58ec95e6-a1b4-5ab1-b3b4-52f912e69573",
-      "templateId": "bff-best-friends-forever",
-      "sourceId": "bff-best-friends-forever",
-      "name": "BFF — Best Friends Forever",
-      "version": "0.1.0",
-      "description": "Turn one friendship photo into a colorful BFF moment",
-      "category": "Friendship",
-      "categories": [
-        "Friendship",
+        "Adventure",
         "Fun"
       ],
       "tags": [
-        "best friends",
-        "bff",
-        "girls",
-        "hearts",
-        "stickers"
+        "ocean",
+        "sea-life",
+        "treasure",
+        "underwater"
       ],
-      "durationMs": 8000,
-      "mediaSlots": [
-        {
-          "id": "friends_photo",
-          "type": "photo",
-          "required": true,
-          "placeholder": "placeholders/friends_sample.jpg",
-          "fit": "cover",
-          "sceneIds": [
-            "scene_1"
-          ],
-          "reusable": true
-        }
-      ],
-      "minAppVersion": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-best-friends-forever/0.1.0/preview.png",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-best-friends-forever-v0.1.0/bff-best-friends-forever-v0.1.0.zip",
-      "sizeBytes": 1786390,
-      "sha256": "d849893a54e6527699df9d14f0b62b287d4fa650e352262a108a546edafac986"
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/3bc15169-8f85-4732-857c-f81f65c50628/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-3bc15169-8f85-4732-857c-f81f65c50628-v1.0.0/template.zip",
+      "fileSize": 5493216,
+      "sha256": "4ec526ded85b03dc5e3804e6d27e2ffbf4708c671620be0206f5e290c6a54c81",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing"
+      ]
     },
     {
-      "id": "643f6659-cdb7-556f-8673-96ce87c1d652",
-      "templateId": "vacation-bye-bye",
-      "sourceId": "vacation-bye-bye",
-      "name": "Vacation Bye Bye — Let’s Go!",
-      "version": "0.1.0",
-      "description": "Wave goodbye, show your ticket, and watch your plane take off.",
-      "category": "Travel",
+      "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "BFF Forever",
+      "description": "Celebrate your best-friend photo with joyful scrapbook hearts, a crowned BFF badge, sparkles and a camera sticker.",
       "categories": [
-        "Fun",
-        "Travel"
+        "Friends",
+        "Fun"
       ],
       "tags": [
-        "airplane",
-        "boarding-pass",
-        "goodbye",
+        "best-friends",
+        "bff",
+        "friendship",
+        "hearts"
+      ],
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e-v1.0.0/template.zip",
+      "fileSize": 6565801,
+      "sha256": "d2f199de9e8f061c09922e60531bea3e7d05aaffcc1d9c4006bd05091427afda",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ]
+    },
+    {
+      "templateId": "b126c6c2-03da-4ecc-8471-1fcc879c297d",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Pop Cosmic Star",
+      "description": "Frame your photo with playful cosmic pop-art stickers in a bright, colorful 10-second moment.",
+      "categories": [
+        "Fun",
+        "Trending"
+      ],
+      "tags": [
+        "cosmic",
+        "photo",
+        "pop-art",
+        "stars"
+      ],
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/b126c6c2-03da-4ecc-8471-1fcc879c297d/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-b126c6c2-03da-4ecc-8471-1fcc879c297d-v1.0.0/template.zip",
+      "fileSize": 4525822,
+      "sha256": "317781f1314e226a1bff0f9408d847a7eaa5e3337cdd02f32ecf04d44b88c27e",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ]
+    },
+    {
+      "templateId": "c623322c-cb78-4364-a0bb-1c3f148c2c16",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Let's Go Travel",
+      "description": "Turn your photo or video into a cheerful travel postcard with a flying plane, destination snapshots and a boarding-pass sticker.",
+      "categories": [
+        "Travel",
+        "Trending"
+      ],
+      "tags": [
+        "adventure",
+        "lets-go",
+        "travel",
         "vacation"
       ],
-      "durationMs": 8000,
-      "mediaSlots": [
-        {
-          "id": "photo_01",
-          "type": "photo",
-          "required": true,
-          "placeholder": "placeholders/photo_01.jpg",
-          "fit": "cover",
-          "sceneIds": [
-            "wave_goodbye",
-            "takeoff",
-            "lets_go"
-          ]
-        }
-      ],
-      "minAppVersion": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/vacation-bye-bye/0.1.0/preview.png",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-vacation-bye-bye-v0.1.0/vacation-bye-bye-v0.1.0.zip",
-      "sizeBytes": 1561439,
-      "sha256": "7839b3c1d60761c5dc0fd7f93d85641e2456a0c59a287ca7ced76b365de51e50"
+      "durationMs": 12000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/c623322c-cb78-4364-a0bb-1c3f148c2c16/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-c623322c-cb78-4364-a0bb-1c3f148c2c16-v1.0.0/template.zip",
+      "fileSize": 11509048,
+      "sha256": "5b539f895d10a387a2381f87cfed706bd0f50af94430cb8391f6a88d4dffcbca",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
+      ]
     },
     {
-      "id": "9ee60ce6-88f5-5000-802c-2a183c1728b4",
-      "templateId": "money-fall-2",
-      "sourceId": "money-fall-2",
-      "name": "Money Fall 2",
-      "version": "0.2.0",
-      "description": "Money Fall 2",
-      "category": "fun",
+      "templateId": "e9963c4f-f7fd-4a32-9664-e9ffcae13619",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Neon Dance — Layered",
+      "description": "10-second neon dance template with a replaceable video, animated sticker layers and a beat.",
       "categories": [
-        "fun"
+        "Dance"
       ],
-      "tags": [],
-      "durationMs": 5000,
-      "mediaSlots": [
-        {
-          "id": "user_media_1",
-          "type": "imageOrVideo",
-          "required": true
-        }
+      "tags": [
+        "dance",
+        "music",
+        "neon"
       ],
-      "minAppVersion": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/money-fall-2/0.2.0/preview.png",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-money-fall-2-v0.2.0/money-fall-2-v0.2.0.zip",
-      "sizeBytes": 2373145,
-      "sha256": "a3c52fbf9af55f1e111db13c1f78ba1aa459a250f837341c61e6569805d44200"
+      "durationMs": 10000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e9963c4f-f7fd-4a32-9664-e9ffcae13619/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-e9963c4f-f7fd-4a32-9664-e9ffcae13619-v1.0.0/template.zip",
+      "fileSize": 774916,
+      "sha256": "7d41efb146419809053b523634559991bf5a29a06f2c95bf7c25b7b1df8ba6ad",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation",
+        "audio-mixing"
+      ]
     },
     {
-      "id": "d2b774a9-57f8-56ad-82fd-78549306d19e",
-      "templateId": "bff-layered-polaroids",
-      "sourceId": "bff-layered-polaroids",
-      "name": "BFF — Sunset Besties",
-      "version": "0.7.0",
-      "description": "One media slot reused in the full canvas and two masked Polaroid windows. Frames, labels and effects sit above it. No background removal.",
-      "category": "fun",
+      "templateId": "f326148f-8826-4223-aa7c-03ee89216a59",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "2.0",
+      "name": "Thailand Vacation Calling",
+      "description": "Start with your photo or video, receive an incoming vacation call, then reveal a sunny Thailand escape.",
       "categories": [
-        "fun"
+        "Travel",
+        "Vacation"
       ],
-      "tags": [],
-      "durationMs": 8000,
-      "mediaSlots": [
-        {
-          "id": "photo_1",
-          "type": "imageOrVideo",
-          "required": true
-        }
+      "tags": [
+        "calling",
+        "thailand",
+        "travel",
+        "vacation"
       ],
-      "minAppVersion": "1.0.0",
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bff-layered-polaroids/0.7.0/preview.png",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bff-layered-polaroids-v0.7.0/bff-layered-polaroids-v0.7.0.zip",
-      "sizeBytes": 797073,
-      "sha256": "c71b414fb241ac58b799b35e69986135882f534b828eb2373b871089bd037f85"
+      "durationMs": 12000,
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f326148f-8826-4223-aa7c-03ee89216a59/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-f326148f-8826-4223-aa7c-03ee89216a59-v1.0.0/template.zip",
+      "fileSize": 4534338,
+      "sha256": "c776508d26b69758b3b0e92ec6a37726fadc0a04d62e6075841bacd2f8abe343",
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
+      ]
     }
   ]
 }
