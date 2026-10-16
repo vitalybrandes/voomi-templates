@@ -25,6 +25,12 @@ ANIMATABLE_PROPERTIES = {"x", "y", "width", "height", "rotationDeg", "scale", "o
 SUPPORTED_MOTIONS = {"fade-in", "fade-out", "zoom-in", "zoom-out", "slide-in", "slide-out", "pop", "pulse", "spin", "shake", "swing", "fall", "float-up", "move", "blink", "bounce"}
 MOTION_CAPABILITIES = {"fade-in": "motion.fade-in.v1", "fade-out": "motion.fade-out.v1", "zoom-in": "motion.zoom-in.v1", "zoom-out": "motion.zoom-out.v1", "slide-in": "motion.slide-in.v1", "slide-out": "motion.slide-out.v1", "pop": "motion.pop.v1", "pulse": "motion.pulse.v1", "spin": "motion.spin.v1", "shake": "motion.shake.v1", "swing": "motion.swing.v1", "fall": "motion.fall.v1", "float-up": "motion.float-up.v1", "move": "motion.move.v1", "blink": "motion.blink.v1", "bounce": "motion.bounce.v1"}
 MOTION_PARAMS = {"pop": {"fromScale", "toScale"}, "pulse": {"minScale", "maxScale", "cycles"}, "float-up": {"distance"}, "move": {"fromX", "fromY", "toX", "toY"}, "slide-in": {"direction", "distance"}, "slide-out": {"direction", "distance"}, "zoom-in": {"fromScale", "toScale"}, "zoom-out": {"fromScale", "toScale"}, "spin": {"rotations"}, "shake": {"intensity", "cycles"}, "swing": {"angleDeg", "cycles"}, "fall": {"distance", "rotationDeg"}, "bounce": {"fromScale", "toScale", "cycles"}, "blink": {"cycles"}}
+MOTION_PROPERTIES = {
+    "fade-in": {"opacity"}, "fade-out": {"opacity"}, "blink": {"opacity"},
+    "zoom-in": {"scale"}, "zoom-out": {"scale"}, "pop": {"scale"},
+    "pulse": {"scale"}, "bounce": {"scale"}, "spin": {"rotationDeg"},
+    "swing": {"rotationDeg"}, "float-up": {"y"}, "shake": {"x", "y"},
+}
 BASE_CAPABILITIES = {"media.image.v1", "media.video.v1", "text.render.v1", "compositing.alpha.v1", "audio.mix.v1"}
 
 
@@ -72,6 +78,28 @@ def _check_asset_extension(path: str, media_type: str, label: str) -> None:
         fail(f"{label} must reference a supported video file")
     if media_type == "audio" and suffix not in AUDIO_EXTENSIONS:
         fail(f"{label} must reference a supported audio file")
+
+
+def _motion_properties(motion: dict[str, Any]) -> set[str]:
+    motion_id = motion["id"]
+    params = motion.get("params", {})
+    if motion_id == "fall":
+        return {"y"} | ({"rotationDeg"} if "rotationDeg" in params else set())
+    if motion_id == "move":
+        properties = set()
+        if "fromX" in params or "toX" in params:
+            properties.add("x")
+        if "fromY" in params or "toY" in params:
+            properties.add("y")
+        return properties
+    if motion_id in {"slide-in", "slide-out"}:
+        direction = params.get("direction")
+        if direction in {"left", "right"}:
+            return {"x"}
+        if direction in {"up", "down", "top", "bottom"}:
+            return {"y"}
+        return {"x", "y"}
+    return MOTION_PROPERTIES.get(motion_id, set())
 
 
 def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo], zf: zipfile.ZipFile) -> None:
@@ -232,6 +260,20 @@ def validate_semantics(meta: dict[str, Any], entries: dict[str, zipfile.ZipInfo]
                 unknown_params = set(motion.get("params", {})) - MOTION_PARAMS.get(motion_id, set())
                 if unknown_params:
                     fail(f"Unsupported parameter for motion {motion_id}: {sorted(unknown_params)[0]}")
+            motions = layer.get("motions", [])
+            for motion_index, motion in enumerate(motions):
+                for other in motions[motion_index + 1:]:
+                    shared = _motion_properties(motion) & _motion_properties(other)
+                    overlaps = max(motion["startMs"], other["startMs"]) < min(
+                        motion["startMs"] + motion["durationMs"],
+                        other["startMs"] + other["durationMs"],
+                    )
+                    if shared and overlaps:
+                        property_name = sorted(shared)[0]
+                        fail(
+                            f"{label} motions {motion['id']} and {other['id']} overlap "
+                            f"on property {property_name}"
+                        )
         else:
             if "motions" in layer:
                 fail(f"{label} uses Schema 3.0 motions in a Schema 2.0 template")
