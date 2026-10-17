@@ -236,6 +236,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/2f1258b1-429d-473d-8f2d-7e616f36274a/1.0.0/preview.jpg"
     },
     {
+      "templateId": "2f1258b1-429d-473d-8f2d-7e616f36274a",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Patagonia Postcard",
+      "description": "A scenic Argentina travel story with mountain air, blue and white details and two flexible photo or video moments.",
+      "categories": [
+        "Travel",
+        "Adventure",
+        "Family"
+      ],
+      "tags": [
+        "argentina",
+        "patagonia",
+        "vacation",
+        "photo-video"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:59Z",
+      "updatedAt": "2026-10-17T11:07:19Z",
+      "tag": "template-2f1258b1-429d-473d-8f2d-7e616f36274a-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "75d16f9dee89c921919708613b384b22aa80476dac8f871a96a65e9097a40d70",
+      "fileSize": 4188761,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/2f1258b1-429d-473d-8f2d-7e616f36274a/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -417,6 +464,55 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/3daa0f63-0dec-4459-9589-40c4f4d73bb3/1.0.0/preview.jpg"
     },
     {
+      "templateId": "3daa0f63-0dec-4459-9589-40c4f4d73bb3",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Adventure Park: Big Ride Energy",
+      "description": "A high-energy 10-second theme park memory. Add one photo or video and watch the park scene come alive with playful ride-day stickers, floating popcorn and a bright starry finale.",
+      "categories": [
+        "Travel",
+        "Family",
+        "Fun"
+      ],
+      "tags": [
+        "adventure-park",
+        "roller-coaster",
+        "family-day",
+        "selfie",
+        "photo-video"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
+      ],
+      "addedAt": "2026-10-17T10:41:21Z",
+      "updatedAt": "2026-10-17T11:06:56Z",
+      "tag": "template-3daa0f63-0dec-4459-9589-40c4f4d73bb3-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "ac65efff0ee5c9be4926ed7e06e29df442fca8543fe92769a1e3c090e3121ea6",
+      "fileSize": 2899236,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/3daa0f63-0dec-4459-9589-40c4f4d73bb3/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "59d2781a-05a4-4f8e-86f5-16d513dcd6a6",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -563,6 +659,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.0.0/preview.jpg"
     },
     {
+      "templateId": "5e991f10-2ad4-42d6-8f61-cbbffbbfb836",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Riviera Color Escape",
+      "description": "A sunlit Mexico vacation montage with a bright beach backdrop, playful travel stickers and up to three photo or video moments.",
+      "categories": [
+        "Travel",
+        "Family",
+        "Lifestyle"
+      ],
+      "tags": [
+        "mexico",
+        "riviera-maya",
+        "vacation",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:42:11Z",
+      "updatedAt": "2026-10-17T11:07:26Z",
+      "tag": "template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "ca22a4efd4e9088e6d744ffd88b85a7831af25727dd7e831ac6ef4533ca1e206",
+      "fileSize": 3889387,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
       "templateVersion": "1.0.0",
       "schemaVersion": "3.0",
@@ -608,6 +751,53 @@
         ]
       },
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/678fcb56-25c3-4499-b301-4daf3346f05a/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Phuket Island Days",
+      "description": "A tropical Phuket memory framed by turquoise water, island details and two photo or video moments.",
+      "categories": [
+        "Travel",
+        "Beach",
+        "Family"
+      ],
+      "tags": [
+        "phuket",
+        "thailand",
+        "island",
+        "photo-video"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:42:02Z",
+      "updatedAt": "2026-10-17T11:07:23Z",
+      "tag": "template-678fcb56-25c3-4499-b301-4daf3346f05a-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "2f921ab09dee8d6a4401557e035da2d748cc53756e3be1feb83d49225fd40637",
+      "fileSize": 3194977,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/678fcb56-25c3-4499-b301-4daf3346f05a/1.1.0/preview.jpg"
     },
     {
       "templateId": "7209914b-bed0-4911-a9fc-b947f2f69c07",
@@ -1096,6 +1286,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/909b444b-ec06-429a-a578-81e03dbac7c3/1.0.0/preview.jpg"
     },
     {
+      "templateId": "909b444b-ec06-429a-a578-81e03dbac7c3",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Sing Your Story",
+      "description": "Make a 15-second singing moment from one video. Keep your performance in the frame while neon music notes, glowing hearts and stage lights pulse along with the moment.",
+      "categories": [
+        "Music",
+        "Performance",
+        "Creative"
+      ],
+      "tags": [
+        "singing",
+        "music-video",
+        "performance",
+        "video-only"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:42:18Z",
+      "updatedAt": "2026-10-17T11:07:30Z",
+      "tag": "template-909b444b-ec06-429a-a578-81e03dbac7c3-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "a1515098c73ce7e851d953a6b5661f51b4eec5b408013f416cb2fd53017c554b",
+      "fileSize": 5084187,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/909b444b-ec06-429a-a578-81e03dbac7c3/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -1269,6 +1506,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9e6fa7bd-03f1-4a3e-968f-1aba95966c8a/1.0.0/preview.jpg"
     },
     {
+      "templateId": "9e6fa7bd-03f1-4a3e-968f-1aba95966c8a",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Jerusalem Blue & White",
+      "description": "A celebratory Israel travel memory framed by Jerusalem at sunset, with blue and white keepsakes drifting around your photo or video.",
+      "categories": [
+        "Travel",
+        "Culture",
+        "Family"
+      ],
+      "tags": [
+        "israel",
+        "jerusalem",
+        "travel",
+        "photo-video"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:42Z",
+      "updatedAt": "2026-10-17T11:07:12Z",
+      "tag": "template-9e6fa7bd-03f1-4a3e-968f-1aba95966c8a-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "651cc80b551023ff65ca0f70412ad09944ed0649c46acabf1fd1bba25384d920",
+      "fileSize": 2829054,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9e6fa7bd-03f1-4a3e-968f-1aba95966c8a/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "a37a8b9e-5bb9-4f1e-b19d-a1d2ee9a0abb",
       "templateVersion": "1.0.0",
       "schemaVersion": "3.0",
@@ -1317,6 +1601,54 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a37a8b9e-5bb9-4f1e-b19d-a1d2ee9a0abb/1.0.0/preview.jpg"
     },
     {
+      "templateId": "a37a8b9e-5bb9-4f1e-b19d-a1d2ee9a0abb",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Football Hero",
+      "description": "Turn one to three football photos or clips into a 15-second match-day highlight. Your first clip carries the story while optional action and celebration clips take over for a fast, cinematic montage.",
+      "categories": [
+        "Sports",
+        "Family",
+        "Action"
+      ],
+      "tags": [
+        "football",
+        "soccer",
+        "goal-celebration",
+        "sports-highlight",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:36Z",
+      "updatedAt": "2026-10-17T11:07:08Z",
+      "tag": "template-a37a8b9e-5bb9-4f1e-b19d-a1d2ee9a0abb-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "70e9227e0e44f2afc9d831417fe291898cf96dab08be00e36dcebc093acd541b",
+      "fileSize": 6863250,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a37a8b9e-5bb9-4f1e-b19d-a1d2ee9a0abb/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "a39fb375-7f52-4600-9759-d9c1502cac1d",
       "templateVersion": "1.0.0",
       "schemaVersion": "3.0",
@@ -1362,6 +1694,53 @@
         ]
       },
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a39fb375-7f52-4600-9759-d9c1502cac1d/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "a39fb375-7f52-4600-9759-d9c1502cac1d",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Magic Forest",
+      "description": "Enter a glowing woodland world for 15 seconds of magical memories. Use a photo or video and let lanterns, fireflies, butterflies and forest friends drift into the scene.",
+      "categories": [
+        "Fantasy",
+        "Nature",
+        "Family"
+      ],
+      "tags": [
+        "magic-forest",
+        "enchanted-woodland",
+        "fireflies",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:49Z",
+      "updatedAt": "2026-10-17T11:07:16Z",
+      "tag": "template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "897237c90bad0d869d2dfe5072c3d24306bc7a52b7965c3bd470e7065b4e5c82",
+      "fileSize": 4427455,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.0/preview.jpg"
     },
     {
       "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",
@@ -2239,6 +2618,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/c2e24c4f-c5b3-430d-9818-bdd5dd3cc7a2/1.0.0/preview.jpg"
     },
     {
+      "templateId": "c2e24c4f-c5b3-430d-9818-bdd5dd3cc7a2",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Tennis Girl",
+      "description": "Make a bright 10-second tennis memory with one or two photos or clips. A sunny court, playful tennis accents and lively motion turn a serve, rally or post-match selfie into a polished highlight.",
+      "categories": [
+        "Sports",
+        "Lifestyle",
+        "Fun"
+      ],
+      "tags": [
+        "tennis",
+        "tennis-selfie",
+        "sports",
+        "photo-video"
+      ],
+      "durationMs": 10000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:42:25Z",
+      "updatedAt": "2026-10-17T11:07:34Z",
+      "tag": "template-c2e24c4f-c5b3-430d-9818-bdd5dd3cc7a2-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "db73a771cade63e43807468d383aa0b5ca32f88550f1a69d07e6822e9bba3bb5",
+      "fileSize": 3298041,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/c2e24c4f-c5b3-430d-9818-bdd5dd3cc7a2/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "c623322c-cb78-4364-a0bb-1c3f148c2c16",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -2567,6 +2993,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d1575e88-a6d9-4d13-8c6a-ee3542271c6b/1.0.0/preview.jpg"
     },
     {
+      "templateId": "d1575e88-a6d9-4d13-8c6a-ee3542271c6b",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Cartagena Color Burst",
+      "description": "A vibrant Colombia getaway keepsake with bright Caribbean color, tropical accents and room for up to three travel moments.",
+      "categories": [
+        "Travel",
+        "Family",
+        "Lifestyle"
+      ],
+      "tags": [
+        "colombia",
+        "cartagena",
+        "vacation",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:29Z",
+      "updatedAt": "2026-10-17T11:07:00Z",
+      "tag": "template-d1575e88-a6d9-4d13-8c6a-ee3542271c6b-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "19dad79dc197e99bfdfe14dd28dc6a717b3d90000fe96149771f798f1df27892",
+      "fileSize": 2926003,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d1575e88-a6d9-4d13-8c6a-ee3542271c6b/1.1.0/preview.jpg"
+    },
+    {
       "templateId": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -2753,6 +3226,55 @@
         ]
       },
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d78f5686-ba8a-49bf-9cee-92627c3cd64f/1.0.0/preview.jpg"
+    },
+    {
+      "templateId": "d78f5686-ba8a-49bf-9cee-92627c3cd64f",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Fairytale Castle: Birthday Magic",
+      "description": "A sparkling 12-second fairytale birthday memory. Add one photo or video for a royal portrait moment, framed by a glowing castle, jewel-toned keepsakes and a fireworks finale.",
+      "categories": [
+        "Birthday",
+        "Celebration",
+        "Fantasy"
+      ],
+      "tags": [
+        "fairytale-birthday",
+        "castle",
+        "princess-party",
+        "sparkles",
+        "photo-video"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
+      ],
+      "addedAt": "2026-10-17T10:41:33Z",
+      "updatedAt": "2026-10-17T11:07:04Z",
+      "tag": "template-d78f5686-ba8a-49bf-9cee-92627c3cd64f-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "2f2d3f37295568403cca6b46362b84e573fbe82bb505a76e9d6dd38cf89e2f8b",
+      "fileSize": 3183067,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d78f5686-ba8a-49bf-9cee-92627c3cd64f/1.1.0/preview.jpg"
     },
     {
       "templateId": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf",
