@@ -283,6 +283,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/2f1258b1-429d-473d-8f2d-7e616f36274a/1.1.0/preview.jpg"
     },
     {
+      "templateId": "2f1258b1-429d-473d-8f2d-7e616f36274a",
+      "templateVersion": "1.1.1",
+      "schemaVersion": "3.0",
+      "name": "Patagonia Postcard",
+      "description": "A scenic Argentina travel story with mountain air, blue and white details and two flexible photo or video moments.",
+      "categories": [
+        "Travel",
+        "Adventure",
+        "Family"
+      ],
+      "tags": [
+        "argentina",
+        "patagonia",
+        "vacation",
+        "photo-video"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:59Z",
+      "updatedAt": "2026-10-17T13:49:58Z",
+      "tag": "template-2f1258b1-429d-473d-8f2d-7e616f36274a-v1.1.1",
+      "assetName": "template.zip",
+      "sha256": "ba810d4f352f554a7b670333157e10a9445933d62e0af3383dbd852f0b915350",
+      "fileSize": 4188761,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/2f1258b1-429d-473d-8f2d-7e616f36274a/1.1.1/preview.jpg"
+    },
+    {
       "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -706,6 +753,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.1.0/preview.jpg"
     },
     {
+      "templateId": "5e991f10-2ad4-42d6-8f61-cbbffbbfb836",
+      "templateVersion": "1.1.1",
+      "schemaVersion": "3.0",
+      "name": "Riviera Color Escape",
+      "description": "A sunlit Mexico vacation montage with a bright beach backdrop, playful travel stickers and up to three photo or video moments.",
+      "categories": [
+        "Travel",
+        "Family",
+        "Lifestyle"
+      ],
+      "tags": [
+        "mexico",
+        "riviera-maya",
+        "vacation",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:42:11Z",
+      "updatedAt": "2026-10-17T13:50:04Z",
+      "tag": "template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.1",
+      "assetName": "template.zip",
+      "sha256": "7b5feb1d370a0ba85e6ce48a763feb6fb0e1d2bde48b1852a9a4444dc4073e17",
+      "fileSize": 3889387,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.1.1/preview.jpg"
+    },
+    {
       "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
       "templateVersion": "1.0.0",
       "schemaVersion": "3.0",
@@ -800,6 +894,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/678fcb56-25c3-4499-b301-4daf3346f05a/1.1.0/preview.jpg"
     },
     {
+      "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
+      "templateVersion": "1.1.1",
+      "schemaVersion": "3.0",
+      "name": "Phuket Island Days",
+      "description": "A tropical Phuket memory framed by turquoise water, island details and two photo or video moments.",
+      "categories": [
+        "Travel",
+        "Beach",
+        "Family"
+      ],
+      "tags": [
+        "phuket",
+        "thailand",
+        "island",
+        "photo-video"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:42:02Z",
+      "updatedAt": "2026-10-17T13:50:01Z",
+      "tag": "template-678fcb56-25c3-4499-b301-4daf3346f05a-v1.1.1",
+      "assetName": "template.zip",
+      "sha256": "3ee19fa7c5293a53c311cb44f4d255c2e5a04c31fe35b1158fbda348eeed1747",
+      "fileSize": 3194977,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/678fcb56-25c3-4499-b301-4daf3346f05a/1.1.1/preview.jpg"
+    },
+    {
       "templateId": "7209914b-bed0-4911-a9fc-b947f2f69c07",
       "templateVersion": "1.0.0",
       "schemaVersion": "3.0",
@@ -854,6 +995,62 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/7209914b-bed0-4911-a9fc-b947f2f69c07/1.0.0/preview.jpg",
       "updatedAt": "2026-10-16T21:11:17Z",
       "addedAt": "2026-10-16T21:11:17Z"
+    },
+    {
+      "templateId": "7209914b-bed0-4911-a9fc-b947f2f69c07",
+      "templateVersion": "1.1.0",
+      "schemaVersion": "3.0",
+      "name": "Underwater Adventure",
+      "description": "Turn two photos into a 12-second underwater adventure. Start with a selfie, dive into the reef, then explore with a dolphin, turtle, tropical fish, bubbles and an editable closing message.",
+      "categories": [
+        "Adventure",
+        "Ocean",
+        "Fun"
+      ],
+      "tags": [
+        "underwater",
+        "ocean",
+        "reef",
+        "dolphin",
+        "turtle",
+        "kids",
+        "photo"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "editable-text"
+      ],
+      "addedAt": "2026-10-16T21:11:17Z",
+      "updatedAt": "2026-10-17T13:50:06Z",
+      "tag": "template-7209914b-bed0-4911-a9fc-b947f2f69c07-v1.1.0",
+      "assetName": "template.zip",
+      "sha256": "34e9636025275e160bc6ca0c4c302694658994627d5d75c23006d807d1476167",
+      "fileSize": 2579870,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.bounce.v1",
+          "motion.fade-in.v1",
+          "motion.fade-out.v1",
+          "motion.float-up.v1",
+          "motion.move.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/7209914b-bed0-4911-a9fc-b947f2f69c07/1.1.0/preview.jpg"
     },
     {
       "templateId": "814d61aa-61a2-4f13-8d4b-924cfffd0a75",
@@ -1741,6 +1938,53 @@
         ]
       },
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.0/preview.jpg"
+    },
+    {
+      "templateId": "a39fb375-7f52-4600-9759-d9c1502cac1d",
+      "templateVersion": "1.1.1",
+      "schemaVersion": "3.0",
+      "name": "Magic Forest",
+      "description": "Enter a glowing woodland world for 15 seconds of magical memories. Use a photo or video and let lanterns, fireflies, butterflies and forest friends drift into the scene.",
+      "categories": [
+        "Fantasy",
+        "Nature",
+        "Family"
+      ],
+      "tags": [
+        "magic-forest",
+        "enchanted-woodland",
+        "fireflies",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:49Z",
+      "updatedAt": "2026-10-17T13:49:55Z",
+      "tag": "template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.1",
+      "assetName": "template.zip",
+      "sha256": "926fa5908756578e9f7b0b6089606b63d29819e6530d6a20bd41692ebfb128eb",
+      "fileSize": 4427450,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.1/preview.jpg"
     },
     {
       "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",
@@ -3038,6 +3282,53 @@
         ]
       },
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d1575e88-a6d9-4d13-8c6a-ee3542271c6b/1.1.0/preview.jpg"
+    },
+    {
+      "templateId": "d1575e88-a6d9-4d13-8c6a-ee3542271c6b",
+      "templateVersion": "1.1.1",
+      "schemaVersion": "3.0",
+      "name": "Cartagena Color Burst",
+      "description": "A vibrant Colombia getaway keepsake with bright Caribbean color, tropical accents and room for up to three travel moments.",
+      "categories": [
+        "Travel",
+        "Family",
+        "Lifestyle"
+      ],
+      "tags": [
+        "colombia",
+        "cartagena",
+        "vacation",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:29Z",
+      "updatedAt": "2026-10-17T13:49:52Z",
+      "tag": "template-d1575e88-a6d9-4d13-8c6a-ee3542271c6b-v1.1.1",
+      "assetName": "template.zip",
+      "sha256": "507baaaf19aa23d31458c93732fb5b9150e839c3a520bd6aebbb3d4b1aab271a",
+      "fileSize": 2926003,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d1575e88-a6d9-4d13-8c6a-ee3542271c6b/1.1.1/preview.jpg"
     },
     {
       "templateId": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1",

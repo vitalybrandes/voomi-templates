@@ -73,6 +73,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-2f1258b1-429d-473d-8f2d-7e616f36274a-v1.1.0"
     },
     {
+      "templateId": "2f1258b1-429d-473d-8f2d-7e616f36274a",
+      "templateVersion": "1.1.1",
+      "name": "Patagonia Postcard",
+      "tag": "template-2f1258b1-429d-473d-8f2d-7e616f36274a-v1.1.1",
+      "sha256": "ba810d4f352f554a7b670333157e10a9445933d62e0af3383dbd852f0b915350",
+      "fileSize": 4188761,
+      "archivePath": "2f1258b1-429d-473d-8f2d-7e616f36274a/1.1.1/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-2f1258b1-429d-473d-8f2d-7e616f36274a-v1.1.1"
+    },
+    {
       "templateId": "3bc15169-8f85-4732-857c-f81f65c50628",
       "templateVersion": "1.0.0",
       "name": "Underwater Adventure",
@@ -163,6 +173,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.0"
     },
     {
+      "templateId": "5e991f10-2ad4-42d6-8f61-cbbffbbfb836",
+      "templateVersion": "1.1.1",
+      "name": "Riviera Color Escape",
+      "tag": "template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.1",
+      "sha256": "7b5feb1d370a0ba85e6ce48a763feb6fb0e1d2bde48b1852a9a4444dc4073e17",
+      "fileSize": 3889387,
+      "archivePath": "5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.1.1/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.1"
+    },
+    {
       "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
       "templateVersion": "1.0.0",
       "name": "Phuket Island Days",
@@ -183,6 +203,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-678fcb56-25c3-4499-b301-4daf3346f05a-v1.1.0"
     },
     {
+      "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
+      "templateVersion": "1.1.1",
+      "name": "Phuket Island Days",
+      "tag": "template-678fcb56-25c3-4499-b301-4daf3346f05a-v1.1.1",
+      "sha256": "3ee19fa7c5293a53c311cb44f4d255c2e5a04c31fe35b1158fbda348eeed1747",
+      "fileSize": 3194977,
+      "archivePath": "678fcb56-25c3-4499-b301-4daf3346f05a/1.1.1/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-678fcb56-25c3-4499-b301-4daf3346f05a-v1.1.1"
+    },
+    {
       "templateId": "7209914b-bed0-4911-a9fc-b947f2f69c07",
       "templateVersion": "1.0.0",
       "name": "Underwater Adventure",
@@ -191,6 +221,16 @@
       "fileSize": 2579887,
       "archivePath": "7209914b-bed0-4911-a9fc-b947f2f69c07/1.0.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-7209914b-bed0-4911-a9fc-b947f2f69c07-v1.0.0"
+    },
+    {
+      "templateId": "7209914b-bed0-4911-a9fc-b947f2f69c07",
+      "templateVersion": "1.1.0",
+      "name": "Underwater Adventure",
+      "tag": "template-7209914b-bed0-4911-a9fc-b947f2f69c07-v1.1.0",
+      "sha256": "34e9636025275e160bc6ca0c4c302694658994627d5d75c23006d807d1476167",
+      "fileSize": 2579870,
+      "archivePath": "7209914b-bed0-4911-a9fc-b947f2f69c07/1.1.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-7209914b-bed0-4911-a9fc-b947f2f69c07-v1.1.0"
     },
     {
       "templateId": "814d61aa-61a2-4f13-8d4b-924cfffd0a75",
@@ -381,6 +421,16 @@
       "fileSize": 4427455,
       "archivePath": "a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.0"
+    },
+    {
+      "templateId": "a39fb375-7f52-4600-9759-d9c1502cac1d",
+      "templateVersion": "1.1.1",
+      "name": "Magic Forest",
+      "tag": "template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.1",
+      "sha256": "926fa5908756578e9f7b0b6089606b63d29819e6530d6a20bd41692ebfb128eb",
+      "fileSize": 4427450,
+      "archivePath": "a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.1/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.1"
     },
     {
       "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",
@@ -641,6 +691,16 @@
       "fileSize": 2926003,
       "archivePath": "d1575e88-a6d9-4d13-8c6a-ee3542271c6b/1.1.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-d1575e88-a6d9-4d13-8c6a-ee3542271c6b-v1.1.0"
+    },
+    {
+      "templateId": "d1575e88-a6d9-4d13-8c6a-ee3542271c6b",
+      "templateVersion": "1.1.1",
+      "name": "Cartagena Color Burst",
+      "tag": "template-d1575e88-a6d9-4d13-8c6a-ee3542271c6b-v1.1.1",
+      "sha256": "507baaaf19aa23d31458c93732fb5b9150e839c3a520bd6aebbb3d4b1aab271a",
+      "fileSize": 2926003,
+      "archivePath": "d1575e88-a6d9-4d13-8c6a-ee3542271c6b/1.1.1/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-d1575e88-a6d9-4d13-8c6a-ee3542271c6b-v1.1.1"
     },
     {
       "templateId": "d6b5cc38-1a4c-44c4-906a-bf40744c53b1",
