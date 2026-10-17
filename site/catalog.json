@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 21,
-  "updatedAt": "2026-10-17T14:55:31Z",
+  "catalogVersion": 22,
+  "updatedAt": "2026-10-17T15:14:12Z",
   "templates": [
     {
       "templateId": "14de269e-5d40-411c-b80a-27f6a8c63f6a",
@@ -1561,7 +1561,7 @@
     },
     {
       "templateId": "f326148f-8826-4223-aa7c-03ee89216a59",
-      "templateVersion": "1.1.0",
+      "templateVersion": "1.2.0",
       "schemaVersion": "3.0",
       "name": "Thailand Vacation Calling",
       "description": "Turn one vacation photo into a 12-second Thailand escape with a smooth photo reveal, incoming call moment, floating tropical flowers and animated destination title.",
@@ -1578,11 +1578,11 @@
       ],
       "durationMs": 12000,
       "addedAt": "2026-10-16T12:14:08Z",
-      "updatedAt": "2026-10-16T21:46:49Z",
-      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f326148f-8826-4223-aa7c-03ee89216a59/1.1.0/preview.jpg",
-      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-f326148f-8826-4223-aa7c-03ee89216a59-v1.1.0/template.zip",
-      "fileSize": 4534604,
-      "sha256": "fb310152527474ecddb5b827807c7c3342cd113ec3558238c74250d375708c93",
+      "updatedAt": "2026-10-17T15:14:08Z",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f326148f-8826-4223-aa7c-03ee89216a59/1.2.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-f326148f-8826-4223-aa7c-03ee89216a59-v1.2.0/template.zip",
+      "fileSize": 4434042,
+      "sha256": "5577a95eb2614dc600cab2324cc213e156627114c984882c4fa5bb36e4d5ee34",
       "requiredFeatures": [
         "layer-transform",
         "alpha-compositing",

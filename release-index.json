@@ -4213,6 +4213,55 @@
       "addedAt": "2026-10-16T12:14:08Z"
     },
     {
+      "templateId": "f326148f-8826-4223-aa7c-03ee89216a59",
+      "templateVersion": "1.2.0",
+      "schemaVersion": "3.0",
+      "name": "Thailand Vacation Calling",
+      "description": "Turn one vacation photo into a 12-second Thailand escape with a smooth photo reveal, incoming call moment, floating tropical flowers and animated destination title.",
+      "categories": [
+        "Vacation",
+        "Travel"
+      ],
+      "tags": [
+        "calling",
+        "schema-3-motion",
+        "thailand",
+        "travel",
+        "vacation"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop",
+        "keyframe-animation"
+      ],
+      "addedAt": "2026-10-16T12:14:08Z",
+      "updatedAt": "2026-10-17T15:14:08Z",
+      "tag": "template-f326148f-8826-4223-aa7c-03ee89216a59-v1.2.0",
+      "assetName": "template.zip",
+      "sha256": "5577a95eb2614dc600cab2324cc213e156627114c984882c4fa5bb36e4d5ee34",
+      "fileSize": 4434042,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.slide-in.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1",
+          "text.render.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f326148f-8826-4223-aa7c-03ee89216a59/1.2.0/preview.jpg"
+    },
+    {
       "id": "9ee60ce6-88f5-5000-802c-2a183c1728b4",
       "templateId": "money-fall-2",
       "sourceId": "money-fall-2",
