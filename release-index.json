@@ -800,6 +800,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.1.1/preview.jpg"
     },
     {
+      "templateId": "5e991f10-2ad4-42d6-8f61-cbbffbbfb836",
+      "templateVersion": "1.1.2",
+      "schemaVersion": "3.0",
+      "name": "Riviera Color Escape",
+      "description": "A sunlit Mexico vacation montage with a bright beach backdrop, playful travel stickers and up to three photo or video moments.",
+      "categories": [
+        "Travel",
+        "Family",
+        "Lifestyle"
+      ],
+      "tags": [
+        "mexico",
+        "riviera-maya",
+        "vacation",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:42:11Z",
+      "updatedAt": "2026-10-17T14:07:37Z",
+      "tag": "template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.2",
+      "assetName": "template.zip",
+      "sha256": "f3b3956aa83c9ac976812440bd138a64abcf38b8125a1721be06fc9df1fd80a5",
+      "fileSize": 3873078,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.1.2/preview.jpg"
+    },
+    {
       "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
       "templateVersion": "1.0.0",
       "schemaVersion": "3.0",
@@ -1750,6 +1797,53 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9e6fa7bd-03f1-4a3e-968f-1aba95966c8a/1.1.0/preview.jpg"
     },
     {
+      "templateId": "9e6fa7bd-03f1-4a3e-968f-1aba95966c8a",
+      "templateVersion": "1.1.1",
+      "schemaVersion": "3.0",
+      "name": "Jerusalem Blue & White",
+      "description": "A celebratory Israel travel memory framed by Jerusalem at sunset, with blue and white keepsakes drifting around your photo or video.",
+      "categories": [
+        "Travel",
+        "Culture",
+        "Family"
+      ],
+      "tags": [
+        "israel",
+        "jerusalem",
+        "travel",
+        "photo-video"
+      ],
+      "durationMs": 12000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:42Z",
+      "updatedAt": "2026-10-17T14:07:31Z",
+      "tag": "template-9e6fa7bd-03f1-4a3e-968f-1aba95966c8a-v1.1.1",
+      "assetName": "template.zip",
+      "sha256": "2767e6e6eb1b629ca0d470252a11e1a15169a4c361022e6cebcf12c26d7923fd",
+      "fileSize": 2797303,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9e6fa7bd-03f1-4a3e-968f-1aba95966c8a/1.1.1/preview.jpg"
+    },
+    {
       "templateId": "a37a8b9e-5bb9-4f1e-b19d-a1d2ee9a0abb",
       "templateVersion": "1.0.0",
       "schemaVersion": "3.0",
@@ -1985,6 +2079,53 @@
         ]
       },
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.1/preview.jpg"
+    },
+    {
+      "templateId": "a39fb375-7f52-4600-9759-d9c1502cac1d",
+      "templateVersion": "1.1.2",
+      "schemaVersion": "3.0",
+      "name": "Magic Forest",
+      "description": "Enter a glowing woodland world for 15 seconds of magical memories. Use a photo or video and let lanterns, fireflies, butterflies and forest friends drift into the scene.",
+      "categories": [
+        "Fantasy",
+        "Nature",
+        "Family"
+      ],
+      "tags": [
+        "magic-forest",
+        "enchanted-woodland",
+        "fireflies",
+        "photo-video"
+      ],
+      "durationMs": 15000,
+      "requiredFeatures": [
+        "layer-transform",
+        "alpha-compositing",
+        "media-crop"
+      ],
+      "addedAt": "2026-10-17T10:41:49Z",
+      "updatedAt": "2026-10-17T14:07:34Z",
+      "tag": "template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.2",
+      "assetName": "template.zip",
+      "sha256": "96b4cb8e77796f95ced5760f8ca3c1e1b55b6f60a24dcb3850bc875a16b63f63",
+      "fileSize": 4366626,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "compositing.alpha.v1",
+          "media.image.v1",
+          "media.video.v1",
+          "motion.fade-in.v1",
+          "motion.float-up.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1",
+          "motion.spin.v1",
+          "motion.swing.v1",
+          "motion.zoom-in.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.2/preview.jpg"
     },
     {
       "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",

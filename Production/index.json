@@ -183,6 +183,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.1"
     },
     {
+      "templateId": "5e991f10-2ad4-42d6-8f61-cbbffbbfb836",
+      "templateVersion": "1.1.2",
+      "name": "Riviera Color Escape",
+      "tag": "template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.2",
+      "sha256": "f3b3956aa83c9ac976812440bd138a64abcf38b8125a1721be06fc9df1fd80a5",
+      "fileSize": 3873078,
+      "archivePath": "5e991f10-2ad4-42d6-8f61-cbbffbbfb836/1.1.2/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-5e991f10-2ad4-42d6-8f61-cbbffbbfb836-v1.1.2"
+    },
+    {
       "templateId": "678fcb56-25c3-4499-b301-4daf3346f05a",
       "templateVersion": "1.0.0",
       "name": "Phuket Island Days",
@@ -383,6 +393,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-9e6fa7bd-03f1-4a3e-968f-1aba95966c8a-v1.1.0"
     },
     {
+      "templateId": "9e6fa7bd-03f1-4a3e-968f-1aba95966c8a",
+      "templateVersion": "1.1.1",
+      "name": "Jerusalem Blue & White",
+      "tag": "template-9e6fa7bd-03f1-4a3e-968f-1aba95966c8a-v1.1.1",
+      "sha256": "2767e6e6eb1b629ca0d470252a11e1a15169a4c361022e6cebcf12c26d7923fd",
+      "fileSize": 2797303,
+      "archivePath": "9e6fa7bd-03f1-4a3e-968f-1aba95966c8a/1.1.1/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-9e6fa7bd-03f1-4a3e-968f-1aba95966c8a-v1.1.1"
+    },
+    {
       "templateId": "a37a8b9e-5bb9-4f1e-b19d-a1d2ee9a0abb",
       "templateVersion": "1.0.0",
       "name": "Football Hero",
@@ -431,6 +451,16 @@
       "fileSize": 4427450,
       "archivePath": "a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.1/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.1"
+    },
+    {
+      "templateId": "a39fb375-7f52-4600-9759-d9c1502cac1d",
+      "templateVersion": "1.1.2",
+      "name": "Magic Forest",
+      "tag": "template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.2",
+      "sha256": "96b4cb8e77796f95ced5760f8ca3c1e1b55b6f60a24dcb3850bc875a16b63f63",
+      "fileSize": 4366626,
+      "archivePath": "a39fb375-7f52-4600-9759-d9c1502cac1d/1.1.2/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-a39fb375-7f52-4600-9759-d9c1502cac1d-v1.1.2"
     },
     {
       "templateId": "a4d301f2-1e76-448a-b51f-4a0ef44c0080",
