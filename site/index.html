@@ -310,7 +310,7 @@
           const categoryMatch = activeCategory === "All" || categories.includes(activeCategory);
           const text = [item.name, item.description, ...categories, ...(item.tags || []), item.templateId].join(" ").toLowerCase();
           return categoryMatch && (!query || text.includes(query));
-        }).sort((a, b) => a.name.localeCompare(b.name));
+        }).sort((a, b) => Date.parse(b.updatedAt || "") - Date.parse(a.updatedAt || "") || a.name.localeCompare(b.name));
       };
       const renderFilters = () => {
         const categories = ["All", ...new Set((catalog?.templates || []).flatMap((item) => item.categories || []))].sort((a, b) => a === "All" ? -1 : a.localeCompare(b));

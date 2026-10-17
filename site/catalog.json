@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 14,
-  "updatedAt": "2026-10-16T21:46:55Z",
+  "catalogVersion": 15,
+  "updatedAt": "2026-10-17T10:11:30Z",
   "templates": [
     {
       "templateId": "14de269e-5d40-411c-b80a-27f6a8c63f6a",
@@ -24,6 +24,8 @@
         "video"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T21:46:41Z",
+      "updatedAt": "2026-10-16T21:46:41Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/14de269e-5d40-411c-b80a-27f6a8c63f6a/1.0.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-14de269e-5d40-411c-b80a-27f6a8c63f6a-v1.0.0/template.zip",
       "fileSize": 1151737,
@@ -68,6 +70,8 @@
         "money"
       ],
       "durationMs": 7000,
+      "addedAt": "2026-10-16T12:23:12Z",
+      "updatedAt": "2026-10-16T21:10:29Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/1ac592ff-b613-4a17-bfd7-fe0fb4eed11f/1.0.3/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-1ac592ff-b613-4a17-bfd7-fe0fb4eed11f-v1.0.3/template.zip",
       "fileSize": 11050536,
@@ -105,6 +109,8 @@
         "underwater"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T12:14:11Z",
+      "updatedAt": "2026-10-16T21:11:14Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/3bc15169-8f85-4732-857c-f81f65c50628/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-3bc15169-8f85-4732-857c-f81f65c50628-v1.1.0/template.zip",
       "fileSize": 5493429,
@@ -151,6 +157,8 @@
         "wizard"
       ],
       "durationMs": 8000,
+      "addedAt": "2026-10-16T21:11:21Z",
+      "updatedAt": "2026-10-16T21:11:21Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/59d2781a-05a4-4f8e-86f5-16d513dcd6a6/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-59d2781a-05a4-4f8e-86f5-16d513dcd6a6-v1.1.0/template.zip",
       "fileSize": 5320589,
@@ -210,6 +218,8 @@
         "underwater"
       ],
       "durationMs": 12000,
+      "addedAt": "2026-10-16T21:11:17Z",
+      "updatedAt": "2026-10-16T21:11:17Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/7209914b-bed0-4911-a9fc-b947f2f69c07/1.0.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-7209914b-bed0-4911-a9fc-b947f2f69c07-v1.0.0/template.zip",
       "fileSize": 2579887,
@@ -259,6 +269,8 @@
         "wizard"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T14:58:54Z",
+      "updatedAt": "2026-10-16T21:46:54Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.1.0/template.zip",
       "fileSize": 13430636,
@@ -306,6 +318,8 @@
         "pastel-party"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T17:41:53Z",
+      "updatedAt": "2026-10-16T21:31:51Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/8c15cccd-8ef4-4d99-a685-6af69821b843/1.3.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-8c15cccd-8ef4-4d99-a685-6af69821b843-v1.3.0/template.zip",
       "fileSize": 2914316,
@@ -359,6 +373,8 @@
         "hearts"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T12:13:57Z",
+      "updatedAt": "2026-10-16T21:10:21Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-9a10e2b2-a3d9-42ec-ad33-c5260b3f8f8e-v1.1.0/template.zip",
       "fileSize": 6566174,
@@ -403,6 +419,8 @@
         "pink"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T16:31:11Z",
+      "updatedAt": "2026-10-16T21:10:56Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a4d301f2-1e76-448a-b51f-4a0ef44c0080/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-a4d301f2-1e76-448a-b51f-4a0ef44c0080-v1.1.0/template.zip",
       "fileSize": 3383813,
@@ -448,6 +466,8 @@
         "shabbat-shalom"
       ],
       "durationMs": 8500,
+      "addedAt": "2026-10-16T14:58:46Z",
+      "updatedAt": "2026-10-16T21:11:07Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-a9472f4e-8c63-4b21-9f5d-2e70c8a13b6d-v1.1.0/template.zip",
       "fileSize": 5533055,
@@ -490,6 +510,8 @@
         "study"
       ],
       "durationMs": 8000,
+      "addedAt": "2026-10-16T14:58:50Z",
+      "updatedAt": "2026-10-16T21:11:10Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/adbd2477-2542-4860-a76e-df19de71ffac/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-adbd2477-2542-4860-a76e-df19de71ffac-v1.1.0/template.zip",
       "fileSize": 1802764,
@@ -535,6 +557,8 @@
         "video"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T16:31:03Z",
+      "updatedAt": "2026-10-16T21:10:32Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/ae9a3d67-d4f0-4721-80ca-e59aae898bd6/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-ae9a3d67-d4f0-4721-80ca-e59aae898bd6-v1.1.0/template.zip",
       "fileSize": 1110006,
@@ -582,6 +606,8 @@
         "neon"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T16:31:07Z",
+      "updatedAt": "2026-10-16T21:10:48Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/afff9ea7-2e6d-4311-9932-f39b3f2a5117/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-afff9ea7-2e6d-4311-9932-f39b3f2a5117-v1.1.0/template.zip",
       "fileSize": 3918267,
@@ -629,6 +655,8 @@
         "stars"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T12:14:05Z",
+      "updatedAt": "2026-10-16T21:46:46Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/b126c6c2-03da-4ecc-8471-1fcc879c297d/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-b126c6c2-03da-4ecc-8471-1fcc879c297d-v1.1.0/template.zip",
       "fileSize": 4526144,
@@ -671,6 +699,8 @@
         "vacation"
       ],
       "durationMs": 12000,
+      "addedAt": "2026-10-16T12:14:01Z",
+      "updatedAt": "2026-10-16T21:10:40Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/c623322c-cb78-4364-a0bb-1c3f148c2c16/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-c623322c-cb78-4364-a0bb-1c3f148c2c16-v1.1.0/template.zip",
       "fileSize": 11509577,
@@ -717,6 +747,8 @@
         "stickers"
       ],
       "durationMs": 5000,
+      "addedAt": "2026-10-16T16:31:15Z",
+      "updatedAt": "2026-10-16T21:10:59Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/cad80f99-2a46-422e-b73b-c5ca3a68376b/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-cad80f99-2a46-422e-b73b-c5ca3a68376b-v1.1.0/template.zip",
       "fileSize": 649252,
@@ -762,6 +794,8 @@
         "party"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T14:29:34Z",
+      "updatedAt": "2026-10-16T21:10:25Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/d6b5cc38-1a4c-44c4-906a-bf40744c53b1/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-d6b5cc38-1a4c-44c4-906a-bf40744c53b1-v1.1.0/template.zip",
       "fileSize": 3991950,
@@ -809,6 +843,8 @@
         "virtual-kiss"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T14:58:39Z",
+      "updatedAt": "2026-10-16T21:10:44Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e471b4a8-3471-4c2d-9b41-71a4d62e86cf/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-e471b4a8-3471-4c2d-9b41-71a4d62e86cf-v1.1.0/template.zip",
       "fileSize": 10007291,
@@ -851,6 +887,8 @@
         "neon"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T12:13:54Z",
+      "updatedAt": "2026-10-16T21:10:52Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e9963c4f-f7fd-4a32-9664-e9ffcae13619/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-e9963c4f-f7fd-4a32-9664-e9ffcae13619-v1.1.0/template.zip",
       "fileSize": 775275,
@@ -897,6 +935,8 @@
         "vacation"
       ],
       "durationMs": 10000,
+      "addedAt": "2026-10-16T14:58:43Z",
+      "updatedAt": "2026-10-16T21:11:03Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f15a8c2e-03d6-4b97-95a2-8e4c1d63b720/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-f15a8c2e-03d6-4b97-95a2-8e4c1d63b720-v1.1.0/template.zip",
       "fileSize": 8821190,
@@ -943,6 +983,8 @@
         "vacation"
       ],
       "durationMs": 12000,
+      "addedAt": "2026-10-16T12:14:08Z",
+      "updatedAt": "2026-10-16T21:46:49Z",
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/f326148f-8826-4223-aa7c-03ee89216a59/1.1.0/preview.jpg",
       "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-f326148f-8826-4223-aa7c-03ee89216a59-v1.1.0/template.zip",
       "fileSize": 4534604,

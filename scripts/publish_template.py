@@ -10,6 +10,7 @@ import sys
 import tempfile
 import time
 import zipfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 from common import ROOT, VoomiError, github_repo, load_json, parse_semver, sha256_file, semver_key
@@ -99,6 +100,14 @@ def process(path: Path, repo: str, dry_run: bool = False, report: dict | None = 
         raise VoomiError("This templateId and templateVersion are already published with different content")
     template_id, version = meta["templateId"], meta["templateVersion"]
     parse_semver(version)
+    prior_dates = [
+        item.get("addedAt")
+        for item in index.get("releases", [])
+        if item.get("templateId") == template_id and item.get("addedAt")
+    ]
+    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    added_at = min(prior_dates) if prior_dates else now
+    updated_at = same.get("updatedAt", now) if same else now
     tag = f"template-{template_id}-v{version}"
     asset_name = "template.zip"
     record = {
@@ -106,6 +115,7 @@ def process(path: Path, repo: str, dry_run: bool = False, report: dict | None = 
         "name": meta["name"], "description": meta["description"],
         "categories": meta.get("categories", []), "tags": meta.get("tags", []),
         "durationMs": meta["durationMs"], "requiredFeatures": meta.get("requiredFeatures", []),
+        "addedAt": added_at, "updatedAt": updated_at,
         "tag": tag, "assetName": asset_name, "sha256": digest, "fileSize": size,
         "draft": False, "prerelease": False,
     }
