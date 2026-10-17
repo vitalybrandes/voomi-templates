@@ -273,6 +273,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-814d61aa-61a2-4f13-8d4b-924cfffd0a75-v1.2.0"
     },
     {
+      "templateId": "85b17931-0f53-432d-9766-4fb750f2b126",
+      "templateVersion": "1.0.0",
+      "name": "Outfit Trend",
+      "tag": "template-85b17931-0f53-432d-9766-4fb750f2b126-v1.0.0",
+      "sha256": "8bffe96181dd39c06b05967622cf3b81ad125e6d6c864a5c1a6ab8eb072f5a4f",
+      "fileSize": 125466,
+      "archivePath": "85b17931-0f53-432d-9766-4fb750f2b126/1.0.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-85b17931-0f53-432d-9766-4fb750f2b126-v1.0.0"
+    },
+    {
       "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
       "templateVersion": "1.0.0",
       "name": "Happy Birthday ? Confetti Party",
@@ -633,6 +643,16 @@
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-b126c6c2-03da-4ecc-8471-1fcc879c297d-v1.2.0"
     },
     {
+      "templateId": "bde9765e-1c5c-4e21-a2ee-21adfcd09085",
+      "templateVersion": "1.0.0",
+      "name": "Lifestyle Color Pop",
+      "tag": "template-bde9765e-1c5c-4e21-a2ee-21adfcd09085-v1.0.0",
+      "sha256": "af7fc98ff5a92585f5fd4618f14cd6a6e7482e5f259ff32b772a62619e08c3e4",
+      "fileSize": 278857,
+      "archivePath": "bde9765e-1c5c-4e21-a2ee-21adfcd09085/1.0.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-bde9765e-1c5c-4e21-a2ee-21adfcd09085-v1.0.0"
+    },
+    {
       "templateId": "c2e24c4f-c5b3-430d-9818-bdd5dd3cc7a2",
       "templateVersion": "1.0.0",
       "name": "Tennis Girl",
@@ -801,6 +821,16 @@
       "fileSize": 10007291,
       "archivePath": "e471b4a8-3471-4c2d-9b41-71a4d62e86cf/1.1.0/template.zip",
       "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-e471b4a8-3471-4c2d-9b41-71a4d62e86cf-v1.1.0"
+    },
+    {
+      "templateId": "e685c979-6eca-4af6-8835-b4ff735ea74a",
+      "templateVersion": "1.0.0",
+      "name": "Pop Color Fashion Catalog",
+      "tag": "template-e685c979-6eca-4af6-8835-b4ff735ea74a-v1.0.0",
+      "sha256": "65cace2e2a9eacecd79a08b67a8ba278c87b7eb7396e63d93627026e0c98cd07",
+      "fileSize": 251751,
+      "archivePath": "e685c979-6eca-4af6-8835-b4ff735ea74a/1.0.0/template.zip",
+      "releaseUrl": "https://github.com/vitalybrandes/voomi-templates/releases/tag/template-e685c979-6eca-4af6-8835-b4ff735ea74a-v1.0.0"
     },
     {
       "templateId": "e9963c4f-f7fd-4a32-9664-e9ffcae13619",

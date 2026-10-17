@@ -1236,6 +1236,47 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/814d61aa-61a2-4f13-8d4b-924cfffd0a75/1.2.0/preview.jpg"
     },
     {
+      "templateId": "85b17931-0f53-432d-9766-4fb750f2b126",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Outfit Trend",
+      "description": "Turn three outfit photos into a quick fashion lookbook, with a clean editorial finish.",
+      "categories": [
+        "Lifestyle",
+        "Fashion"
+      ],
+      "tags": [
+        "outfit",
+        "fashion",
+        "lookbook",
+        "style"
+      ],
+      "durationMs": 9000,
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "alpha-compositing"
+      ],
+      "addedAt": "2026-10-17T14:55:23Z",
+      "updatedAt": "2026-10-17T14:55:23Z",
+      "tag": "template-85b17931-0f53-432d-9766-4fb750f2b126-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "8bffe96181dd39c06b05967622cf3b81ad125e6d6c864a5c1a6ab8eb072f5a4f",
+      "fileSize": 125466,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "media.image.v1",
+          "compositing.alpha.v1",
+          "motion.zoom-in.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/85b17931-0f53-432d-9766-4fb750f2b126/1.0.0/preview.jpg"
+    },
+    {
       "templateId": "8c15cccd-8ef4-4d99-a685-6af69821b843",
       "templateVersion": "1.0.0",
       "schemaVersion": "2.0",
@@ -2885,6 +2926,46 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/b126c6c2-03da-4ecc-8471-1fcc879c297d/1.2.0/preview.jpg"
     },
     {
+      "templateId": "bde9765e-1c5c-4e21-a2ee-21adfcd09085",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Lifestyle Color Pop",
+      "description": "A bright lifestyle edit built around one personal photo, with a colorful editorial finish.",
+      "categories": [
+        "Lifestyle"
+      ],
+      "tags": [
+        "lifestyle",
+        "colorful",
+        "photo",
+        "editorial"
+      ],
+      "durationMs": 8000,
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "alpha-compositing"
+      ],
+      "addedAt": "2026-10-17T14:55:19Z",
+      "updatedAt": "2026-10-17T14:55:19Z",
+      "tag": "template-bde9765e-1c5c-4e21-a2ee-21adfcd09085-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "af7fc98ff5a92585f5fd4618f14cd6a6e7482e5f259ff32b772a62619e08c3e4",
+      "fileSize": 278857,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "media.image.v1",
+          "compositing.alpha.v1",
+          "motion.zoom-in.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bde9765e-1c5c-4e21-a2ee-21adfcd09085/1.0.0/preview.jpg"
+    },
+    {
       "id": "58ec95e6-a1b4-5ab1-b3b4-52f912e69573",
       "templateId": "bff-best-friends-forever",
       "sourceId": "bff-best-friends-forever",
@@ -3792,6 +3873,46 @@
       "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e471b4a8-3471-4c2d-9b41-71a4d62e86cf/1.1.0/preview.jpg",
       "updatedAt": "2026-10-16T21:10:44Z",
       "addedAt": "2026-10-16T14:58:39Z"
+    },
+    {
+      "templateId": "e685c979-6eca-4af6-8835-b4ff735ea74a",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Pop Color Fashion Catalog",
+      "description": "Turn four portrait fashion photos into a bright, animated lookbook collage.",
+      "categories": [
+        "Fashion",
+        "Lifestyle"
+      ],
+      "tags": [
+        "fashion",
+        "catalog",
+        "lookbook",
+        "color-pop"
+      ],
+      "durationMs": 8000,
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "alpha-compositing"
+      ],
+      "addedAt": "2026-10-17T14:55:27Z",
+      "updatedAt": "2026-10-17T14:55:27Z",
+      "tag": "template-e685c979-6eca-4af6-8835-b4ff735ea74a-v1.0.0",
+      "assetName": "template.zip",
+      "sha256": "65cace2e2a9eacecd79a08b67a8ba278c87b7eb7396e63d93627026e0c98cd07",
+      "fileSize": 251751,
+      "draft": false,
+      "prerelease": false,
+      "engine": {
+        "requiredCapabilities": [
+          "media.image.v1",
+          "compositing.alpha.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1"
+        ]
+      },
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e685c979-6eca-4af6-8835-b4ff735ea74a/1.0.0/preview.jpg"
     },
     {
       "templateId": "e9963c4f-f7fd-4a32-9664-e9ffcae13619",

@@ -1,7 +1,7 @@
 {
   "catalogSchemaVersion": "2.0",
-  "catalogVersion": 20,
-  "updatedAt": "2026-10-17T14:07:40Z",
+  "catalogVersion": 21,
+  "updatedAt": "2026-10-17T14:55:31Z",
   "templates": [
     {
       "templateId": "14de269e-5d40-411c-b80a-27f6a8c63f6a",
@@ -472,6 +472,44 @@
           "motion.swing.v1",
           "motion.zoom-in.v1",
           "text.render.v1"
+        ]
+      }
+    },
+    {
+      "templateId": "85b17931-0f53-432d-9766-4fb750f2b126",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Outfit Trend",
+      "description": "Turn three outfit photos into a quick fashion lookbook, with a clean editorial finish.",
+      "categories": [
+        "Fashion",
+        "Lifestyle"
+      ],
+      "tags": [
+        "fashion",
+        "lookbook",
+        "outfit",
+        "style"
+      ],
+      "durationMs": 9000,
+      "addedAt": "2026-10-17T14:55:23Z",
+      "updatedAt": "2026-10-17T14:55:23Z",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/85b17931-0f53-432d-9766-4fb750f2b126/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-85b17931-0f53-432d-9766-4fb750f2b126-v1.0.0/template.zip",
+      "fileSize": 125466,
+      "sha256": "8bffe96181dd39c06b05967622cf3b81ad125e6d6c864a5c1a6ab8eb072f5a4f",
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "alpha-compositing"
+      ],
+      "engine": {
+        "requiredCapabilities": [
+          "media.image.v1",
+          "compositing.alpha.v1",
+          "motion.zoom-in.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1"
         ]
       }
     },
@@ -1032,6 +1070,43 @@
       }
     },
     {
+      "templateId": "bde9765e-1c5c-4e21-a2ee-21adfcd09085",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Lifestyle Color Pop",
+      "description": "A bright lifestyle edit built around one personal photo, with a colorful editorial finish.",
+      "categories": [
+        "Lifestyle"
+      ],
+      "tags": [
+        "colorful",
+        "editorial",
+        "lifestyle",
+        "photo"
+      ],
+      "durationMs": 8000,
+      "addedAt": "2026-10-17T14:55:19Z",
+      "updatedAt": "2026-10-17T14:55:19Z",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/bde9765e-1c5c-4e21-a2ee-21adfcd09085/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-bde9765e-1c5c-4e21-a2ee-21adfcd09085-v1.0.0/template.zip",
+      "fileSize": 278857,
+      "sha256": "af7fc98ff5a92585f5fd4618f14cd6a6e7482e5f259ff32b772a62619e08c3e4",
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "alpha-compositing"
+      ],
+      "engine": {
+        "requiredCapabilities": [
+          "media.image.v1",
+          "compositing.alpha.v1",
+          "motion.zoom-in.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1"
+        ]
+      }
+    },
+    {
       "templateId": "c2e24c4f-c5b3-430d-9818-bdd5dd3cc7a2",
       "templateVersion": "1.1.0",
       "schemaVersion": "3.0",
@@ -1352,6 +1427,43 @@
           "motion.swing.v1",
           "motion.zoom-in.v1",
           "text.render.v1"
+        ]
+      }
+    },
+    {
+      "templateId": "e685c979-6eca-4af6-8835-b4ff735ea74a",
+      "templateVersion": "1.0.0",
+      "schemaVersion": "3.0",
+      "name": "Pop Color Fashion Catalog",
+      "description": "Turn four portrait fashion photos into a bright, animated lookbook collage.",
+      "categories": [
+        "Fashion",
+        "Lifestyle"
+      ],
+      "tags": [
+        "catalog",
+        "color-pop",
+        "fashion",
+        "lookbook"
+      ],
+      "durationMs": 8000,
+      "addedAt": "2026-10-17T14:55:27Z",
+      "updatedAt": "2026-10-17T14:55:27Z",
+      "previewUrl": "https://raw.githubusercontent.com/vitalybrandes/voomi-templates/main/previews/e685c979-6eca-4af6-8835-b4ff735ea74a/1.0.0/preview.jpg",
+      "downloadUrl": "https://github.com/vitalybrandes/voomi-templates/releases/download/template-e685c979-6eca-4af6-8835-b4ff735ea74a-v1.0.0/template.zip",
+      "fileSize": 251751,
+      "sha256": "65cace2e2a9eacecd79a08b67a8ba278c87b7eb7396e63d93627026e0c98cd07",
+      "requiredFeatures": [
+        "layer-transform",
+        "media-crop",
+        "alpha-compositing"
+      ],
+      "engine": {
+        "requiredCapabilities": [
+          "media.image.v1",
+          "compositing.alpha.v1",
+          "motion.pop.v1",
+          "motion.pulse.v1"
         ]
       }
     },
