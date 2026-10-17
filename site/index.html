@@ -385,7 +385,15 @@
           document.querySelector("#catalog-updated").textContent = `${data.templates.length} templates · catalog ${data.catalogVersion}`;
           renderFilters();
           renderCards();
-          const featured = [...data.templates].sort((a, b) => compareVersions(b.templateVersion, a.templateVersion))[0];
+          const featured = [...data.templates].sort((a, b) => {
+            const updatedAt = (item) => {
+              const timestamp = Date.parse(item.updatedAt || "");
+              return Number.isFinite(timestamp) ? timestamp : 0;
+            };
+            return updatedAt(b) - updatedAt(a)
+              || compareVersions(b.templateVersion, a.templateVersion)
+              || a.name.localeCompare(b.name);
+          })[0];
           if (featured) {
             const wrap = document.querySelector("#spot-image-wrap");
             wrap.innerHTML = `<img class="spot-image" src="${esc(safeLink(featured.previewUrl))}" alt="${esc(featured.name)} template preview">`;

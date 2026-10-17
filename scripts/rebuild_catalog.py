@@ -36,11 +36,16 @@ def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str,
         if template_id not in latest or version_key > semver_key(latest[template_id]["templateVersion"]):
             latest[template_id] = record
     templates = []
+    old_entries = {item.get("templateId"): item for item in (old or {}).get("templates", [])}
+    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     for template_id, record in latest.items():
         version = record["templateVersion"]
         tag = record["tag"]
         asset_name = record["assetName"]
-        entry = {"templateId": template_id, "templateVersion": version, "schemaVersion": record["schemaVersion"], "name": record["name"], "description": record["description"], "categories": sorted(set(record.get("categories", []))), "tags": sorted(set(record.get("tags", []))), "durationMs": record["durationMs"], "addedAt": record["addedAt"], "updatedAt": record["updatedAt"], "previewUrl": f"{raw_base(repo)}/previews/{template_id}/{version}/preview.jpg", "downloadUrl": f"https://github.com/{repo}/releases/download/{tag}/{asset_name}", "fileSize": record["fileSize"], "sha256": record["sha256"]}
+        previous = old_entries.get(template_id, {})
+        added_at = record.get("addedAt") or previous.get("addedAt") or now
+        updated_at = record.get("updatedAt") or previous.get("updatedAt") or added_at
+        entry = {"templateId": template_id, "templateVersion": version, "schemaVersion": record["schemaVersion"], "name": record["name"], "description": record["description"], "categories": sorted(set(record.get("categories", []))), "tags": sorted(set(record.get("tags", []))), "durationMs": record["durationMs"], "addedAt": added_at, "updatedAt": updated_at, "previewUrl": f"{raw_base(repo)}/previews/{template_id}/{version}/preview.jpg", "downloadUrl": f"https://github.com/{repo}/releases/download/{tag}/{asset_name}", "fileSize": record["fileSize"], "sha256": record["sha256"]}
         if "requiredFeatures" in record:
             entry["requiredFeatures"] = record["requiredFeatures"]
         if "engine" in record:

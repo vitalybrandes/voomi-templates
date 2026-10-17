@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'incoming/**/*.zip'
+      - 'scripts/rebuild_catalog.py'
   workflow_dispatch:
     inputs:
       zip_path:
