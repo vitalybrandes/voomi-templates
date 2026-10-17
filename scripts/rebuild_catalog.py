@@ -40,7 +40,7 @@ def build(index: dict[str, Any], old: dict[str, Any] | None = None) -> dict[str,
         version = record["templateVersion"]
         tag = record["tag"]
         asset_name = record["assetName"]
-        entry = {"templateId": template_id, "templateVersion": version, "schemaVersion": record["schemaVersion"], "name": record["name"], "description": record["description"], "categories": sorted(set(record.get("categories", []))), "tags": sorted(set(record.get("tags", []))), "durationMs": record["durationMs"], "previewUrl": f"{raw_base(repo)}/previews/{template_id}/{version}/preview.jpg", "downloadUrl": f"https://github.com/{repo}/releases/download/{tag}/{asset_name}", "fileSize": record["fileSize"], "sha256": record["sha256"]}
+        entry = {"templateId": template_id, "templateVersion": version, "schemaVersion": record["schemaVersion"], "name": record["name"], "description": record["description"], "categories": sorted(set(record.get("categories", []))), "tags": sorted(set(record.get("tags", []))), "durationMs": record["durationMs"], "addedAt": record["addedAt"], "updatedAt": record["updatedAt"], "previewUrl": f"{raw_base(repo)}/previews/{template_id}/{version}/preview.jpg", "downloadUrl": f"https://github.com/{repo}/releases/download/{tag}/{asset_name}", "fileSize": record["fileSize"], "sha256": record["sha256"]}
         if "requiredFeatures" in record:
             entry["requiredFeatures"] = record["requiredFeatures"]
         if "engine" in record:
